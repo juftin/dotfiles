@@ -13,4 +13,4 @@ DOTFILES_DIR="${0:a:h}"
 # Shell Autocomplete
 [[ ! -f ${DOTFILES_DIR}/shell/zsh/autocomplete.zsh ]] || source ${DOTFILES_DIR}/shell/zsh/autocomplete.zsh
 # Global Shell Aliases
-[[ ! -f ${DOTFILES_DIR}/shell/aliases.zsh ]] || source ${DOTFILES_DIR}/shell/aliases.zsh
+[[ ! -f ${DOTFILES_DIR}/shell/aliases.sh ]] || source ${DOTFILES_DIR}/shell/aliases.sh
