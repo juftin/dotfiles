@@ -1,6 +1,6 @@
-# dot-files
+# dotfiles
 
-This repository contains my personal dot-files.
+This repository contains my personal dotfiles.
 
 ```shell
 git clone https://github.com/juftin/dotfiles.git ~/.dotfiles
