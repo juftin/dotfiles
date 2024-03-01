@@ -17,7 +17,7 @@ bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/bootst
 <details><summary>Bootstrapping Screen Recording</summary>
 <p>
 
-https://github.com/juftin/dotfiles/assets/49741340/40d0f338-b817-4503-b00e-2d3c5c5a820c
+https://github.com/juftin/dotfiles/assets/49741340/fe45fa6a-96a5-401a-b40a-e1ee4fc4d9cf
 
 </p>
 </details>
