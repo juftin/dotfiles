@@ -61,8 +61,3 @@ function git-remove-deleted() {
 
 # GIT STATUS - VERBOSE BY DEFAULT
 alias status="git status --verbose --ahead-behind --branch --find-renames"
-
-# Setup Environment
-function setup-environment() {
-	source ${HOME}/.dotfiles/shell/environment/setup_environment.sh
-}
