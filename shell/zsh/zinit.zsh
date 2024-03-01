@@ -35,9 +35,10 @@ zinit wait lucid for \
     OMZP::git \
     OMZP::dotenv \
     OMZP::asdf \
-    OMZP::autojump \
     OMZP::web-search \
     OMZP::nvm
+
+[[ -x $(command -v autojump) ]] && zinit wait lucid for OMZP::autojump
 
 # oh-my-zsh theme
 zinit ice depth"1"  # git clone depth
