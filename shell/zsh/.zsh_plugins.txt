@@ -1,0 +1,25 @@
+#################
+# prompt theme
+#################
+
+romkatv/powerlevel10k kind:fpath
+
+#################
+# ohmyzsh
+#################
+
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/dotenv
+ohmyzsh/ohmyzsh path:plugins/asdf
+ohmyzsh/ohmyzsh path:plugins/web-search
+ohmyzsh/ohmyzsh path:plugins/nvm
+ohmyzsh/ohmyzsh path:plugins/autojump
+
+#################
+# zsh plugins
+#################
+
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-completions
