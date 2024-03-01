@@ -109,7 +109,7 @@ fi
 
 if ! grep -q ".dotfiles" "${HOME}/.zshrc"; then
 	log_event "warning" "${PURPLE}.dotfiles${NO_COLOR} not mentioned in ${PURPLE}.zshrc${NO_COLOR}, adding it"
-	cat <<EOF >>"${HOME}/.zshrc"
+	cat <<'EOF' >>"${HOME}/.zshrc"
 ##########################################################
 ################# DOTFILE INSTALLATION ###################
 ##########################################################
