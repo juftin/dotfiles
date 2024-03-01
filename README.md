@@ -7,7 +7,7 @@ This repository contains my personal dotfiles.
 ### Automatic
 
 ```shell
-bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/shell/install.sh`"
+bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/install.sh`"
 ```
 
 ### Semi-Automatic
