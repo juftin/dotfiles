@@ -4,6 +4,8 @@
 
 export DOTFILES_DIR="${0:a:h}"
 
+# Global Shell Aliases
+[[ ! -f ${DOTFILES_DIR}/shell/aliases.sh ]] || source ${DOTFILES_DIR}/shell/aliases.sh
 # Load antidote
 [[ ! -f ${DOTFILES_DIR}/shell/zsh/antidote.zsh ]] || source ${DOTFILES_DIR}/shell/zsh/antidote.zsh
 # Shell Settings
@@ -12,5 +14,3 @@ export DOTFILES_DIR="${0:a:h}"
 [[ ! -f ${DOTFILES_DIR}/shell/zsh/settings.zsh ]] || source ${DOTFILES_DIR}/shell/zsh/settings.zsh
 # Shell History
 [[ ! -f ${DOTFILES_DIR}/shell/zsh/history.zsh ]] || source ${DOTFILES_DIR}/shell/zsh/history.zsh
-# Global Shell Aliases
-[[ ! -f ${DOTFILES_DIR}/shell/aliases.sh ]] || source ${DOTFILES_DIR}/shell/aliases.sh

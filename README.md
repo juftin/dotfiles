@@ -20,7 +20,7 @@ bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/bootst
 https://github.com/juftin/dotfiles/assets/49741340/40d0f338-b817-4503-b00e-2d3c5c5a820c
 
 </p>
-</details> 
+</details>
 
 Try it out in a docker sandbox:
 

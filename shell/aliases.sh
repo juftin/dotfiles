@@ -6,14 +6,15 @@ alias c="clear"
 alias cls="clear"
 alias ls="ls -G -a -F"
 
+NO_COLOR='\033[0m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+ORANGE='\033[0;33m'
+PURPLE='\033[0;35m'
+
 # Logging
 function log_event() {
-	NO_COLOR='\033[0m'
-	BLUE='\033[0;34m'
-	GREEN='\033[0;32m'
-	RED='\033[0;31m'
-	ORANGE='\033[0;33m'
-	PURPLE='\033[0;35m'
 	LOGGING_TIMESTAMP="${BLUE}$(date +"%F %T,000")${NO_COLOR}"
 	case "${1}" in
 	"info")
@@ -29,6 +30,18 @@ function log_event() {
 		echo -e "${LOGGING_TIMESTAMP} ${PURPLE}${1}: ${NO_COLOR}${2}"
 		;;
 	esac
+}
+
+# shallow clone from GitHub
+function install_from_github() {
+	local repo=$1
+	local target=$2
+	if [[ ! -d ${target} ]]; then
+		log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${repo}${NO_COLOR} 🗂️"
+		git clone -q --depth=1 https://github.com/${repo}.git ${target} &&
+			log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
+			log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"
+	fi
 }
 
 # file search functions

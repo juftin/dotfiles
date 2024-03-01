@@ -3,10 +3,7 @@
 ##########################################################
 
 if [[ ! -d ${HOME}/.antidote ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}Antidote%F{220} from GitHub…%f"
-    command git clone --depth=1 https://github.com/mattmc3/antidote.git ${HOME}/.antidote && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+    install_from_github "mattmc3/antidote" "${HOME}/.antidote"
 fi
 
 # Set the name of the static .zsh plugins file antidote will generate.
