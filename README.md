@@ -2,6 +2,10 @@
 
 This repository contains my personal dotfiles.
 
+Currently, this repository is only configured to set up the ZSH shell
+and isn't fully customizable yet. It's compatible with both MacOS and
+Linux. More to come soon!
+
 ## Installation
 
 ### Automatic
@@ -10,27 +14,25 @@ This repository contains my personal dotfiles.
 bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh`"
 ```
 
-### Semi-Automatic
+<details><summary>Bootstrapping Screen Recording</summary>
+<p>
 
-#### `~/.zshrc`:
+https://github.com/juftin/dotfiles/assets/49741340/40d0f338-b817-4503-b00e-2d3c5c5a820c
+
+</p>
+</details> 
+
+Try it out in a docker sandbox:
 
 ```shell
-##########################################################
-################# DOTFILE INSTALLATION ###################
-##########################################################
-
-DOTFILE_REPO="juftin/dotfiles"
-
-if [[ ! -d ${HOME}/.dotfiles ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}~/.dotfiles%F{220} from GitHub…%f"
-    command git clone https://github.com/${DOTFILE_REPO} "${HOME}/.dotfiles" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
-
-[[ ! -f ${HOME}/.dotfiles/dotfiles.zsh ]] || source ${HOME}/.dotfiles/dotfiles.zsh
-
-##########################################################
+docker run --rm -it \
+  --env TERM \
+  --env COLORTERM \
+  debian:latest \
+  /bin/bash -c \
+    'apt update -qq &>/dev/null && \
+    apt install -qq -y curl &>/dev/null && \
+    bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh`"'
 ```
 
 ### Manual

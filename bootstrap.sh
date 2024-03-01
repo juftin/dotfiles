@@ -124,7 +124,7 @@ if ! grep -q ".dotfiles" "${HOME}/.zshrc"; then
 DOTFILE_REPO="juftin/dotfiles"
 
 if [[ ! -d ${HOME}/.dotfiles ]]; then
-    echo "Installing ~/.dotfiles from GitHub…"
+    echo "Installing ~/.dotfiles from ${DOTFILE_REPO} on GitHub…"
     git clone https://github.com/${DOTFILE_REPO} "${HOME}/.dotfiles" && \
         echo "Installation successful." || \
         echo "The clone has failed."
