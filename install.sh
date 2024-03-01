@@ -15,7 +15,6 @@ PURPLE='\033[0;35m'
 
 function log_event() {
 	LOGGING_TIMESTAMP="${BLUE}$(date +"%F %T,000")${NO_COLOR}"
-
 	case "${1}" in
 	"info")
 		echo -e "${LOGGING_TIMESTAMP} ${GREEN}INFO: ${NO_COLOR}${2}"
@@ -31,17 +30,6 @@ function log_event() {
 		;;
 	esac
 }
-
-if [[ $OSTYPE == "linux-gnu" ]]; then
-	log_event "info" "Linux environment detected, setting up environment"
-	export OS="linux"
-elif [[ $OSTYPE == "darwin"* ]]; then
-	log_event "info" "Mac environment detected, setting up environment"
-	export OS="mac"
-else
-	log_event "error" "OS not supported, exiting"
-	exit 1
-fi
 
 PACKAGES_TO_INSTALL=(
 	"git"
