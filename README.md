@@ -2,11 +2,17 @@
 
 This repository contains my personal dotfiles.
 
+## Installation
+
+### Automatic
+
 ```shell
-git clone https://github.com/juftin/dotfiles.git ~/.dotfiles
+bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/shell/install.sh`"
 ```
 
-### `~/.zshrc`
+### Semi-Automatic
+
+#### `~/.zshrc`:
 
 ```shell
 ##########################################################
@@ -25,4 +31,14 @@ fi
 [[ ! -f ${HOME}/.dotfiles/dotfiles.zsh ]] || source ${HOME}/.dotfiles/dotfiles.zsh
 
 ##########################################################
+```
+
+### Manual
+
+```shell
+git clone https://github.com/juftin/dotfiles.git ~/.dotfiles
+```
+
+```shell
+[[ ! -f ${HOME}/.dotfiles/dotfiles.zsh ]] || source ${HOME}/.dotfiles/dotfiles.zsh
 ```
