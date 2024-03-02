@@ -19,7 +19,9 @@ curl -fsSL https://juftin.com/dotfiles/get | bash
 <!--skip-->
 <details><summary>🌈 Bootstrapping Screen Recording</summary>
 <p>
+
 https://github.com/juftin/dotfiles/assets/49741340/9c96b82e-8a39-49bc-af3f-f513048adcc5
+
 </p>
 </details>
 <!--skip-->
