@@ -13,9 +13,10 @@ my personal dotfiles
 ### Automatic
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh)"
+/bin/bash -c "$(curl -fsSL https://juftin.com/dotfiles/bootstrap.sh)"
 ```
 
+<!--skip-->
 <details><summary>Bootstrapping Screen Recording</summary>
 <p>
 
@@ -23,6 +24,7 @@ https://github.com/juftin/dotfiles/assets/49741340/fe45fa6a-96a5-401a-b40a-e1ee4
 
 </p>
 </details>
+<!--skip-->
 
 Try it out in a docker sandbox:
 
@@ -35,7 +37,7 @@ docker run --rm -it \
   /bin/bash -c \
     'apt update -qq &>/dev/null && \
     apt install -qq -y curl &>/dev/null && \
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh)" && \
+    /bin/bash -c "$(curl -fsSL https://juftin.com/dotfiles/bootstrap.sh)" && \
     zsh'
 ```
 
