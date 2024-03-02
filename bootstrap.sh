@@ -124,7 +124,7 @@ function install_packages() {
 	elif command -v yum &>/dev/null; then
 		pkg_manager="yum"
 		install_cmd="yum install -y"
-		update_cmd="yum check-update"
+		update_cmd=":"
 		PACKAGES_TO_INSTALL=(
 			"git"
 			"curl"

@@ -7,7 +7,7 @@ This repository contains my personal dotfiles.
 ### Automatic
 
 ```shell
-bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh`"
+curl -sSf https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh | bash
 ```
 
 <details><summary>Bootstrapping Screen Recording</summary>
@@ -28,7 +28,8 @@ docker run --rm -it \
   /bin/bash -c \
     'apt update -qq &>/dev/null && \
     apt install -qq -y curl &>/dev/null && \
-    bash -c "`curl -sL https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh`"'
+    curl -sSf https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh | bash && \
+    zsh'
 ```
 
 ### Manual
