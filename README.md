@@ -2,10 +2,6 @@
 
 This repository contains my personal dotfiles.
 
-Currently, this repository is only configured to set up the ZSH shell
-and isn't fully customizable yet. It's compatible with both MacOS and
-Linux. More to come soon!
-
 ## Installation
 
 ### Automatic
