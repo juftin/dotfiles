@@ -119,10 +119,6 @@ PACKAGES_TO_INSTALL=(
 	"autojump"
 )
 
-if [[ ${BOOTSTRAP_SHELL} == "zsh" ]]; then
-	PACKAGES_TO_INSTALL+=("zsh")
-fi
-
 # install base dependencies
 function install_packages() {
 
@@ -146,7 +142,6 @@ function install_packages() {
 		PACKAGES_TO_INSTALL=(
 			"git"
 			"curl"
-			"zsh"
 			"grep"
 			"jq"
 			"autojump-zsh"
@@ -160,6 +155,9 @@ function install_packages() {
 	if [[ -n ${update_cmd} ]]; then
 		log_event "info" "Fetching the latest package information from ${ORANGE}${pkg_manager}${NO_COLOR} ⬆️"
 		eval ${update_cmd} &>/dev/null
+	fi
+	if [[ ${BOOTSTRAP_SHELL} == "zsh" ]]; then
+		PACKAGES_TO_INSTALL+=("zsh")
 	fi
 	for pkg in "${PACKAGES_TO_INSTALL[@]}"; do
 		log_installation "${pkg}" "${install_cmd}"
