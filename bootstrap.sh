@@ -168,16 +168,15 @@ function install_packages() {
 
 # bootstrap the shell configuration file based on the BOOTSTRAP_SHELL env variable
 function bootstrap_shell_config() {
-	local preferred_shell="${BOOTSTRAP_SHELL}"
 	local shell_config_file
 
 	# Determine which shell configuration file to use
-	if [[ ${preferred_shell} == "zsh" ]]; then
+	if [[ ${BOOTSTRAP_SHELL} == "zsh" ]]; then
 		shell_config_file="${HOME}/.zshrc"
-	elif [[ ${preferred_shell} == "bash" ]]; then
+	elif [[ ${BOOTSTRAP_SHELL} == "bash" ]]; then
 		shell_config_file="${HOME}/.bashrc"
 	else
-		echo "BOOTSTRAP_SHELL is set to an unsupported value: ${preferred_shell}. Please set it to either 'zsh' or 'bash'."
+		echo "BOOTSTRAP_SHELL is set to an unsupported value: ${BOOTSTRAP_SHELL}. Please set it to either 'zsh' or 'bash'."
 		return 1
 	fi
 
@@ -191,7 +190,7 @@ function bootstrap_shell_config() {
 ############################### DOTFILE INSTALLATION #################################
 ######################################################################################
 
-[[ ! -f ${DOTFILES_DIR}/dotfiles.${preferred_shell} ]] || source ${DOTFILES_DIR}/dotfiles.${preferred_shell}
+[[ ! -f ${DOTFILES_DIR}/dotfiles.${BOOTSTRAP_SHELL} ]] || source ${DOTFILES_DIR}/dotfiles.${BOOTSTRAP_SHELL}
 
 ######################################################################################
 EOF
@@ -203,7 +202,7 @@ EOF
 # start the preferred shell
 function start_preferred_shell() {
 	if [[ ${BOOTSTRAP_SHELL} != "zsh" ]] && [[ ${BOOTSTRAP_SHELL} != "bash" ]]; then
-		echo "BOOTSTRAP_SHELL is set to an unsupported value: ${preferred_shell}. Please set it to either 'zsh' or 'bash'."
+		echo "BOOTSTRAP_SHELL is set to an unsupported value: ${BOOTSTRAP_SHELL}. Please set it to either 'zsh' or 'bash'."
 		return 1
 	fi
 	log_event "info" "${PURPLE}.dotfiles${NO_COLOR} installation ${GREEN}complete${NO_COLOR} ✅"
