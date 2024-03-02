@@ -13,15 +13,13 @@ my personal dotfiles
 ### Automatic
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://juftin.com/dotfiles/get)"
+curl -fsSL https://juftin.com/dotfiles/get | bash
 ```
 
 <!--skip-->
-<details><summary>Bootstrapping Screen Recording</summary>
+<details><summary>🌈 Bootstrapping Screen Recording</summary>
 <p>
-
-https://github.com/juftin/dotfiles/assets/49741340/fe45fa6a-96a5-401a-b40a-e1ee4fc4d9cf
-
+https://github.com/juftin/dotfiles/assets/49741340/9c96b82e-8a39-49bc-af3f-f513048adcc5
 </p>
 </details>
 <!--skip-->
@@ -35,10 +33,10 @@ docker run --rm -it \
   --env BOOTSTRAP_SHELL=zsh \
   debian:latest \
   /bin/bash -c \
-    'apt update -qq &>/dev/null && \
+    "apt update -qq &>/dev/null && \
     apt install -qq -y curl &>/dev/null && \
-    /bin/bash -c "$(curl -fsSL https://juftin.com/dotfiles/get)" && \
-    zsh'
+    curl -fsSL https://juftin.com/dotfiles/get | bash && \
+    zsh"
 ```
 
 #### Optional Environment Variables
