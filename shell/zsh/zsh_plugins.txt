@@ -21,5 +21,5 @@ ohmyzsh/ohmyzsh path:plugins/autojump
 #################
 
 zsh-users/zsh-autosuggestions
-zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-completions
+zdharma-continuum/fast-syntax-highlighting
