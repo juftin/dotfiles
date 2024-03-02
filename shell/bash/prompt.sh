@@ -1,9 +1,3 @@
-# Enable the subsequent settings only in interactive sessions
-case $- in
-*i*) ;;
-*) return ;;
-esac
-
 export OSH="${HOME}/.oh-my-bash"
 
 if [[ ! -d ${HOME}/.oh-my-bash ]]; then

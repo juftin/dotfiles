@@ -205,7 +205,6 @@ function start_preferred_shell() {
 		echo "BOOTSTRAP_SHELL is set to an unsupported value: ${BOOTSTRAP_SHELL}. Please set it to either 'zsh' or 'bash'."
 		return 1
 	fi
-	log_event "info" "${PURPLE}.dotfiles${NO_COLOR} installation ${GREEN}complete${NO_COLOR} ✅"
 	if [[ ${CURRENT_SHELL} == "${BOOTSTRAP_SHELL}" && ${BOOTSTRAP_SHELL} == "zsh" ]]; then
 		source "${HOME}/.zshrc"
 	elif [[ ${CURRENT_SHELL} == "${BOOTSTRAP_SHELL}" && ${BOOTSTRAP_SHELL} == "bash" ]]; then
