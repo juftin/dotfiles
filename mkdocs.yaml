@@ -35,6 +35,8 @@ extra:
     generator: false
 exclude_docs: |
     gen_pages.py
+    requirements.txt
+    logo.png
 markdown_extensions:
     - toc:
           permalink: "#"
