@@ -13,7 +13,7 @@ my personal dotfiles
 ### Automatic
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://juftin.com/dotfiles/bootstrap.sh)"
+/bin/bash -c "$(curl -fsSL https://juftin.com/dotfiles/get)"
 ```
 
 <!--skip-->
@@ -37,7 +37,7 @@ docker run --rm -it \
   /bin/bash -c \
     'apt update -qq &>/dev/null && \
     apt install -qq -y curl &>/dev/null && \
-    /bin/bash -c "$(curl -fsSL https://juftin.com/dotfiles/bootstrap.sh)" && \
+    /bin/bash -c "$(curl -fsSL https://juftin.com/dotfiles/get)" && \
     zsh'
 ```
 
