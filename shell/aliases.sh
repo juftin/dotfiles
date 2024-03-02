@@ -37,7 +37,7 @@ function install_from_github() {
 	local repo=$1
 	local target=$2
 	if [[ ! -d ${target} ]]; then
-		log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${repo}${NO_COLOR} 🗂️"
+		log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${target}${NO_COLOR} 🗂️"
 		git clone -q --depth=1 https://github.com/${repo}.git ${target} &&
 			log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
 			log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"

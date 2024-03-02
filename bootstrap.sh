@@ -68,7 +68,7 @@ function install_from_github() {
 	local repo=$1
 	local target=$2
 	if [[ ! -d ${target} ]]; then
-		log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${repo}${NO_COLOR} 🗂️"
+		log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${target}${NO_COLOR} 🗂️"
 		git clone -q --depth=1 https://github.com/${repo}.git ${target} &&
 			log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
 			log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"
@@ -77,8 +77,10 @@ function install_from_github() {
 
 # install the .dotfiles repository
 function install_dotfiles() {
-	if [[ ! -d {DOTFILES_DIR} ]]; then
+	if [[ ! -d ${DOTFILES_DIR} ]]; then
 		install_from_github "${DOTFILES_REPO}" "${DOTFILES_DIR}"
+	else
+		log_event "warning" "${PURPLE}${DOTFILES_DIR}${NO_COLOR} already exists, ${RED}skipping installation${NO_COLOR} 🚫"
 	fi
 	# Check if the shell configuration files exist and create them if not
 	[[ -f "${HOME}/.zshrc" ]] || touch "${HOME}/.zshrc"
@@ -99,9 +101,8 @@ function log_installation() {
 PACKAGES_TO_INSTALL=(
 	"git"
 	"curl"
-	"zsh"
 	"grep"
-	"jq"
+	"zsh"
 	"autojump"
 )
 
@@ -116,7 +117,7 @@ function install_packages() {
 	if command -v brew &>/dev/null; then
 		pkg_manager="brew"
 		install_cmd="brew install"
-		update_cmd="brew update"
+		update_cmd=""
 	elif command -v apt &>/dev/null; then
 		pkg_manager="apt"
 		install_cmd="apt install -y"
@@ -124,7 +125,7 @@ function install_packages() {
 	elif command -v yum &>/dev/null; then
 		pkg_manager="yum"
 		install_cmd="yum install -y"
-		update_cmd=":"
+		update_cmd=""
 		PACKAGES_TO_INSTALL=(
 			"git"
 			"curl"
@@ -139,9 +140,10 @@ function install_packages() {
 	fi
 
 	log_event "info" "${ORANGE}${pkg_manager}${NO_COLOR} detected, preparing to install dependencies 🛠"
-	log_event "info" "Fetching the latest package information from ${ORANGE}${pkg_manager}${NO_COLOR} ⬆️"
-	eval ${update_cmd} &>/dev/null
-
+	if [[ -n ${update_cmd} ]]; then
+		log_event "info" "Fetching the latest package information from ${ORANGE}${pkg_manager}${NO_COLOR} ⬆️"
+		eval ${update_cmd} &>/dev/null
+	fi
 	for pkg in "${PACKAGES_TO_INSTALL[@]}"; do
 		log_installation "${pkg}" "${install_cmd}"
 	done
@@ -197,6 +199,11 @@ function start_zsh() {
 		log_event "info" "Your ZSH plugins will be installed momentarily 🚀"
 		log_event "info" "Enjoy your new ✨ ${PURPLE}.dotfiles${NO_COLOR} ✨"
 		exec zsh -l
+	elif [[ -n ${ZSH_VERSION} ]]; then
+		log_event "info" "${BLUE}dotfiles${NO_COLOR} installation ${GREEN}complete${NO_COLOR} ✅"
+		log_event "info" "Your ZSH plugins will be installed automatically on the next shell start 🚀"
+		log_event "info" "Enjoy your new ✨ ${PURPLE}.dotfiles${NO_COLOR} ✨"
+		source ${HOME}/.zshrc
 	else
 		log_event "warning" "You may need to re-source your ${PURPLE}.zshrc${NO_COLOR} file to see changes ⚠️"
 		log_event "info" "${PURPLE}.dotfiles${NO_COLOR} installation ${GREEN}complete${NO_COLOR} ✅"
