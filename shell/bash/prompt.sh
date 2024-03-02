@@ -1,8 +1,31 @@
-if [[ ! -d ${HOME}/.liquidprompt ]]; then
-	install_from_github "nojhan/liquidprompt" "${HOME}/.liquidprompt"
+# Enable the subsequent settings only in interactive sessions
+case $- in
+*i*) ;;
+*) return ;;
+esac
+
+export OSH="${HOME}/.oh-my-bash"
+
+if [[ ! -d ${HOME}/.oh-my-bash ]]; then
+	install_from_github "ohmybash/oh-my-bash" "${OSH}"
 fi
 
-[[ -f ${HOME}/.liquidprompt/themes/powerline/powerline.theme ]] && source ${HOME}/.liquidprompt/themes/powerline/powerline.theme
-[[ -f ${HOME}/.liquidprompt/liquidprompt ]] && source ${HOME}/.liquidprompt/liquidprompt
+# Oh My Bash Settings
+OSH_THEME="powerline-multiline"
+OMB_PROMPT_SHOW_PYTHON_VENV=true
 
-lp_theme powerline
+completions=(
+	git
+	composer
+	ssh
+)
+
+aliases=(
+	general
+)
+
+plugins=(
+	git
+)
+
+source "${OSH}/oh-my-bash.sh"

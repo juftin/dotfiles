@@ -5,6 +5,7 @@
 alias c="clear"
 alias cls="clear"
 alias ls="ls -G -a -F"
+alias ll='ls -l -A -F -h'
 
 NO_COLOR='\033[0m'
 BLUE='\033[0;34m'

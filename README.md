@@ -1,6 +1,12 @@
-# dotfiles
+<div align="center">
+  <a href="https://github.com/juftin/dotfiles">
+    <img src="https://raw.githubusercontent.com/juftin/dotfiles/main/docs/logo.png" alt="dotfiles" width="500" />
+  </a>
+</div>
 
-This repository contains my personal dotfiles.
+<p align="center">
+my personal dotfiles
+</p>
 
 ## Installation
 
@@ -24,12 +30,21 @@ Try it out in a docker sandbox:
 docker run --rm -it \
   --env TERM \
   --env COLORTERM \
+  --env BOOTSTRAP_SHELL=zsh \
   debian:latest \
   /bin/bash -c \
     'apt update -qq &>/dev/null && \
     apt install -qq -y curl &>/dev/null && \
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh)"'
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/juftin/dotfiles/main/bootstrap.sh)" && \
+    zsh'
 ```
+
+#### Optional Environment Variables
+
+-   `BOOTSTRAP_SHELL`: The shell to use for bootstrapping. Default: `zsh`, options: `zsh`, `bash`
+-   `DOTFILES_REPO`: The repository to clone. Default: `juftin/dotfiles`
+-   `DOTFILES_BRANCH`: The branch to checkout.
+-   `DOTFILES_DIR`: The directory to clone the repository into. Default: `~/.dotfiles`
 
 ### Manual
 

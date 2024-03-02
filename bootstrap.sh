@@ -7,7 +7,12 @@ set -e
 ##########################################################
 
 DOTFILES_REPO="${DOTFILES_REPO:-juftin/dotfiles}"
+DOTFILES_BRANCH="${DOTFILES_BRANCH:-""}"
 DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+DOTFILES_DIRNAME=$(basename "${DOTFILES_DIR}")
+BOOTSTRAP_SHELL="${BOOTSTRAP_SHELL:-zsh}"
+DEFAULT_SHELL="${DEFAULT_SHELL:-zsh}"
+CURRENT_SHELL=$(basename "${0}")
 
 ##########################################################
 ############ bootstrapping common functions ##############
@@ -42,6 +47,7 @@ function dotfiles_ascii() {
 	echo -e "${DOTFILES_ASCII_TEXT}"
 	echo ""
 	log_event "info" "Bootstrapping ${PURPLE}${DOTFILES_REPO}${NO_COLOR} 🚀"
+	log_event "info" "Bootstrap shell: ${GREEN}${BOOTSTRAP_SHELL}${NO_COLOR} 🐚"
 }
 
 # Logging
@@ -67,18 +73,26 @@ function log_event() {
 function install_from_github() {
 	local repo=$1
 	local target=$2
+	local branch=${3:-""}
 	if [[ ! -d ${target} ]]; then
-		log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${target}${NO_COLOR} 🗂️"
-		git clone -q --depth=1 https://github.com/${repo}.git ${target} &&
-			log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
-			log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"
+		if [[ -n ${branch} ]]; then
+			log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} (${ORANGE}${branch}${NO_COLOR}) from GitHub: ${GREEN}${target}${NO_COLOR} 🗂️"
+			git clone -q --depth=1 --branch=${branch} https://github.com/${repo}.git ${target} &&
+				log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
+				log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"
+		else
+			log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${target}${NO_COLOR} 🗂️"
+			git clone -q --depth=1 https://github.com/${repo}.git ${target} &&
+				log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
+				log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"
+		fi
 	fi
 }
 
 # install the .dotfiles repository
 function install_dotfiles() {
 	if [[ ! -d ${DOTFILES_DIR} ]]; then
-		install_from_github "${DOTFILES_REPO}" "${DOTFILES_DIR}"
+		install_from_github "${DOTFILES_REPO}" "${DOTFILES_DIR}" "${DOTFILES_BRANCH}"
 	else
 		log_event "warning" "${PURPLE}${DOTFILES_DIR}${NO_COLOR} already exists, ${RED}skipping installation${NO_COLOR} 🚫"
 	fi
@@ -102,9 +116,12 @@ PACKAGES_TO_INSTALL=(
 	"git"
 	"curl"
 	"grep"
-	"zsh"
 	"autojump"
 )
+
+if [[ ${BOOTSTRAP_SHELL} == "zsh" ]]; then
+	PACKAGES_TO_INSTALL+=("zsh")
+fi
 
 # install base dependencies
 function install_packages() {
@@ -149,67 +166,57 @@ function install_packages() {
 	done
 }
 
-# bootstrap the .zshrc file
-function bootstrap_zshrc() {
-	# If ".dotfiles" is not mentioned in shell config, add it
-	if ! grep -q ".dotfiles" "${HOME}/.zshrc"; then
-		log_event "warning" "${PURPLE}.dotfiles${NO_COLOR} not mentioned in ${PURPLE}~/.zshrc${NO_COLOR}, adding it ✍️"
+# bootstrap the shell configuration file based on the BOOTSTRAP_SHELL env variable
+function bootstrap_shell_config() {
+	local preferred_shell="${BOOTSTRAP_SHELL}"
+	local shell_config_file
+
+	# Determine which shell configuration file to use
+	if [[ ${preferred_shell} == "zsh" ]]; then
+		shell_config_file="${HOME}/.zshrc"
+	elif [[ ${preferred_shell} == "bash" ]]; then
+		shell_config_file="${HOME}/.bashrc"
+	else
+		echo "BOOTSTRAP_SHELL is set to an unsupported value: ${preferred_shell}. Please set it to either 'zsh' or 'bash'."
+		return 1
+	fi
+
+	# Check if "${DOTFILES_DIRNAME}" is mentioned in the shell config, and add it if not
+	if ! grep -q "${DOTFILES_DIRNAME}" "${shell_config_file}"; then
+		log_event "warning" "${PURPLE}${DOTFILES_DIRNAME}${NO_COLOR} not mentioned in ${PURPLE}${shell_config_file}${NO_COLOR}, adding it ✍️"
 		# Add .dotfiles to shell config
-		cat <<'EOF' >>"${HOME}/.zshrc"
+		cat <<EOF >>"${shell_config_file}"
 
 ######################################################################################
 ############################### DOTFILE INSTALLATION #################################
 ######################################################################################
 
-[[ ! -f ${HOME}/.dotfiles/dotfiles.zsh ]] || source ${HOME}/.dotfiles/dotfiles.zsh
+[[ ! -f ${DOTFILES_DIR}/dotfiles.${preferred_shell} ]] || source ${DOTFILES_DIR}/dotfiles.${preferred_shell}
 
 ######################################################################################
 EOF
 	else
-		log_event "info" "${PURPLE}.dotfiles${NO_COLOR} already mentioned in ${PURPLE}.zshrc${NO_COLOR}, ${RED}skipping${NO_COLOR} 🚫"
+		log_event "info" "${PURPLE}${DOTFILES_DIRNAME}${NO_COLOR} already mentioned in ${PURPLE}${shell_config_file}${NO_COLOR}, ${RED}skipping${NO_COLOR} 🚫"
 	fi
 }
 
-# bootstrap the .bashrc file
-function bootstrap_bashrc() {
-	# If ".dotfiles" is not mentioned in shell config, add it
-	if ! grep -q ".dotfiles" "${HOME}/.bashrc"; then
-		log_event "warning" "${PURPLE}.dotfiles${NO_COLOR} not mentioned in ${PURPLE}~/.bashrc${NO_COLOR}, adding it ✍️"
-		# Add .dotfiles to shell config
-		cat <<'EOF' >>"${HOME}/.bashrc"
-
-######################################################################################
-############################### DOTFILE INSTALLATION #################################
-######################################################################################
-
-[[ ! -f ${HOME}/.dotfiles/dotfiles.bash ]] || source ${HOME}/.dotfiles/dotfiles.bash
-
-######################################################################################
-EOF
-	else
-		log_event "info" "${PURPLE}.dotfiles${NO_COLOR} already mentioned in ${PURPLE}.bashrc${NO_COLOR}, ${RED}skipping${NO_COLOR} 🚫"
+# start the preferred shell
+function start_preferred_shell() {
+	if [[ ${BOOTSTRAP_SHELL} != "zsh" ]] && [[ ${BOOTSTRAP_SHELL} != "bash" ]]; then
+		echo "BOOTSTRAP_SHELL is set to an unsupported value: ${preferred_shell}. Please set it to either 'zsh' or 'bash'."
+		return 1
 	fi
-}
-
-# start the zsh shell
-function start_zsh() {
-	if [[ ${SHELL} != "/bin/zsh" ]]; then
-		log_event "warning" "${BLUE}zsh${NO_COLOR} is not the current shell, starting a new ${BLUE}zsh${NO_COLOR} shell ⚠️"
-		log_event "info" "${BLUE}dotfiles${NO_COLOR} installation ${GREEN}complete${NO_COLOR} ✅"
-		log_event "info" "Your ZSH plugins will be installed momentarily 🚀"
-		log_event "info" "Enjoy your new ✨ ${PURPLE}.dotfiles${NO_COLOR} ✨"
-		exec zsh -l
-	elif [[ -n ${ZSH_VERSION} ]]; then
-		log_event "info" "${BLUE}dotfiles${NO_COLOR} installation ${GREEN}complete${NO_COLOR} ✅"
-		log_event "info" "Your ZSH plugins will be installed automatically on the next shell start 🚀"
-		log_event "info" "Enjoy your new ✨ ${PURPLE}.dotfiles${NO_COLOR} ✨"
-		source ${HOME}/.zshrc
+	log_event "info" "${PURPLE}.dotfiles${NO_COLOR} installation ${GREEN}complete${NO_COLOR} ✅"
+	if [[ ${CURRENT_SHELL} == "${BOOTSTRAP_SHELL}" && ${BOOTSTRAP_SHELL} == "zsh" ]]; then
+		source "${HOME}/.zshrc"
+	elif [[ ${CURRENT_SHELL} == "${BOOTSTRAP_SHELL}" && ${BOOTSTRAP_SHELL} == "bash" ]]; then
+		source "${HOME}/.bashrc"
 	else
-		log_event "warning" "You may need to re-source your ${PURPLE}.zshrc${NO_COLOR} file to see changes ⚠️"
-		log_event "info" "${PURPLE}.dotfiles${NO_COLOR} installation ${GREEN}complete${NO_COLOR} ✅"
-		log_event "info" "Your ZSH plugins will be installed automatically on the next shell start 🚀"
-		log_event "info" "Enjoy your new ✨ ${PURPLE}.dotfiles${NO_COLOR} ✨"
+		log_event "info" "Your ${GREEN}${BOOTSTRAP_SHELL}${NO_COLOR} plugins will be updated automatically on the next shell start 🚀"
+		log_event "info" "Please restart your shell to see the changes take effect 🔄"
 	fi
+	log_event "info" "Enjoy your new ✨ ${PURPLE}.dotfiles${NO_COLOR} ✨"
+	log_event "info" "Bootstrapping ${PURPLE}${DOTFILES_REPO}${NO_COLOR} ${GREEN}complete${NO_COLOR} 🎉"
 }
 
 ##########################################################
@@ -222,9 +229,7 @@ dotfiles_ascii
 install_packages
 # install the ~/.dotfiles directory
 install_dotfiles
-# bootstrap the ~/.zshrc file
-bootstrap_zshrc
-# bootstrap the ~/.bashrc file
-bootstrap_bashrc
-# initialize zsh
-start_zsh
+# bootstrap the shell configuration file
+bootstrap_shell_config
+# initialize shell
+start_preferred_shell
