@@ -1,4 +1,4 @@
-# $schema: https://squidfunk.github.io/mkdocs-material/schema.json
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
 site_name: dotfiles
 nav:
@@ -17,13 +17,15 @@ theme:
     palette:
         - media: "(prefers-color-scheme: light)"
           scheme: default
-          accent: purple
+          primary: deep purple
+          accent: red
           toggle:
               icon: material/weather-sunny
               name: Switch to dark mode
         - media: "(prefers-color-scheme: dark)"
           scheme: slate
-          primary: black
+          primary: deep purple
+          accent: red
           toggle:
               icon: material/weather-night
               name: Switch to light mode
