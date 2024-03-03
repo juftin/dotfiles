@@ -7,6 +7,24 @@ alias cls="clear"
 alias ls="ls -G -a -F"
 alias ll='ls -l -A -F -h'
 
+# ~/.dotfiles git operations
+function dotfiles-git() {
+	pushd "${DOTFILES_DIR}" &>/dev/null || {
+		echo "Error: Failed to change to ${DOTFILES_DIR}."
+		return 1
+	}
+	git "$@" || {
+		echo "Error: git command failed."
+		popd &>/dev/null
+		return 1
+	}
+	popd &>/dev/null || echo "Warning: Failed to return to previous directory."
+}
+
+function dotfiles-sync() {
+	dotfiles-git pull
+}
+
 NO_COLOR='\033[0m'
 BLUE='\033[0;34m'
 GREEN='\033[0;32m'

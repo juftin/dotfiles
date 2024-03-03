@@ -3,6 +3,8 @@
 site_name: dotfiles
 nav:
     - Home 🏠: index.md
+    - Features ✨: features.md
+    - dotfiles 📂: dotfiles.md
 theme:
     favicon: https://juftin.com/favicon.ico
     logo: https://raw.githubusercontent.com/juftin/juftin/main/static/juftin.png
@@ -30,7 +32,6 @@ repo_name: dotfiles
 edit_uri: blob/main/docs/
 site_author: juftin
 remote_branch: gh-pages
-copyright: Copyright © 2024 Justin Flannery
 extra:
     generator: false
 exclude_docs: |
