@@ -20,7 +20,7 @@ with mkdocs_gen_files.open("index.md", "w") as index_file:
     index_file.write(non_skipped_content)
 
 # Read the bootstrap.sh content
-bootstrap_content = Path("bootstrap.sh").read_bytes()
+bootstrap_content = Path("bootstrap/bootstrap.sh").read_bytes()
 # Write the bootstrap.sh content to the output file
 with mkdocs_gen_files.open("get", "wb") as bootstrap_file:
     bootstrap_file.write(bootstrap_content)

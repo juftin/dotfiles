@@ -7,13 +7,16 @@ alias cls="clear"
 alias ls="ls -G -a -F"
 alias ll='ls -l -A -F -h'
 
-# ~/.dotfiles git operations
+DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+
 function dotfiles-git() {
+    local GIT_COMMAND="git ${@}"
 	pushd "${DOTFILES_DIR}" &>/dev/null || {
 		echo "Error: Failed to change to ${DOTFILES_DIR}."
 		return 1
 	}
-	git "$@" || {
+	log_event "info" "${PURPLE}[${DOTFILES_DIR}]${NO_COLOR} ${CYAN}${GIT_COMMAND}${NO_COLOR} 📂"
+	git "${@}" || {
 		echo "Error: git command failed."
 		popd &>/dev/null
 		return 1
@@ -22,7 +25,7 @@ function dotfiles-git() {
 }
 
 function dotfiles-sync() {
-	dotfiles-git pull
+	dotfiles-git pull --recurse-submodules
 }
 
 NO_COLOR='\033[0m'

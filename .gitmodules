@@ -1,0 +1,24 @@
+[submodule "bootstrap/oh-my-zsh"]
+	path = bootstrap/oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh
+	shallow = true
+[submodule "bootstrap/zsh-autosuggestions"]
+	path = bootstrap/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+	shallow = true
+[submodule "bootstrap/fast-syntax-highlighting"]
+	path = bootstrap/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
+	shallow = true
+[submodule "bootstrap/powerlevel10k"]
+	path = bootstrap/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
+	shallow = true
+[submodule "bootstrap/zsh-completions"]
+	path = bootstrap/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
+	shallow = true
+[submodule "bootstrap/oh-my-bash"]
+	path = bootstrap/oh-my-bash
+	url = https://github.com/ohmybash/oh-my-bash
+	shallow = true
