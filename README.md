@@ -22,9 +22,9 @@ curl -fsSL https://juftin.com/dotfiles/get | bash
 
 When using the bootstrapping script, the following steps are taken:
 
-1. Install any missing dependencies (e.g. `git`, `zsh`, `curl`, `grep`, `autojump`)
+1. Install any missing dependencies (e.g. `git`, `zsh`, `curl`, `autojump`)
 2. Clone this project into `~/.dotfiles`
-3. Source the `dotfiles.zsh` or `dotfiles.bash` file in your shell configuration
+3. Symbolically link the dotfiles into their proper locations
 
 <!--skip-->
 <details><summary>🌈 Bootstrapping Screen Recording</summary>
@@ -38,9 +38,8 @@ https://github.com/juftin/dotfiles/assets/49741340/9c96b82e-8a39-49bc-af3f-f5130
 
 #### Optional Environment Variables
 
--   `BOOTSTRAP_SHELL`: The shell to use for bootstrapping. Default: `zsh`, options: `zsh`, `bash`
 -   `DOTFILES_REPO`: The repository to clone. Default: `juftin/dotfiles`
--   `DOTFILES_BRANCH`: The branch to checkout.
+-   `DOTFILES_BRANCH`: The branch to checkout. Default: `<default branch>`
 -   `DOTFILES_DIR`: The directory to clone the repository into. Default: `~/.dotfiles`
 
 > INFO:
@@ -52,32 +51,44 @@ https://github.com/juftin/dotfiles/assets/49741340/9c96b82e-8a39-49bc-af3f-f5130
 >  --env TERM \
 >  --env COLORTERM \
 >  --env BOOTSTRAP_SHELL=zsh \
->  debian:latest \
+>  python:latest \
 >  /bin/bash -c \
->    "apt update &>/dev/null && \
->    apt install -y curl &>/dev/null && \
->    curl -fsSL https://juftin.com/dotfiles/get | bash && \
->    zsh"
+>    "curl -fsSL https://juftin.com/dotfiles/get | bash && zsh"
 > ```
 
 ### Manual
 
-```shell
-git clone https://github.com/juftin/dotfiles.git ~/.dotfiles
-```
+1. Install any missing dependencies
 
-#### zsh
+    ```shell
+    apt install -y git curl zsh autojump
+    ```
 
-`~/.zshrc`:
+2. Clone the repo to `~/.dotfiles`
 
-```shell
-[[ ! -f ${HOME}/.dotfiles/dotfiles.zsh ]] || source ${HOME}/.dotfiles/dotfiles.zsh
-```
+    ```shell
+    git clone https://github.com/juftin/dotfiles.git ~/.dotfiles
+    ```
 
-#### bash
+3. Sync all git submodules
 
-`~/.bashrc`:
+    ```shell
+    cd ~/.dotfiles
+    git submodule update --init --recursive
+    ```
 
-```shell
-[[ ! -f ${HOME}/.dotfiles/dotfiles.bash ]] || source ${HOME}/.dotfiles/dotfiles.bash
-```
+4. Link the dotfiles
+
+    ```shell
+    ln -s ~/.dotfiles/bootstrap/oh-my-zsh ~/.oh-my-zsh
+    ln -s ~/.dotfiles/bootstrap/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k
+    ln -s ~/.dotfiles/bootstrap/fast-syntax-highlighting ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting
+    ln -s ~/.dotfiles/bootstrap/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    ln -s ~/.dotfiles/bootstrap/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+    ln -s ~/.dotfiles/bootstrap/oh-my-bash ~/.oh-my-bash
+    ln -s ~/.dotfiles/shell/.zshrc ~/.zshrc
+    ln -s ~/.dotfiles/shell/.bashrc ~/.bashrc
+    ln -s ~/.dotfiles/shell/.p10k.zsh ~/.p10k.zsh
+    ln -s ~/.dotfiles/shell/.shell_aliases ~/.shell_aliases
+    ln -s ~/.dotfiles/shell/.mac_aliases ~/.mac_aliases
+    ```

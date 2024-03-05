@@ -4,7 +4,6 @@ site_name: dotfiles
 nav:
     - Home 🏠: index.md
     - Features ✨: features.md
-    - dotfiles 📂: dotfiles.md
 theme:
     favicon: https://juftin.com/favicon.ico
     logo: https://raw.githubusercontent.com/juftin/juftin/main/static/juftin.png

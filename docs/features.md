@@ -11,7 +11,6 @@
     -   `web-search`
     -   `nvm`
     -   `autojump`
--   [antidote]
 -   [Powerlevel10k]
 -   [zsh-users/zsh-autosuggestions]
 -   [zsh-users/zsh-completions]
@@ -36,7 +35,6 @@
 -   `sync` - source the dotfiles and sync the shell
 -   `notify` - send a notification to the desktop (macOS only)
 
-[antidote]: https://github.com/mattmc3/antidote
 [OhMyBash]: https://github.com/ohmybash/oh-my-bash
 [powerlevel10k]: https://github.com/romkatv/powerlevel10k
 [OhMyZsh]: https://ohmyz.sh/
