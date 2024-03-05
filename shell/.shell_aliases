@@ -25,7 +25,11 @@ function dotfiles-git() {
 }
 
 function dotfiles-sync() {
-	dotfiles-git pull --recurse-submodules
+	dotfiles-git pull --recurse-submodules --jobs=4
+}
+
+function dotfiles-bootstrap() {
+    bash "${DOTFILES_DIR}/bootstrap/bootstrap.sh"
 }
 
 NO_COLOR='\033[0m'
