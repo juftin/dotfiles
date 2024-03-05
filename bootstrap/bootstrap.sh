@@ -96,7 +96,7 @@ function init_submodules() {
 	log_event "info" "Cloning tools from GitHub 🔄"
 	git -C "${DOTFILES_DIR}/bootstrap" submodule sync --quiet --recursive &
 	spinner
-	git -C "${DOTFILES_DIR}" submodule update --init --recursive &>/dev/null &
+	git -C "${DOTFILES_DIR}" submodule update --init --recursive --depth 1 --jobs 4 &>/dev/null &
 	spinner
 	log_event "info" "Cloned tools initialized ✅"
 }
@@ -269,7 +269,7 @@ function symlink_dotfiles() {
 	symlink_item "${DOTFILES_DIR}/bootstrap/zsh-completions" "${HOME}/.oh-my-zsh/custom/plugins/zsh-completions"
 	# OhMyBash
 	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-bash" "${HOME}/.oh-my-bash"
-	# Files
+	# Shell Files
 	symlink_item "${DOTFILES_DIR}/shell/.zshrc" "${HOME}/.zshrc"
 	symlink_item "${DOTFILES_DIR}/shell/.bashrc" "${HOME}/.bashrc"
 	symlink_item "${DOTFILES_DIR}/shell/.p10k.zsh" "${HOME}/.p10k.zsh"
