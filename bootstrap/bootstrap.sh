@@ -235,7 +235,7 @@ function symlink_item() {
 
 	# if the destination exists and is a symlink and the source is the same, return
 	if [ -L "${destination}" ] && [ "$(readlink "${destination}")" == "${source}" ]; then
-		log_event "info" "Symlink ${GREEN}${destination}${NO_COLOR} already exists, skipping ✅"
+		log_event "info" "Symlink ${BLUE}${destination}${NO_COLOR} already exists, skipping ✅"
 		return 0
 	elif [ -L "${destination}" ]; then
 		log_event "info" "Removing existing symlink ${RED}${destination}${NO_COLOR} 🗑️"
@@ -251,7 +251,7 @@ function symlink_item() {
 	fi
 
 	# create the symlink
-	log_event "info" "Creating symlink from ${GREEN}${source}${NO_COLOR} to ${BLUE}${destination}${NO_COLOR} 📁"
+	log_event "info" "Creating symlink ${GREEN}${destination}${NO_COLOR} 🔗"
 	ln -s "${source}" "${destination}"
 }
 

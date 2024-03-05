@@ -50,7 +50,6 @@ https://github.com/juftin/dotfiles/assets/49741340/9c96b82e-8a39-49bc-af3f-f5130
 > docker run --rm -it \
 >  --env TERM \
 >  --env COLORTERM \
->  --env BOOTSTRAP_SHELL=zsh \
 >  python:latest \
 >  /bin/bash -c \
 >    "curl -fsSL https://juftin.com/dotfiles/get | bash && zsh"
