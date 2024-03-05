@@ -4,8 +4,8 @@
 
 alias c="clear"
 alias cls="clear"
-alias ls="ls -G -a -F"
-alias ll='ls -l -A -F -h'
+alias ls="ls -G -a -F --color=auto"
+alias ll='ls -l -A -F -h --color=auto'
 
 DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
