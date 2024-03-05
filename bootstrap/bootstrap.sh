@@ -109,7 +109,7 @@ DEPENDENCIES=(
 	git
 	curl
 	zsh
-	autojump
+	tar
 )
 
 function install_dependencies() {
@@ -129,7 +129,7 @@ function install_dependencies() {
 			git
 			curl
 			zsh
-			autojump-zsh
+			tar
 		)
 	else
 		log_event "error" "No package manager detected"
@@ -202,7 +202,10 @@ function spinner() {
 	local pid=$!
 	local delay=0.1
 	local spinstr='|/-\\'
-	tput civis
+	local tput_available=$(command -v tput &>/dev/null)
+	if [ "${tput_available}" ]; then
+		tput civis
+	fi
 	while kill -0 $pid 2>/dev/null; do
 		local temp=${spinstr#?}
 		printf " %c  " "$spinstr"
@@ -210,7 +213,9 @@ function spinner() {
 		sleep $delay
 		printf "\b\b\b\b\b\b"
 	done
-	tput cnorm
+	if [ "${tput_available}" ]; then
+		tput cnorm
+	fi
 	printf "    \b\b\b\b"
 }
 

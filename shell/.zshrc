@@ -39,7 +39,7 @@ plugins=(
     asdf
     web-search
     nvm
-    autojump
+    z
     fast-syntax-highlighting
     zsh-autosuggestions
     zsh-completions

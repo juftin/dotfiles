@@ -22,7 +22,7 @@ curl -fsSL https://juftin.com/dotfiles/get | bash
 
 When using the bootstrapping script, the following steps are taken:
 
-1. Install any missing dependencies (e.g. `git`, `zsh`, `curl`, `autojump`)
+1. Install any missing dependencies (e.g. `git`, `zsh`, `curl`, `tar`)
 2. Clone this project into `~/.dotfiles`
 3. Symbolically link the dotfiles into their proper locations
 
@@ -60,7 +60,7 @@ https://github.com/juftin/dotfiles/assets/49741340/569d7e27-114b-4378-9157-f7f9e
 1. Install any missing dependencies
 
     ```shell
-    apt install -y git curl zsh autojump
+    apt install -y git curl zsh tar
     ```
 
 2. Clone the repo to `~/.dotfiles`

@@ -10,7 +10,7 @@
     -   `asdf`
     -   `web-search`
     -   `nvm`
-    -   `autojump`
+    -   `z`
 -   [Powerlevel10k]
 -   [zsh-users/zsh-autosuggestions]
 -   [zsh-users/zsh-completions]
