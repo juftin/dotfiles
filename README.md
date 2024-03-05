@@ -30,7 +30,7 @@ When using the bootstrapping script, the following steps are taken:
 <details><summary>🌈 Bootstrapping Screen Recording</summary>
 <p>
 
-https://github.com/juftin/dotfiles/assets/49741340/9c96b82e-8a39-49bc-af3f-f513048adcc5
+https://github.com/juftin/dotfiles/assets/49741340/569d7e27-114b-4378-9157-f7f9e9de52fc
 
 </p>
 </details>
