@@ -276,6 +276,7 @@ function symlink_dotfiles() {
 	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-bash" "${HOME}/.oh-my-bash"
 	# Shell Files
 	symlink_item "${DOTFILES_DIR}/shell/.zshrc" "${HOME}/.zshrc"
+	symlink_item "${DOTFILES_DIR}/shell/.zprofile" "${HOME}/.zprofile"
 	symlink_item "${DOTFILES_DIR}/shell/.bashrc" "${HOME}/.bashrc"
 	symlink_item "${DOTFILES_DIR}/shell/.p10k.zsh" "${HOME}/.p10k.zsh"
 	symlink_item "${DOTFILES_DIR}/shell/.shell_aliases" "${HOME}/.shell_aliases"

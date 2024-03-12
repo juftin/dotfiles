@@ -15,8 +15,6 @@ fi
 ##########################################################
 
 export EDITOR=nano
-SHELL_CACHE_DIR="${DOTFILES_DIR}/cache"
-export ZSH_CACHE_DIR="${SHELL_CACHE_DIR}/zsh"
 
 if [[ ! $PATH == *"${HOME}/.local/bin"* && -d "${HOME}/.local/bin" ]]; then
 	export PATH="$PATH:${HOME}/.local/bin"
