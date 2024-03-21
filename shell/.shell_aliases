@@ -117,5 +117,5 @@ function sync() {
 }
 
 if [[ ${OSTYPE} == "darwin"* ]]; then
-	[[ ! -f ${DOTFILES_DIR}/shell/zsh/mac/aliases.zsh ]] || source ${DOTFILES_DIR}/shell/zsh/mac/aliases.zsh
+	[[ ! -f ${DOTFILES_DIR}/shell/mac_aliases.zsh ]] || source ${DOTFILES_DIR}/shell/mac_aliases.zsh
 fi

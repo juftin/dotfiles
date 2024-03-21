@@ -265,7 +265,7 @@ function symlink_item() {
 ##########################################################
 
 function symlink_dotfiles() {
-	# Shell Plugins
+	# OhMyZsh
 	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-zsh" "${HOME}/.oh-my-zsh"
 	# OhMyZsh Custom Plugins
 	symlink_item "${DOTFILES_DIR}/bootstrap/powerlevel10k" "${HOME}/.oh-my-zsh/custom/themes/powerlevel10k"
@@ -277,6 +277,7 @@ function symlink_dotfiles() {
 	# Shell Files
 	symlink_item "${DOTFILES_DIR}/shell/.zshrc" "${HOME}/.zshrc"
 	symlink_item "${DOTFILES_DIR}/shell/.zprofile" "${HOME}/.zprofile"
+	symlink_item "${DOTFILES_DIR}/shell/.profile" "${HOME}/.profile"
 	symlink_item "${DOTFILES_DIR}/shell/.bashrc" "${HOME}/.bashrc"
 	symlink_item "${DOTFILES_DIR}/shell/.p10k.zsh" "${HOME}/.p10k.zsh"
 	symlink_item "${DOTFILES_DIR}/shell/.shell_aliases" "${HOME}/.shell_aliases"
