@@ -110,6 +110,7 @@ DEPENDENCIES=(
 	curl
 	zsh
 	tar
+	gh
 )
 
 function install_dependencies() {
