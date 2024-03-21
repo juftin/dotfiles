@@ -94,7 +94,27 @@ https://github.com/juftin/dotfiles/assets/49741340/569d7e27-114b-4378-9157-f7f9e
     ln -s ~/.dotfiles/bootstrap/pyenv ~/.pyenv
     ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
     ln -s ~/.dotfiles/git/.gitignore ~/.gitignore
+    ls -s ~/.dotfiles/bin/aptfile /usr/local/bin/aptfile
     ```
+
+## Dependencies
+
+### MacOS
+
+Dependencies for macOS can be installed using [Homebrew](https://brew.sh/)'s `bundle` command.
+
+```shell
+brew bundle --file=~/.dotfiles/Brewfile
+```
+
+### Debian
+
+Dependencies for Debian can be installed using `apt` and the `aptfile` command,
+which is installed alongside the dotfiles:
+
+```shell
+aptfile ~/.dotfiles/debian/Aptfile
+```
 
 ## Customization
 

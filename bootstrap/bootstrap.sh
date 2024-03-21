@@ -265,7 +265,17 @@ function symlink_item() {
 ###################### symlinks ##########################
 ##########################################################
 
-function symlink_dotfiles() {
+function symlink_shell() {
+	symlink_item "${DOTFILES_DIR}/shell/.shell_aliases" "${HOME}/.shell_aliases"
+}
+
+function symlink_mac() {
+	if [[ $(uname) == "Darwin" ]]; then
+		symlink_item "${DOTFILES_DIR}/shell/.mac_aliases" "${HOME}/.mac_aliases"
+	fi
+}
+
+function symlink_zsh() {
 	# OhMyZsh
 	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-zsh" "${HOME}/.oh-my-zsh"
 	# OhMyZsh Custom Plugins
@@ -273,21 +283,41 @@ function symlink_dotfiles() {
 	symlink_item "${DOTFILES_DIR}/bootstrap/fast-syntax-highlighting" "${HOME}/.oh-my-zsh/custom/plugins/fast-syntax-highlighting"
 	symlink_item "${DOTFILES_DIR}/bootstrap/zsh-autosuggestions" "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 	symlink_item "${DOTFILES_DIR}/bootstrap/zsh-completions" "${HOME}/.oh-my-zsh/custom/plugins/zsh-completions"
-	# OhMyBash
-	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-bash" "${HOME}/.oh-my-bash"
 	# Shell Files
 	symlink_item "${DOTFILES_DIR}/shell/.zshrc" "${HOME}/.zshrc"
 	symlink_item "${DOTFILES_DIR}/shell/.zprofile" "${HOME}/.zprofile"
+	symlink_item "${DOTFILES_DIR}/shell/.p10k.zsh" "${HOME}/.p10k.zsh"
+}
+
+function symlink_bash() {
+	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-bash" "${HOME}/.oh-my-bash"
 	symlink_item "${DOTFILES_DIR}/shell/.profile" "${HOME}/.profile"
 	symlink_item "${DOTFILES_DIR}/shell/.bashrc" "${HOME}/.bashrc"
-	symlink_item "${DOTFILES_DIR}/shell/.p10k.zsh" "${HOME}/.p10k.zsh"
-	symlink_item "${DOTFILES_DIR}/shell/.shell_aliases" "${HOME}/.shell_aliases"
-	symlink_item "${DOTFILES_DIR}/shell/.mac_aliases" "${HOME}/.mac_aliases"
-	# PyEnv
-	symlink_item "${DOTFILES_DIR}/bootstrap/pyenv" "${HOME}/.pyenv"
-	# Git
+}
+
+function symlink_git() {
 	symlink_item "${DOTFILES_DIR}/git/.gitconfig" "${HOME}/.gitconfig"
 	symlink_item "${DOTFILES_DIR}/git/.gitignore" "${HOME}/.gitignore"
+}
+
+function symlink_misc() {
+	symlink_item "${DOTFILES_DIR}/bootstrap/pyenv" "${HOME}/.pyenv"
+}
+
+function symlink_bin() {
+	if [[ $(uname) == "Linux" ]]; then
+		symlink_item "${DOTFILES_DIR}/bin/aptfile" "/usr/local/bin/aptfile"
+	fi
+}
+
+function symlink_dotfiles() {
+	symlink_shell
+	symlink_mac
+	symlink_zsh
+	symlink_bash
+	symlink_git
+	symlink_misc
+	symlink_bin
 }
 
 ##########################################################

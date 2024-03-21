@@ -1,0 +1,52 @@
+#!/usr/bin/env aptfile
+
+update
+
+##########################################################
+########################## CORE ##########################
+##########################################################
+
+package "dialog"
+package "apt-utils"
+package "software-properties-common"
+package "build-essential"
+package "git-core"
+package "curl"
+package "wget"
+
+##########################################################
+####################### UTILITIES ########################
+##########################################################
+
+package "ffmpeg"
+package "fzf"
+package "gh"
+package "git-lfs"
+package "glances"
+package "grep"
+package "htop"
+package "jq"
+package "make"
+package "neovim"
+package "pipx"
+package "ripgrep"
+package "tree"
+package "yq"
+
+##########################################################
+#################### PYTHON + PYENV ######################
+##########################################################
+
+package "libssl-dev"
+package "zlib1g-dev"
+package "libbz2-dev"
+package "libreadline-dev"
+package "libsqlite3-dev"
+package "curl"
+package "libncursesw5-dev"
+package "xz-utils"
+package "tk-dev"
+package "libxml2-dev"
+package "libxmlsec1-dev"
+package "libffi-dev"
+package "liblzma-dev"

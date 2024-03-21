@@ -1,0 +1,72 @@
+##########################################################
+######################### TAPS ###########################
+##########################################################
+
+tap "hashicorp/tap"
+tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
+tap "homebrew/services"
+
+##########################################################
+####################### UTILITIES ########################
+##########################################################
+
+brew "awsume"
+brew "curl"
+brew "ffmpeg"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "git-lfs"
+brew "glances"
+brew "go"
+brew "grep"
+brew "helm"
+brew "htop"
+brew "hugo"
+brew "jq"
+brew "make"
+brew "neovim"
+brew "node"
+brew "openjdk"
+brew "pipx"
+brew "ripgrep"
+brew "terraform"
+brew "terragrunt"
+brew "thefuck"
+brew "tree"
+brew "wget"
+brew "yq"
+
+##########################################################
+######################### CASKS ##########################
+##########################################################
+
+cask "caffeine"
+cask "codewhisperer"
+cask "cyberduck"
+cask "docker"
+cask "hammerspoon"
+cask "iterm2"
+cask "lens"
+cask "spotify"
+cask "syntax-highlight"
+cask "vlc"
+
+##########################################################
+######################### FONTS ##########################
+##########################################################
+
+cask "font-fontawesome"
+cask "font-meslo-lg-nerd-font"
+
+##########################################################
+#################### PYTHON + PYENV ######################
+##########################################################
+
+brew "openssl"
+brew "readline"
+brew "sqlite3"
+brew "tcl-tk"
+brew "xz"
+brew "zlib"
