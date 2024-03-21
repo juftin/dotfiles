@@ -60,7 +60,7 @@ https://github.com/juftin/dotfiles/assets/49741340/569d7e27-114b-4378-9157-f7f9e
 1. Install any missing dependencies
 
     ```shell
-    apt install -y git curl zsh tar
+    apt install -y git curl zsh tar gh
     ```
 
 2. Clone the repo to `~/.dotfiles`
