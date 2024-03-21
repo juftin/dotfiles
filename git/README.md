@@ -13,3 +13,4 @@ files:
 -   `Linux.gitignore`
 -   `macOS.gitignore`
 -   `JetBrains.gitignore`
+-   `Python.gitignore`
