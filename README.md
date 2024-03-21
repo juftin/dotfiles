@@ -87,7 +87,19 @@ https://github.com/juftin/dotfiles/assets/49741340/569d7e27-114b-4378-9157-f7f9e
     ln -s ~/.dotfiles/bootstrap/oh-my-bash ~/.oh-my-bash
     ln -s ~/.dotfiles/shell/.zshrc ~/.zshrc
     ln -s ~/.dotfiles/shell/.bashrc ~/.bashrc
+    ln -s ~/.dotfiles/shell/.profile ~/.profile
     ln -s ~/.dotfiles/shell/.p10k.zsh ~/.p10k.zsh
     ln -s ~/.dotfiles/shell/.shell_aliases ~/.shell_aliases
     ln -s ~/.dotfiles/shell/.mac_aliases ~/.mac_aliases
+    ln -s ~/.dotfiles/bootstrap/pyenv ~/.pyenv
+    ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
+    ln -s ~/.dotfiles/git/.gitignore ~/.gitignore
     ```
+
+## Customization
+
+Customizing this repo for yourself requires editing a few key
+files:
+
+-   `~/.gitconfig`
+    -   Update the `[user]` section with your own name and email

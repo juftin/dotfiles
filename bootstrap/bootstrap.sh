@@ -284,6 +284,9 @@ function symlink_dotfiles() {
 	symlink_item "${DOTFILES_DIR}/shell/.mac_aliases" "${HOME}/.mac_aliases"
 	# PyEnv
 	symlink_item "${DOTFILES_DIR}/bootstrap/pyenv" "${HOME}/.pyenv"
+	# Git
+	symlink_item "${DOTFILES_DIR}/git/.gitconfig" "${HOME}/.gitconfig"
+	symlink_item "${DOTFILES_DIR}/git/.gitignore" "${HOME}/.gitignore"
 }
 
 ##########################################################

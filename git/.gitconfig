@@ -1,0 +1,24 @@
+[user]
+	name = juftin
+	email = juftin@juftin.com
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+[push]
+	autoSetupRemote = true
+[core]
+	excludesfile = ~/.gitignore
+[alias]
+	dunk = !git diff HEAD | dunk | less -R
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
