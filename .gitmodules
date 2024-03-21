@@ -28,3 +28,8 @@
 	url = https://github.com/ohmybash/oh-my-bash
 	shallow = true
 	branch = master
+[submodule "bootstrap/pyenv"]
+	path = bootstrap/pyenv
+	url = https://github.com/pyenv/pyenv
+	shallow = true
+	branch = master

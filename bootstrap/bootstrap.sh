@@ -282,6 +282,8 @@ function symlink_dotfiles() {
 	symlink_item "${DOTFILES_DIR}/shell/.p10k.zsh" "${HOME}/.p10k.zsh"
 	symlink_item "${DOTFILES_DIR}/shell/.shell_aliases" "${HOME}/.shell_aliases"
 	symlink_item "${DOTFILES_DIR}/shell/.mac_aliases" "${HOME}/.mac_aliases"
+	# PyEnv
+	symlink_item "${DOTFILES_DIR}/bootstrap/pyenv" "${HOME}/.pyenv"
 }
 
 ##########################################################
