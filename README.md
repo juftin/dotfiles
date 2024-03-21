@@ -104,7 +104,7 @@ https://github.com/juftin/dotfiles/assets/49741340/569d7e27-114b-4378-9157-f7f9e
 Dependencies for macOS can be installed using [Homebrew](https://brew.sh/)'s `bundle` command.
 
 ```shell
-brew bundle --file=~/.dotfiles/Brewfile
+brew bundle --file=~/.dotfiles/mac/Brewfile
 ```
 
 ### Debian

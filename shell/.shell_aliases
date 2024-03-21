@@ -109,13 +109,6 @@ function aws-docker-login() {
 			--password-stdin ${AWS_DOCKER_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
 }
 
-# source the `.zshrc` file
-function sync() {
-	log_event info "Syncing ZSH Configuration..."
-	source ~/.zshrc
-	log_event info "ZSH Synced!"
-}
-
 if [[ ${OSTYPE} == "darwin"* ]]; then
 	[[ ! -f ${DOTFILES_DIR}/shell/mac_aliases.zsh ]] || source ${DOTFILES_DIR}/shell/mac_aliases.zsh
 fi

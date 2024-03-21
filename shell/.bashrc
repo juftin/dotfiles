@@ -3,6 +3,28 @@ if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
 	builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
 fi
 
+##########################################################
+##################### ZSH SETTINGS #######################
+##########################################################
+
+export EDITOR=nano
+
+if [[ $PATH != *"${HOME}/.local/bin"* ]]; then
+	mkdir -p "${HOME}/.local/bin"
+	export PATH="$PATH:${HOME}/.local/bin"
+fi
+
+# source the `.bashrc` file
+function sync() {
+	echo "Syncing Bash Configuration..."
+	source ~/.bashrc
+	echo "Bash Configuration Synced!"
+}
+
+##########################################################
+###################### OH-MY-BASH ########################
+##########################################################
+
 export OSH="${HOME}/.oh-my-bash"
 
 # Oh My Bash Settings

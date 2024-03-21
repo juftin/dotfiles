@@ -16,12 +16,20 @@ fi
 
 export EDITOR=nano
 
-if [[ ! $PATH == *"${HOME}/.local/bin"* && -d "${HOME}/.local/bin" ]]; then
+if [[ ! $PATH == *"${HOME}/.local/bin"* ]]; then
+    mkdir -p "${HOME}/.local/bin"
 	export PATH="$PATH:${HOME}/.local/bin"
 fi
 
 # disable autocd
 unsetopt autocd
+
+# source the `.zshrc` file
+function sync() {
+	log_event info "Syncing ZSH Configuration..."
+	source ~/.zshrc
+	log_event info "ZSH Synced!"
+}
 
 ##########################################################
 ####################### OH-MY-ZSH ########################
