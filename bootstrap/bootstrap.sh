@@ -312,6 +312,7 @@ function symlink_bin() {
 }
 
 function symlink_tools() {
+	mkdir -p ${HOME}/.config
 	symlink_item "${DOTFILES_DIR}/tools/direnv" "${HOME}/.config/direnv"
 }
 
