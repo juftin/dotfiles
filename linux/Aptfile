@@ -32,7 +32,6 @@ package "neovim"
 package "pipx"
 package "ripgrep"
 package "tree"
-package "yq"
 
 ##########################################################
 #################### PYTHON + PYENV ######################
