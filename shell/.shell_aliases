@@ -121,6 +121,10 @@ function git-remove-deleted() {
 	done
 }
 
+function git-tree() {
+    tree -C -I $((cat .gitignore 2> /dev/null || cat $(git rev-parse --show-toplevel 2> /dev/null)/.gitignore 2> /dev/null || echo "node_modules") | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|" | rev | cut -c 2- | rev)
+}
+
 # verbose `git status` alias
 alias status="git status --verbose --ahead-behind --branch --find-renames"
 
