@@ -24,8 +24,15 @@
 
 ### Functions
 
--   `mkcd` - make a directory and change to it
+#### Dotfiles Functions
+
 -   `dotfiles-sync` - sync the dotfiles with the remote repository
+-   `dotfiles-bootstrap` - run the dotfile bootstrap script
+-   `dotfiles-deps` - install the dotfiles dependencies
+
+#### General Functions
+
+-   `mkcd` - make a directory and change to it
 -   `log_event` - log to the console with a timestamp
 -   `f` - search for files from the current directory recursively
 -   `r` - grep for a string in the current directory recursively
@@ -35,9 +42,15 @@
 -   `sync` - source the dotfiles and sync the shell
 -   `notify` - send a notification to the desktop (macOS only)
 
+#### Git Functions
+
+-   `git dunk` - view the diff in a pleasant ui
+-   `g` - easy [git aliases]
+
 [OhMyBash]: https://github.com/ohmybash/oh-my-bash
 [powerlevel10k]: https://github.com/romkatv/powerlevel10k
 [OhMyZsh]: https://ohmyz.sh/
 [zsh-users/zsh-autosuggestions]: https://github.com/zsh-users/zsh-autosuggestions
 [zsh-users/zsh-completions]: https://github.com/zsh-users/zsh-completions
 [zdharma-continuum/fast-syntax-highlighting]: https://github.com/zdharma-continuum/fast-syntax-highlighting
+[aliases]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git

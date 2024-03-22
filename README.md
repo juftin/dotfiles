@@ -3,7 +3,7 @@
     <img src="https://raw.githubusercontent.com/juftin/dotfiles/main/docs/logo.png" alt="dotfiles" width="500" />
   </a>
   <p align="center">
-    my personal dotfiles for <code>zsh</code>, <code>bash</code>, and more
+    my personal dotfiles for <code>zsh</code>, <code>bash</code>, and <i>everything else</i>
   </p>
   <a href="https://github.com/juftin/dotfiles/"><img src="https://img.shields.io/github/v/release/juftin/dotfiles?color=blue&label=dotfiles&logo=slashdot" alt="docs"></a>
   <a href="https://juftin.com/dotfiles/"><img src="https://img.shields.io/static/v1?message=docs&color=526CFE&logo=Material+for+MkDocs&logoColor=FFFFFF&label=" alt="docs"></a>
@@ -13,8 +13,6 @@
 </div>
 
 ## Installation
-
-### Automatic
 
 ```shell
 curl -fsSL https://juftin.com/dotfiles/get | bash
@@ -30,91 +28,26 @@ When using the bootstrapping script, the following steps are taken:
 <details><summary>🌈 Bootstrapping Screen Recording</summary>
 <p>
 
-https://github.com/juftin/dotfiles/assets/49741340/569d7e27-114b-4378-9157-f7f9e9de52fc
+https://github.com/juftin/dotfiles/assets/49741340/6c04d3aa-8821-41a9-98d4-74e8b4465f58
 
 </p>
 </details>
 <!--skip-->
 
-#### Optional Environment Variables
-
--   `DOTFILES_REPO`: The repository to clone. Default: `juftin/dotfiles`
--   `DOTFILES_BRANCH`: The branch to checkout. Default: `<default branch>`
--   `DOTFILES_DIR`: The directory to clone the repository into. Default: `~/.dotfiles`
-
-> INFO:
->
-> Try it out in a docker sandbox:
->
-> ```shell
-> docker run --rm -it \
->  --env TERM \
->  --env COLORTERM \
->  python:latest \
->  /bin/bash -c \
->    "curl -fsSL https://juftin.com/dotfiles/get | bash && zsh"
-> ```
-
-### Manual
-
-1. Install any missing dependencies
-
-    ```shell
-    apt install -y git curl zsh tar gh
-    ```
-
-2. Clone the repo to `~/.dotfiles`
-
-    ```shell
-    git clone https://github.com/juftin/dotfiles.git ~/.dotfiles
-    ```
-
-3. Sync all git submodules
-
-    ```shell
-    cd ~/.dotfiles
-    git submodule update --init --recursive
-    ```
-
-4. Link the dotfiles
-
-    ```shell
-    ln -s ~/.dotfiles/bootstrap/oh-my-zsh ~/.oh-my-zsh
-    ln -s ~/.dotfiles/bootstrap/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k
-    ln -s ~/.dotfiles/bootstrap/fast-syntax-highlighting ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting
-    ln -s ~/.dotfiles/bootstrap/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    ln -s ~/.dotfiles/bootstrap/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
-    ln -s ~/.dotfiles/bootstrap/oh-my-bash ~/.oh-my-bash
-    ln -s ~/.dotfiles/shell/.zshrc ~/.zshrc
-    ln -s ~/.dotfiles/shell/.bashrc ~/.bashrc
-    ln -s ~/.dotfiles/shell/.profile ~/.profile
-    ln -s ~/.dotfiles/shell/.p10k.zsh ~/.p10k.zsh
-    ln -s ~/.dotfiles/shell/.shell_aliases ~/.shell_aliases
-    ln -s ~/.dotfiles/shell/.mac_aliases ~/.mac_aliases
-    ln -s ~/.dotfiles/bootstrap/pyenv ~/.pyenv
-    ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
-    ln -s ~/.dotfiles/git/.gitignore ~/.gitignore
-    ls -s ~/.dotfiles/bin/aptfile /usr/local/bin/aptfile
-    ```
+See the documentation for more information on manual installation.
 
 ## Dependencies
 
-### MacOS
-
-Dependencies for macOS can be installed using [Homebrew](https://brew.sh/)'s `bundle` command.
-
-```shell
-brew bundle --file=~/.dotfiles/mac/Brewfile
-```
-
-### Debian
-
-Dependencies for Debian can be installed using `apt` and the `aptfile` command,
-which is installed alongside the dotfiles:
+All packages, applications, and dependencies for this project
+can be installed using the provided `dotfiles-deps` command:
 
 ```shell
-aptfile ~/.dotfiles/debian/Aptfile
+dotfiles-deps
 ```
+
+On macOS, this command will install dependencies using [Homebrew](https://brew.sh/)'s
+`bundle` command and a `Brewfile`. On Linux, this command will install dependencies using `apt-get`
+and an `Aptfile`.
 
 ## Customization
 
@@ -123,3 +56,15 @@ files:
 
 -   `~/.gitconfig`
     -   Update the `[user]` section with your own name and email
+
+<!--skip-->
+
+## Documentation
+
+The full documentation for this project is available at
+[https://juftin.com/dotfiles/](https://juftin.com/dotfiles/).
+
+-   [Features](docs/features.md)
+-   [Installation](docs/installation.md)
+
+<!--skip-->

@@ -19,6 +19,7 @@ repos:
       hooks:
           - id: prettier
             args: [--print-width=88, --tab-width=4]
+
     - repo: https://github.com/scop/pre-commit-shfmt
       rev: v3.8.0-1
       hooks:

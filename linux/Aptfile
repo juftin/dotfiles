@@ -10,7 +10,7 @@ package "dialog"
 package "apt-utils"
 package "software-properties-common"
 package "build-essential"
-package "git-core"
+package "git"
 package "curl"
 package "wget"
 

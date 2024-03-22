@@ -25,11 +25,36 @@ function dotfiles-git() {
 }
 
 function dotfiles-sync() {
+    log_event "info" "Syncing dotfiles 🔄"
 	dotfiles-git pull --recurse-submodules --jobs=4
+	log_event "info" "Dotfiles synced successfully 🎉"
 }
 
 function dotfiles-bootstrap() {
     bash "${DOTFILES_DIR}/bootstrap/bootstrap.sh"
+}
+
+function dotfiles-deps() {
+    OS_NAME=$(uname -s)
+    if [[ ${OS_NAME} == "Darwin" ]]; then
+        if ! command -v brew &>/dev/null; then
+            echo "Error: Homebrew is not installed."
+            return 1
+        fi
+        log_event "info" "Installing packages from Brewfile 📦"
+        brew bundle --file="${DOTFILES_DIR}/macos/Brewfile"
+    elif [[ ${OS_NAME} == "Linux" ]]; then
+        if ! command -v apt &>/dev/null; then
+            echo "Error: apt is not installed."
+            return 1
+        fi
+        log_event "info" "Installing packages from Aptfile 📦"
+        bash "${DOTFILES_DIR}/bin/aptfile" "${DOTFILES_DIR}/linux/Aptfile"
+    else
+        log_event "error" "Unsupported OS: ${OS_NAME}"
+        return 1
+    fi
+    log_event "info" "Dependencies installed successfully 🎉"
 }
 
 NO_COLOR='\033[0m'
