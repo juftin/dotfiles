@@ -18,6 +18,7 @@ package "wget"
 ####################### UTILITIES ########################
 ##########################################################
 
+package "direnv"
 package "ffmpeg"
 package "fzf"
 package "gh"

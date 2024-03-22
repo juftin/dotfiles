@@ -40,7 +40,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
     git
-    dotenv
     docker
     asdf
     web-search
@@ -111,6 +110,10 @@ fi
 if command -v thefuck &>/dev/null; then
     eval "$(thefuck --alias)"
     eval "$(thefuck --alias dang)"
+fi
+
+if command -v direnv &>/dev/null; then
+    eval "$(direnv hook zsh)"
 fi
 
 #########################################################################################################

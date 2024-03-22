@@ -75,4 +75,6 @@ the steps below:
     ln -s ~/.dotfiles/git/.gitignore ~/.gitignore
     # BIN
     ls -s ~/.dotfiles/bin/aptfile /usr/local/bin/aptfile
+    # TOOLS
+    ln -s ~/.dotfiles/tools/direnv ~/.config/direnv
     ```

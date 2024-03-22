@@ -305,9 +305,14 @@ function symlink_misc() {
 }
 
 function symlink_bin() {
+	symlink_item "${DOTFILES_DIR}/bin/has" "/usr/local/bin/has"
 	if [[ $(uname) == "Linux" ]]; then
 		symlink_item "${DOTFILES_DIR}/bin/aptfile" "/usr/local/bin/aptfile"
 	fi
+}
+
+function symlink_tools() {
+	symlink_item "${DOTFILES_DIR}/tools/direnv" "${HOME}/.config/direnv"
 }
 
 function symlink_dotfiles() {
@@ -318,6 +323,7 @@ function symlink_dotfiles() {
 	symlink_git
 	symlink_misc
 	symlink_bin
+	symlink_tools
 }
 
 ##########################################################

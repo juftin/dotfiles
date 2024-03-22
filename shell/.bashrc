@@ -1,6 +1,6 @@
 # CodeWhisperer pre block. Keep at the top of this file.
-if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]]; then
-	builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
+if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.bash"
 fi
 
 ##########################################################
@@ -52,8 +52,12 @@ plugins=(
 
 source "${OSH}/oh-my-bash.sh"
 
+if command -v direnv &>/dev/null; then
+	eval "$(direnv hook bash)"
+fi
+
 # CodeWhisperer post block. Keep at the bottom of this file.
-if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]]; then
-	builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
+if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.bash"
 fi
 # Fig Ignore

@@ -13,6 +13,7 @@ tap "homebrew/services"
 
 brew "awsume"
 brew "curl"
+brew "direnv"
 brew "ffmpeg"
 brew "fzf"
 brew "gh"
