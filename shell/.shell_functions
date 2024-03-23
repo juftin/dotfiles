@@ -1,27 +1,17 @@
 ##########################################################
-####################### DOTFILES #########################
+################### SHELL FUNCTIONS ######################
 ##########################################################
-
-DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
 #############################################
 # dotfiles-git
 # -------------------------------------------
 # Run a git command in the dotfiles directory
 #############################################
-function dotfiles-git() {
-    local GIT_COMMAND="git ${@}"
-	pushd "${DOTFILES_DIR}" &>/dev/null || {
-		echo "Error: Failed to change to ${DOTFILES_DIR}."
-		return 1
-	}
+dotfiles-git() {
+    local DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+    local GIT_COMMAND="git ${*}"
 	log_event "info" "${PURPLE}[${DOTFILES_DIR}]${NO_COLOR} ${CYAN}${GIT_COMMAND}${NO_COLOR} 📂"
-	git "${@}" || {
-		echo "Error: git command failed."
-		popd &>/dev/null
-		return 1
-	}
-	popd &>/dev/null || echo "Warning: Failed to return to previous directory."
+    runin "${DOTFILES_DIR}" "${GIT_COMMAND}"
 }
 
 #############################################
@@ -29,7 +19,7 @@ function dotfiles-git() {
 # -------------------------------------------
 # Sync the dotfiles
 #############################################
-function dotfiles-sync() {
+dotfiles-sync() {
     log_event "info" "Syncing dotfiles 🔄"
 	dotfiles-git pull --recurse-submodules --jobs=4
 	log_event "info" "Dotfiles synced successfully 🎉"
@@ -40,7 +30,8 @@ function dotfiles-sync() {
 # -------------------------------------------
 # Bootstrap the dotfiles
 #############################################
-function dotfiles-bootstrap() {
+dotfiles-bootstrap() {
+    local DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
     bash "${DOTFILES_DIR}/bootstrap/bootstrap.sh"
 }
 
@@ -49,7 +40,8 @@ function dotfiles-bootstrap() {
 # -------------------------------------------
 # Install dependencies from Brewfile or Aptfile
 #############################################
-function dotfiles-deps() {
+dotfiles-deps() {
+    local DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
     OS_NAME=$(uname -s)
     if [[ ${OS_NAME} == "Darwin" ]]; then
         if ! command -v brew &>/dev/null; then
@@ -81,7 +73,7 @@ function dotfiles-deps() {
 # -------------------------------------------
 # Find a file by name
 #############################################
-function f() {
+f() {
 	find . -iname "*$1*" ${@:2}
 }
 
@@ -90,7 +82,7 @@ function f() {
 # -------------------------------------------
 # Grep recursively
 #############################################
-function r() {
+r() {
 	grep "$1" ${@:2} -R .
 }
 
@@ -103,7 +95,7 @@ function r() {
 # -------------------------------------------
 # Create a directory and change to it
 #############################################
-function mkcd() {
+mkcd() {
 	mkdir -p "$@" && cd "$_"
 }
 
@@ -112,10 +104,43 @@ function mkcd() {
 # -------------------------------------------
 # Create a temporary directory
 #############################################
-function mktmpdir() {
+mktmpdir() {
   test -z "$TMPDIR" && TMPDIR="$(mktemp -d)"
   mkdir -p "${TMPDIR}"
   echo "${TMPDIR}"
+}
+
+#############################################
+# runin
+# -------------------------------------------
+# Run command in another directory and return
+#############################################
+runin() {
+    if [ "${#}" -lt 2 ]; then
+        log_event "error" "Usage: runin ${BLUE}<directory>${NO_COLOR} ${CYAN}<command>${NO_COLOR}"
+        return 1
+    fi
+    local dir="${1}"
+    shift
+    local cmd="${*}"
+    local current_dir=$(pwd)
+    if [ "${current_dir}" = "$(realpath "${dir}")" ]; then
+        if ! eval "${cmd}"; then
+            log_event "error" "Command failed in ${BLUE}${dir}${NO_COLOR}: ${RED}${cmd}${NO_COLOR}"
+            return 1
+        fi
+        return 0
+    fi
+    pushd "${dir}" &>/dev/null || {
+        log_event "error" "Failed to change to directory: ${BLUE}${dir}${NO_COLOR}"
+        return 1
+    }
+    if ! eval "${cmd}"; then
+        log_event "error" "Command failed in ${BLUE}${dir}${NO_COLOR}: ${RED}${cmd}${NO_COLOR}"
+        popd &>/dev/null
+        return 1
+    fi
+    popd &>/dev/null || log_event "warning" "Failed to return to previous directory."
 }
 
 ##########################################################
@@ -127,7 +152,7 @@ function mktmpdir() {
 # -------------------------------------------
 # Checkout a branch
 #############################################
-function check() {
+check() {
 	git checkout $1
 }
 
@@ -136,7 +161,7 @@ function check() {
 # -------------------------------------------
 # Remove branches that have been deleted
 #############################################
-function git-remove-deleted() {
+git-remove-deleted() {
 	git fetch -p
 	for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do
 		git branch -D $branch
@@ -148,7 +173,7 @@ function git-remove-deleted() {
 # -------------------------------------------
 # Display a tree considering .gitignore
 #############################################
-function git-tree() {
+git-tree() {
     tree -C -I $((cat .gitignore 2> /dev/null || cat $(git rev-parse --show-toplevel 2> /dev/null)/.gitignore 2> /dev/null || echo "node_modules") | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|" | rev | cut -c 2- | rev)
 }
 
@@ -185,15 +210,37 @@ hash_sha256() {
     cat - | shasum -a 256 | awk '{print $1}'
   elif [ -n "$1" ]; then
     if [ -f "$1" ]; then
-      shasum -a 256 "$1" | awk '{print $1}'
+      shasum -a 256 "${1}" | awk '{print $1}'
     else
-      printf '%s' "$1" | shasum -a 256 | awk '{print $1}'
+      printf '%s' "${1}" | shasum -a 256 | awk '{print $1}'
     fi
   else
     printf '%s' "$(date +%s)$(openssl rand -hex 12)" | shasum -a 256 | awk '{print $1}'
   fi
 }
 
+#############################################
+# untar
+# -------------------------------------------
+# Unpack a tarball or zip file
+#############################################
+untar() {
+  tarball=${1}
+  output_dir=${2:-$(pwd)}
+
+  # Create output directory if it does not exist
+  mkdir -p "${output_dir}"
+
+  case "${tarball}" in
+    *.tar.gz | *.tgz) tar -xzf "${tarball}" -C "${output_dir}" ;;
+    *.tar) tar -xf "${tarball}" -C "${output_dir}" ;;
+    *.zip) unzip -d "${output_dir}" "${tarball}" ;;
+    *)
+      log_err "untar unknown archive format for ${tarball}"
+      return 1
+      ;;
+  esac
+}
 
 ##########################################################
 ######################### AWS ############################
@@ -204,7 +251,7 @@ hash_sha256() {
 # -------------------------------------------
 # Login to AWS ECR
 #############################################
-function aws-docker-login() {
+aws-docker-login() {
 	AWS_DOCKER_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 	aws ecr get-login-password \
 		--region us-east-1 |
@@ -230,7 +277,7 @@ CYAN='\033[0;36m'
 # -------------------------------------------
 # Log an event
 #############################################
-function log_event() {
+log_event() {
 	LOGGING_TIMESTAMP="${BLUE}$(date +"%F %T,000")${NO_COLOR}"
 	case "${1}" in
 	"info")
