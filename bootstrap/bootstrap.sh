@@ -306,6 +306,7 @@ function symlink_misc() {
 
 function symlink_bin() {
 	symlink_item "${DOTFILES_DIR}/bin/has" "/usr/local/bin/has"
+	symlink_item "${DOTFILES_DIR}/bin/now" "/usr/local/bin/now"
 	if [[ $(uname) == "Linux" ]]; then
 		symlink_item "${DOTFILES_DIR}/bin/aptfile" "/usr/local/bin/aptfile"
 	fi

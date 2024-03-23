@@ -1,2 +1,2 @@
 cache/
-macos/Brewfile.lock.json
+macos/*.lock.json

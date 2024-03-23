@@ -1,16 +1,4 @@
 ##########################################################
-##################### SHELL ALIASES ######################
-##########################################################
-
-alias c="clear"
-alias cls="clear"
-alias ls="ls -a -G -F --color=auto"
-alias ll='ls -l -A -F -h --color=auto'
-
-# verbose `git status` alias
-alias status="git status --verbose --ahead-behind --branch --find-renames"
-
-##########################################################
 ################### SHELL FUNCTIONS ######################
 ##########################################################
 
@@ -174,11 +162,3 @@ function log_event() {
 		;;
 	esac
 }
-
-##########################################################
-################### OTHER FUNCTIONS ######################
-##########################################################
-
-if [[ ${OSTYPE} == "darwin"* ]]; then
-	[[ ! -f ${DOTFILES_DIR}/shell/mac_aliases.zsh ]] || source ${DOTFILES_DIR}/shell/mac_aliases.zsh
-fi
