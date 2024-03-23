@@ -185,16 +185,22 @@ function log_event() {
 	LOGGING_TIMESTAMP="${BLUE}$(date +"%F %T,000")${NO_COLOR}"
 	case "${1}" in
 	"info")
-		echo -e "${LOGGING_TIMESTAMP} ${GREEN}INFO: ${NO_COLOR}${2}"
+		echo -e "${LOGGING_TIMESTAMP} ${GREEN}[    INFO]: ${NO_COLOR}${2}"
 		;;
 	"error")
-		echo -e "${LOGGING_TIMESTAMP} ${RED}ERROR: ${NO_COLOR}${2}"
+		echo -e "${LOGGING_TIMESTAMP} ${RED}[   ERROR]: ${NO_COLOR}${2}"
 		;;
 	"warning")
-		echo -e "${LOGGING_TIMESTAMP} ${ORANGE}WARNING: ${NO_COLOR}${2}"
+		echo -e "${LOGGING_TIMESTAMP} ${ORANGE}[ WARNING]: ${NO_COLOR}${2}"
+		;;
+	"debug")
+		echo -e "${LOGGING_TIMESTAMP} ${PURPLE}[   DEBUG]: ${NO_COLOR}${2}"
+		;;
+	"critical")
+		echo -e "${LOGGING_TIMESTAMP} ${RED}[CRITICAL]: ${NO_COLOR}${2}"
 		;;
 	*)
-		echo -e "${LOGGING_TIMESTAMP} ${PURPLE}${1}: ${NO_COLOR}${2}"
+		echo -e "${LOGGING_TIMESTAMP} ${GREEN}[    INFO]: ${NO_COLOR}${1}"
 		;;
 	esac
 }
@@ -267,12 +273,7 @@ function symlink_item() {
 
 function symlink_shell() {
 	symlink_item "${DOTFILES_DIR}/shell/.shell_aliases" "${HOME}/.shell_aliases"
-}
-
-function symlink_mac() {
-	if [[ $(uname) == "Darwin" ]]; then
-		symlink_item "${DOTFILES_DIR}/shell/.mac_aliases" "${HOME}/.mac_aliases"
-	fi
+	symlink_item "${DOTFILES_DIR}/shell/.shell_functions" "${HOME}/.shell_functions"
 }
 
 function symlink_zsh() {
@@ -306,6 +307,7 @@ function symlink_misc() {
 
 function symlink_bin() {
 	symlink_item "${DOTFILES_DIR}/bin/has" "/usr/local/bin/has"
+	symlink_item "${DOTFILES_DIR}/bin/now" "/usr/local/bin/now"
 	if [[ $(uname) == "Linux" ]]; then
 		symlink_item "${DOTFILES_DIR}/bin/aptfile" "/usr/local/bin/aptfile"
 	fi
@@ -318,7 +320,6 @@ function symlink_tools() {
 
 function symlink_dotfiles() {
 	symlink_shell
-	symlink_mac
 	symlink_zsh
 	symlink_bash
 	symlink_git

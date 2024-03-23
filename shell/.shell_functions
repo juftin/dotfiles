@@ -1,0 +1,255 @@
+##########################################################
+####################### DOTFILES #########################
+##########################################################
+
+DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+
+#############################################
+# dotfiles-git
+# -------------------------------------------
+# Run a git command in the dotfiles directory
+#############################################
+function dotfiles-git() {
+    local GIT_COMMAND="git ${@}"
+	pushd "${DOTFILES_DIR}" &>/dev/null || {
+		echo "Error: Failed to change to ${DOTFILES_DIR}."
+		return 1
+	}
+	log_event "info" "${PURPLE}[${DOTFILES_DIR}]${NO_COLOR} ${CYAN}${GIT_COMMAND}${NO_COLOR} 📂"
+	git "${@}" || {
+		echo "Error: git command failed."
+		popd &>/dev/null
+		return 1
+	}
+	popd &>/dev/null || echo "Warning: Failed to return to previous directory."
+}
+
+#############################################
+# dotfiles-sync
+# -------------------------------------------
+# Sync the dotfiles
+#############################################
+function dotfiles-sync() {
+    log_event "info" "Syncing dotfiles 🔄"
+	dotfiles-git pull --recurse-submodules --jobs=4
+	log_event "info" "Dotfiles synced successfully 🎉"
+}
+
+#############################################
+# dotfiles-bootstrap
+# -------------------------------------------
+# Bootstrap the dotfiles
+#############################################
+function dotfiles-bootstrap() {
+    bash "${DOTFILES_DIR}/bootstrap/bootstrap.sh"
+}
+
+#############################################
+# dotfiles-deps
+# -------------------------------------------
+# Install dependencies from Brewfile or Aptfile
+#############################################
+function dotfiles-deps() {
+    OS_NAME=$(uname -s)
+    if [[ ${OS_NAME} == "Darwin" ]]; then
+        if ! command -v brew &>/dev/null; then
+            echo "Error: Homebrew is not installed."
+            return 1
+        fi
+        log_event "info" "Installing packages from Brewfile 📦"
+        brew bundle --file="${DOTFILES_DIR}/macos/Brewfile"
+    elif [[ ${OS_NAME} == "Linux" ]]; then
+        if ! command -v apt &>/dev/null; then
+            echo "Error: apt is not installed."
+            return 1
+        fi
+        log_event "info" "Installing packages from Aptfile 📦"
+        bash "${DOTFILES_DIR}/bin/aptfile" "${DOTFILES_DIR}/linux/Aptfile"
+    else
+        log_event "error" "Unsupported OS: ${OS_NAME}"
+        return 1
+    fi
+    log_event "info" "Dependencies installed successfully 🎉"
+}
+
+##########################################################
+######################### SEARCH #########################
+##########################################################
+
+#############################################
+# f
+# -------------------------------------------
+# Find a file by name
+#############################################
+function f() {
+	find . -iname "*$1*" ${@:2}
+}
+
+#############################################
+# r
+# -------------------------------------------
+# Grep recursively
+#############################################
+function r() {
+	grep "$1" ${@:2} -R .
+}
+
+##########################################################
+###################### DIRECTORIES #######################
+##########################################################
+
+#############################################
+# mkcd
+# -------------------------------------------
+# Create a directory and change to it
+#############################################
+function mkcd() {
+	mkdir -p "$@" && cd "$_"
+}
+
+#############################################
+# mktmpdir
+# -------------------------------------------
+# Create a temporary directory
+#############################################
+function mktmpdir() {
+  test -z "$TMPDIR" && TMPDIR="$(mktemp -d)"
+  mkdir -p "${TMPDIR}"
+  echo "${TMPDIR}"
+}
+
+##########################################################
+########################## GIT ###########################
+##########################################################
+
+#############################################
+# check
+# -------------------------------------------
+# Checkout a branch
+#############################################
+function check() {
+	git checkout $1
+}
+
+#############################################
+# git-remove-deleted
+# -------------------------------------------
+# Remove branches that have been deleted
+#############################################
+function git-remove-deleted() {
+	git fetch -p
+	for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do
+		git branch -D $branch
+	done
+}
+
+#############################################
+# git-tree
+# -------------------------------------------
+# Display a tree considering .gitignore
+#############################################
+function git-tree() {
+    tree -C -I $((cat .gitignore 2> /dev/null || cat $(git rev-parse --show-toplevel 2> /dev/null)/.gitignore 2> /dev/null || echo "node_modules") | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|" | rev | cut -c 2- | rev)
+}
+
+##########################################################
+######################### MISC ###########################
+##########################################################
+
+#############################################
+# is_command
+# -------------------------------------------
+# Check if a command exists
+#############################################
+is_command() {
+  command -v "$1" >/dev/null
+}
+
+#############################################
+# date_iso8601
+# -------------------------------------------
+# Generate an ISO8601 formatted date string
+#############################################
+date_iso8601() {
+  date -u +%Y-%m-%dT%H:%M:%S+0000
+}
+
+#############################################
+# hash_sha256
+# -------------------------------------------
+# Generate a SHA-256 hash of a file, string, or stdin
+# If no input is provided, generate a hash
+#############################################
+hash_sha256() {
+  if [ -p /dev/stdin ]; then
+    cat - | shasum -a 256 | awk '{print $1}'
+  elif [ -n "$1" ]; then
+    if [ -f "$1" ]; then
+      shasum -a 256 "$1" | awk '{print $1}'
+    else
+      printf '%s' "$1" | shasum -a 256 | awk '{print $1}'
+    fi
+  else
+    printf '%s' "$(date +%s)$(openssl rand -hex 12)" | shasum -a 256 | awk '{print $1}'
+  fi
+}
+
+
+##########################################################
+######################### AWS ############################
+##########################################################
+
+#############################################
+# aws-docker-login
+# -------------------------------------------
+# Login to AWS ECR
+#############################################
+function aws-docker-login() {
+	AWS_DOCKER_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+	aws ecr get-login-password \
+		--region us-east-1 |
+		docker login \
+			--username AWS \
+			--password-stdin ${AWS_DOCKER_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+}
+
+##########################################################
+####################### LOGGING ##########################
+##########################################################
+
+NO_COLOR='\033[0m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+ORANGE='\033[0;33m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+
+#############################################
+# log_event
+# -------------------------------------------
+# Log an event
+#############################################
+function log_event() {
+	LOGGING_TIMESTAMP="${BLUE}$(date +"%F %T,000")${NO_COLOR}"
+	case "${1}" in
+	"info")
+		echo -e "${LOGGING_TIMESTAMP} ${GREEN}[    INFO]: ${NO_COLOR}${2}"
+		;;
+	"error")
+		echo -e "${LOGGING_TIMESTAMP} ${RED}[   ERROR]: ${NO_COLOR}${2}"
+		;;
+	"warning")
+		echo -e "${LOGGING_TIMESTAMP} ${ORANGE}[ WARNING]: ${NO_COLOR}${2}"
+		;;
+	"debug")
+        echo -e "${LOGGING_TIMESTAMP} ${PURPLE}[   DEBUG]: ${NO_COLOR}${2}"
+        ;;
+    "critical")
+        echo -e "${LOGGING_TIMESTAMP} ${CYAN}[CRITICAL]: ${NO_COLOR}${2}"
+        ;;
+	*)
+		echo -e "${LOGGING_TIMESTAMP} ${GREEN}[    INFO]: ${NO_COLOR}${1}"
+		;;
+	esac
+}

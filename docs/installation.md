@@ -67,7 +67,7 @@ the steps below:
     ln -s ~/.dotfiles/shell/.profile ~/.profile
     # SHELL
     ln -s ~/.dotfiles/shell/.shell_aliases ~/.shell_aliases
-    ln -s ~/.dotfiles/shell/.mac_aliases ~/.mac_aliases
+    ln -s ~/.dotfiles/shell/.shell_functions ~/.shell_functions
     # PYENV
     ln -s ~/.dotfiles/bootstrap/pyenv ~/.pyenv
     # GIT

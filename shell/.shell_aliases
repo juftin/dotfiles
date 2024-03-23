@@ -7,137 +7,22 @@ alias cls="clear"
 alias ls="ls -a -G -F --color=auto"
 alias ll='ls -l -A -F -h --color=auto'
 
-DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
-
-function dotfiles-git() {
-    local GIT_COMMAND="git ${@}"
-	pushd "${DOTFILES_DIR}" &>/dev/null || {
-		echo "Error: Failed to change to ${DOTFILES_DIR}."
-		return 1
-	}
-	log_event "info" "${PURPLE}[${DOTFILES_DIR}]${NO_COLOR} ${CYAN}${GIT_COMMAND}${NO_COLOR} 📂"
-	git "${@}" || {
-		echo "Error: git command failed."
-		popd &>/dev/null
-		return 1
-	}
-	popd &>/dev/null || echo "Warning: Failed to return to previous directory."
-}
-
-function dotfiles-sync() {
-    log_event "info" "Syncing dotfiles 🔄"
-	dotfiles-git pull --recurse-submodules --jobs=4
-	log_event "info" "Dotfiles synced successfully 🎉"
-}
-
-function dotfiles-bootstrap() {
-    bash "${DOTFILES_DIR}/bootstrap/bootstrap.sh"
-}
-
-function dotfiles-deps() {
-    OS_NAME=$(uname -s)
-    if [[ ${OS_NAME} == "Darwin" ]]; then
-        if ! command -v brew &>/dev/null; then
-            echo "Error: Homebrew is not installed."
-            return 1
-        fi
-        log_event "info" "Installing packages from Brewfile 📦"
-        brew bundle --file="${DOTFILES_DIR}/macos/Brewfile"
-    elif [[ ${OS_NAME} == "Linux" ]]; then
-        if ! command -v apt &>/dev/null; then
-            echo "Error: apt is not installed."
-            return 1
-        fi
-        log_event "info" "Installing packages from Aptfile 📦"
-        bash "${DOTFILES_DIR}/bin/aptfile" "${DOTFILES_DIR}/linux/Aptfile"
-    else
-        log_event "error" "Unsupported OS: ${OS_NAME}"
-        return 1
-    fi
-    log_event "info" "Dependencies installed successfully 🎉"
-}
-
-NO_COLOR='\033[0m'
-BLUE='\033[0;34m'
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-ORANGE='\033[0;33m'
-PURPLE='\033[0;35m'
-
-# Logging
-function log_event() {
-	LOGGING_TIMESTAMP="${BLUE}$(date +"%F %T,000")${NO_COLOR}"
-	case "${1}" in
-	"info")
-		echo -e "${LOGGING_TIMESTAMP} ${GREEN}INFO: ${NO_COLOR}${2}"
-		;;
-	"error")
-		echo -e "${LOGGING_TIMESTAMP} ${RED}ERROR: ${NO_COLOR}${2}"
-		;;
-	"warning")
-		echo -e "${LOGGING_TIMESTAMP} ${ORANGE}WARNING: ${NO_COLOR}${2}"
-		;;
-	*)
-		echo -e "${LOGGING_TIMESTAMP} ${PURPLE}${1}: ${NO_COLOR}${2}"
-		;;
-	esac
-}
-
-# shallow clone from GitHub
-function install_from_github() {
-	local repo=$1
-	local target=$2
-	if [[ ! -d ${target} ]]; then
-		log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${target}${NO_COLOR} 🗂️"
-		git clone -q --depth=1 https://github.com/${repo}.git ${target} &&
-			log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
-			log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"
-	fi
-}
-
-# file search functions
-function f() {
-	find . -iname "*$1*" ${@:2}
-}
-function r() {
-	grep "$1" ${@:2} -R .
-}
-
-# Create a folder and move into it in one command
-function mkcd() {
-	mkdir -p "$@" && cd "$_"
-}
-
-# check out a branch
-function check() {
-	git checkout $1
-}
-
-# remove local versions of deleted remote branches
-function git-remove-deleted() {
-	git fetch -p
-	for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do
-		git branch -D $branch
-	done
-}
-
-function git-tree() {
-    tree -C -I $((cat .gitignore 2> /dev/null || cat $(git rev-parse --show-toplevel 2> /dev/null)/.gitignore 2> /dev/null || echo "node_modules") | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|" | rev | cut -c 2- | rev)
-}
-
 # verbose `git status` alias
 alias status="git status --verbose --ahead-behind --branch --find-renames"
 
-# AWS 🤝 Docker
-function aws-docker-login() {
-	AWS_DOCKER_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-	aws ecr get-login-password \
-		--region us-east-1 |
-		docker login \
-			--username AWS \
-			--password-stdin ${AWS_DOCKER_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
-}
+##########################################################
+##################### MAC ALIASES ########################
+##########################################################
 
 if [[ ${OSTYPE} == "darwin"* ]]; then
-	[[ ! -f ${DOTFILES_DIR}/shell/mac_aliases.zsh ]] || source ${DOTFILES_DIR}/shell/mac_aliases.zsh
+    ######################################################
+    ################### X86 ALIASES ######################
+    ######################################################
+	alias xbrew="arch -x86_64 /usr/local/bin/brew"
+    alias xpython3.12="$(xbrew --prefix python@3.12)/bin/python3.12"
+    alias xpython3.11="$(xbrew --prefix python@3.11)/bin/python3.11"
+    alias xpython3.10="$(xbrew --prefix python@3.10)/bin/python3.10"
+    alias xpython3.9="$(xbrew --prefix python@3.9)/bin/python3.9"
+    alias xpython3.8="$(xbrew --prefix python@3.8)/bin/python3.8"
+    ######################################################
 fi

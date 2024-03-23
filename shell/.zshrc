@@ -87,7 +87,7 @@ setopt inc_append_history       # Add commands to the history file immediately.
 [[ ! -f ${HOME}/.zshenv ]] || source ${HOME}/.zshenv
 # Aliases
 [[ ! -f ${HOME}/.shell_aliases ]] || source ${HOME}/.shell_aliases
-[[ ! -f ${HOME}/.mac_aliases ]] || source ${HOME}/.mac_aliases
+[[ ! -f ${HOME}/.shell_functions ]] || source ${HOME}/.shell_functions
 [[ ! -f ${HOME}/.zsh_aliases ]] || source ${HOME}/.zsh_aliases
 
 ##########################################################
