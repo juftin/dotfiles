@@ -26,7 +26,8 @@ dotfiles deps
 ```
 
 !!! note
-This could also be done with `brew bundle` / `aptfile`
+
+    This could also be done with `brew bundle` / `aptfile`
 
     === "mac"
 
