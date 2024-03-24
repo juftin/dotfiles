@@ -12,7 +12,7 @@
   <a href="https://gitmoji.dev"><img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg" alt="Gitmoji"></a>
 </div>
 
-<div style="text-align: center; width: 550px; margin: auto;">
+<div style="text-align: center; max-width: 550px; margin: auto;">
   <pre><code>curl -fsSL https://juftin.com/dotfiles/get | bash</code></pre>
 </div>
 
