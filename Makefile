@@ -35,6 +35,8 @@ docs: ## Serve the documentation locally.
 
 .PHONY: version
 version: ## Show the version of the project.
+	@git fetch --unshallow 2>/dev/null || true
+	@git fetch --tags 2>/dev/null || true
 	@echo "dotfiles $$(git describe --tags --abbrev=0)"
 
 .DEFAULT_GOAL := help

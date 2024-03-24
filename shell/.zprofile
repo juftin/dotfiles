@@ -17,6 +17,7 @@ if [[ -d ${HOME}/.pyenv && -z ${PYENV_ROOT} ]]; then
   export PYENV_ROOT="${HOME}/.pyenv"
   export PATH="${PYENV_ROOT}/bin:${PATH}"
   eval "$(pyenv init -)"
+  export PIPX_DEFAULT_PYTHON=$(pyenv which python) #  pipx
   alias awsume="source \$(pyenv which awsume)"
 fi
 
