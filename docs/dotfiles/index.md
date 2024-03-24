@@ -1,7 +1,5 @@
 <div align="center">
-  <a href="https://github.com/juftin/dotfiles">
-    <img src="https://raw.githubusercontent.com/juftin/dotfiles/mac-dev-setup/docs/static/dotfiles.png" alt="dotfiles" width="500" />
-  </a>
+  <img src="https://raw.githubusercontent.com/juftin/dotfiles/mac-dev-setup/docs/static/dotfiles.png" alt="dotfiles" width="500" />
   <p align="center">
     my personal dotfiles for
     <code>macOS</code>, <code>Linux</code>, <code>zsh</code>,
@@ -14,28 +12,21 @@
   <a href="https://gitmoji.dev"><img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg" alt="Gitmoji"></a>
 </div>
 
-<h2 align="center">Installation</h2>
+<div style="text-align: center; width: 550px; margin: auto;">
+  <pre><code>curl -fsSL https://juftin.com/dotfiles/get | bash</code></pre>
+</div>
 
-```shell
-curl -fsSL https://juftin.com/dotfiles/get | bash
-```
+<style>
+    .md-typeset h1,
+    .md-content__inner h1 {
+      display: none;
+    }
+</style>
 
-When using the installation script, the following steps are taken:
+<br>
 
-1. Install any missing dependencies (e.g. `git`, `zsh`, `curl`, `tar`, `gh`)
-2. Clone this project into `~/.dotfiles`
-3. Symbolically link the dotfiles into their proper locations
-
-<details><summary>🌈 Bootstrapping Screen Recording</summary>
-<p>
-
-https://github.com/juftin/dotfiles/assets/49741340/6c04d3aa-8821-41a9-98d4-74e8b4465f58
-
-</p>
-</details>
-
-<h2 align="center">Documentation</h2>
-
-Visit the [full documentation](https://juftin.com/dotfiles/) for more information
-on how to use the dotfiles, how to install them manually, and general information
-about how to set up your development environment and get up and running quickly.
+-   [🏃 QuickStart](quickstart.md)
+-   [✨ Features](features.md)
+-   [🚀 Installation](installation.md)
+-   [📦 Dependencies](dependencies.md)
+-   [💅 Customization](customization.md)

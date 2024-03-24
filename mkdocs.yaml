@@ -2,11 +2,26 @@
 
 site_name: dotfiles
 nav:
-    - Home 🏠: index.md
-    - Features ✨: features.md
-    - Installation 📦: installation.md
+    - 🌈 dotfiles:
+          - 🌈 dotfiles: dotfiles/index.md
+          - 🏃 QuickStart: dotfiles/quickstart.md
+          - ✨ Features: dotfiles/features.md
+          - 🚀 Installation: dotfiles/installation.md
+          - 📦 Dependencies: dotfiles/dependencies.md
+          - 💅 Customization: dotfiles/customization.md
+    - 📔 dev-setup:
+          - 📔 dev-setup: dev-setup/index.md
+          - 🍏 Initial Mac Setup: dev-setup/startup.md
+          - 🎮 Terminal: dev-setup/terminal.md
+          - 🍎 Apple Silicon: dev-setup/silicon.md
+          - 🐍 Python: dev-setup/python.md
+          - 🎚️ Version Control: dev-setup/git.md
+          - 🤖 Applications & Tools: dev-setup/apps.md
+          - 🔐 SSH: dev-setup/ssh.md
+          - ⌨️ AWS: dev-setup/aws.md
+          - 💁 Productivity Tips: dev-setup/productivity.md
 theme:
-    favicon: https://juftin.com/favicon.ico
+    favicon: https://raw.githubusercontent.com/juftin/juftin/main/static/favicon.ico
     logo: https://raw.githubusercontent.com/juftin/juftin/main/static/juftin.png
     name: material
     features:
@@ -14,6 +29,8 @@ theme:
         - content.code.annotate
         - content.code.copy
         - navigation.indexes
+        - navigation.tabs
+        - tabs
     palette:
         - media: "(prefers-color-scheme: light)"
           scheme: default
@@ -39,31 +56,36 @@ extra:
 exclude_docs: |
     gen_pages.py
     requirements.txt
-    logo.png
+    dotfiles.png
 markdown_extensions:
     - toc:
           permalink: "#"
-    - pymdownx.snippets:
-          base_path:
-              - !relative $config_dir
-    - pymdownx.magiclink
     - attr_list
     - md_in_html
+    - markdown.extensions.attr_list
+    - admonition
+    - pymdownx.details
+    - pymdownx.emoji:
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
+          emoji_generator: !!python/name:material.extensions.emoji.to_svg
     - pymdownx.highlight:
           anchor_linenums: true
     - pymdownx.inlinehilite
-    - pymdownx.superfences
-    - markdown.extensions.attr_list
     - pymdownx.keys
-    - pymdownx.tasklist
-    - pymdownx.tilde
-    - callouts
-    - pymdownx.details
-    - pymdownx.emoji
+    - pymdownx.magiclink
+    - pymdownx.snippets:
+          base_path:
+              - !relative $config_dir
+    - pymdownx.superfences
     - pymdownx.tabbed:
           alternate_style: true
+    - pymdownx.tasklist
+    - pymdownx.tilde
+
 plugins:
     - search
     - gen-files:
           scripts:
               - docs/gen_pages.py
+    - section-index
+    - callouts

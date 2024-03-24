@@ -16,8 +16,8 @@ sections = readme_content.split("<!--skip-->")
 non_skipped_content = "".join(sections[i] for i in range(len(sections)) if i % 2 == 0)
 
 # Write the non-skipped content to index.md
-with mkdocs_gen_files.open("index.md", "w") as index_file:
-    index_file.write(non_skipped_content)
+# with mkdocs_gen_files.open("index.md", "w") as index_file:
+#     index_file.write(non_skipped_content)
 
 # Read the bootstrap.sh content
 bootstrap_content = Path("bootstrap/bootstrap.sh").read_bytes()
