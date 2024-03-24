@@ -4,9 +4,17 @@
 
 To install the dotfiles, run the following command:
 
-```shell
-curl -fsSL https://juftin.com/dotfiles/get | bash
-```
+=== "curl"
+
+    ```shell
+    curl -fsSL https://juftin.com/dotfiles/get | bash
+    ```
+
+=== "wget"
+
+    ```shell
+    wget -qO- https://juftin.com/dotfiles/get | bash
+    ```
 
 Try it out in a docker sandbox:
 

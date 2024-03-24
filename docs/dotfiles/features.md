@@ -4,13 +4,17 @@ Installation and setup of the `dotfiles` project is the use of an opinionated se
 tools and configurations. These configurations are based on my personal preferences
 and are designed to be sensible defaults for most users.
 
+This project functions by symbolically linking the configuration files and directories
+in this repository to their appropriate locations on your system. Some tools and
+frameworks require that you clone the repository locally, this project uses git
+submodules to manage these dependencies.
+
 ## Shell Configuration
 
 ### Zsh
 
-the Z shell (zsh) is set up
-with a number of frameworks and plugins to make your terminal experience more
-productive and enjoyable:
+the Z shell (zsh) is set up with a number of frameworks and plugins to make
+your terminal experience more productive and enjoyable:
 
 -   Frameworks and Themes
     -   [ohmyzsh/oh-my-zsh] - The framework for managing your zsh shell
@@ -43,6 +47,7 @@ a number of useful operations:
 -   `dotfiles sync`: Sync the dotfiles.
 -   `dotfiles bootstrap`: Bootstrap the dotfiles.
 -   `dotfiles deps`: Install dependencies from Brewfile or Aptfile.
+-   `dotfiles pyenv-install-all`: Install all Python versions (`3.8` - `3.12`)
 
 #### Directory Operations
 
@@ -75,9 +80,8 @@ a number of useful operations:
 
 #### Logging
 
--   `log_event`: Log an event with a timestamp and a message. Supports different levels such as info, error, warning, debug, and critical.
-
-This document is intended to serve as a quick reference guide for the specified CLI commands and shell functions.
+-   `log_event`: Log an event with a timestamp and a message. Supports different
+    levels such as info, error, warning, debug, and critical.
 
 ## Python
 
@@ -89,6 +93,26 @@ This document is intended to serve as a quick reference guide for the specified 
 -   Reasonable settings at `~/.gitconfig`
 -   Reasonable global gitignore at `~/.gitignore`
 -   `gh` ([GitHub CLI]) for git auth and GitHub interactions
+
+<details><summary>📄 .gitconfig</summary>
+<p>
+
+```shell
+--8<-- "git/.gitconfig"
+```
+
+</p>
+</details>
+
+<details><summary>📄 .gitignore</summary>
+<p>
+
+```shell
+--8<-- "git/.gitignore"
+```
+
+</p>
+</details>
 
 ## Applications and Tools
 

@@ -37,7 +37,7 @@ bash ~/.dotfiles/bin/aptfile ~/.dotfiles/linux/Aptfile
 ### macOS
 
 ```shell
-brew bundle --file=~/.dotfiles/macos/Brewfile
+brew bundle --file ~/.dotfiles/macos/Brewfile
 ```
 
 <details><summary>📄 Brewfile</summary>
@@ -57,7 +57,7 @@ any non-specific dependencies. Add the `--force` flag to actually remove the
 packages.
 
 ```shell
-brew bundle cleanup --file=~/.dotfiles/macos/Brewfile
+brew bundle cleanup --file ~/.dotfiles/macos/Brewfile
 ```
 
 #### x86 macOS
@@ -66,5 +66,5 @@ This project uses x86 emulation via [Rosetta 2](https://support.apple.com/en-us/
 on Apple Silicon Macs. Any x86 specific dependencies will be installed via the `XBrewfile`:
 
 ```shell
-xbrew bundle --file=~/.dotfiles/macos/XBrewfile
+xbrew bundle --file ~/.dotfiles/macos/XBrewfile
 ```

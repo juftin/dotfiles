@@ -39,8 +39,8 @@ Install additional dependencies required to build Python
 === "linux"
 
     ```shell
-    sudo apt update
-    sudo apt install \
+    apt update
+    apt install \
         build-essential libssl-dev zlib1g-dev \
         libbz2-dev libreadline-dev libsqlite3-dev \
         curl libncursesw5-dev xz-utils \
@@ -49,13 +49,43 @@ Install additional dependencies required to build Python
     ```
 
 ```shell
-pyenv install 3.12
-pyenv install 3.11
-pyenv install 3.10
-pyenv install 3.9
-pyenv install 3.8
+pyenv install 3.11 3.12 3.10 3.9 3.8
 pyenv global 3.11 3.12 3.10 3.9 3.8
 pyenv rehash
+```
+
+### Upgrading Python Versions
+
+When you run the above `pyenv` command to install the multiple Python
+versions pyenv will install new versions of the respective minor versions
+of Python. For example, `3.11.7` to `3.11.8`. This is useful but can
+cause some unintended consequences.
+
+In the below example, the default Python version, `3.11`, was upgraded. In
+this case we uninstall the old version and recreate all `pipx` applications
+that were installed using the old version and also recreate any virtual
+environments.
+
+```console
+$ pyenv versions
+   system
+ * 3.8.19 (set by /Users/juftin/.pyenv/version)
+ * 3.9.19 (set by /Users/juftin/.pyenv/version)
+ * 3.10.13 (set by /Users/juftin/.pyenv/version)
+   3.11.7
+ * 3.11.8 (set by /Users/juftin/.pyenv/version)
+ * 3.12.2 (set by /Users/juftin/.pyenv/version)
+$ pyenv uninstall 3.11.7
+```
+
+```shell
+pipx reinstall-all
+```
+
+```shell
+rm -rf .venv
+python -m venv .venv
+source .venv/bin/activate
 ```
 
 ![pyenv.png]

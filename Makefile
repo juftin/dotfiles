@@ -12,11 +12,11 @@ bootstrap: ## Initialize the project by running the bootstrap script.
 deps: ## Install dependencies for the project based on the OS.
 ifeq ($(OS),Linux)
 	@echo "Installing packages from Aptfile 📦"
-	$(SHELL) $(MAKE_DIR)/bin/aptfile $(MAKE_DIR)/linux/Aptfile
+	$(SHELL) "$(MAKE_DIR)/bin/aptfile" "$(MAKE_DIR)/linux/Aptfile"
 else ifeq ($(OS),Darwin)
 	. ~/.shell_functions
 	@echo "Installing packages from Brewfile 📦"
-	brew bundle --file=$(MAKE_DIR)/macos/Brewfile
+	brew bundle --file "$(MAKE_DIR)/macos/Brewfile"
 else
 	@echo "Unsupported OS: $(OS)"
 	exit 1
@@ -28,6 +28,17 @@ sync: ## Update the project and its submodules.
 	@echo "Updating dotfiles and its submodules 🔄"
 	git pull --recurse-submodules --jobs=4
 	@echo "Dotfiles synced successfully 🎉"
+
+##@ pyenv
+
+.PHONY: pyenv-install-all
+pyenv-install-all: ## Install all python versions into pyenv
+	@echo "Installing all python versions into pyenv 🐍"
+	pyenv install 3.12 3.11 3.10 3.9 3.8 --skip-existing
+	pyenv global 3.11 3.12 3.10 3.9 3.8
+	pyenv rehash
+	@echo "Python versions installed successfully 🎉"
+
 
 ##@ general
 

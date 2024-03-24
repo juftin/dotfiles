@@ -53,6 +53,19 @@ To fix this issue of wheel compatibility of our systems we will use [Rosetta] to
 install and use an `x86` version of Python instead. This way we can use `x86` versions
 of the wheels for packages which can be much more widely available.
 
+> [!IMPORTANT] dotfiles
+> If you're using the dotfiles from this project, this process can be streamlined
+> as long as you have the `x86` version of Homebrew installed (described above).
+> The `xbrew` and `xpython` aliases are already included in the dotfiles - and there
+> is an `XBrewfile` in the `macos` directory that can be used to install all the current
+> Python versions:
+>
+> ```shell
+> xbrew bundle --file ~/.dotfiles/macos/XBrewfile
+> xpython3.8 -m venv .venv
+> source .venv/bin/activate
+> ```
+
 1. Install your base `x86` Version of Python
 
     - The example above is for `Python 3.8` but it’s good to have one
