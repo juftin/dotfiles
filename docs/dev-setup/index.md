@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/juftin/dotfiles/mac-dev-setup/docs/static/dev-setup.png" alt="dotfiles" width="500" />
+  <img src="https://raw.githubusercontent.com/juftin/dotfiles/main/docs/static/dev-setup.png" alt="dotfiles" width="500" />
   <p align="center">
     documentation on how to set up a development environment
     (mostly on <code>macOS</code>)

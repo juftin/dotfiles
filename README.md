@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/juftin/dotfiles">
-    <img src="https://raw.githubusercontent.com/juftin/dotfiles/mac-dev-setup/docs/static/dotfiles.png" alt="dotfiles" width="500" />
+    <img src="https://raw.githubusercontent.com/juftin/dotfiles/main/docs/static/dotfiles.png" alt="dotfiles" width="500" />
   </a>
   <p align="center">
     my personal dotfiles for

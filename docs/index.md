@@ -13,7 +13,7 @@ hide:
 </style>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/juftin/dotfiles/mac-dev-setup/docs/static/dotfiles.png" alt="dotfiles" width="500" />
+  <img src="https://raw.githubusercontent.com/juftin/dotfiles/main/docs/static/dotfiles.png" alt="dotfiles" width="500" />
   <p align="center">
     my personal dotfiles for
     <code>macOS</code>, <code>Linux</code>, <code>zsh</code>,
