@@ -35,6 +35,15 @@ productive and enjoyable:
 
 ### Functions
 
+#### Dotfiles Management
+
+The `dotfiles` command is a wrapper around the `dotfiles` directory and provides
+a number of useful operations:
+
+-   `dotfiles sync`: Sync the dotfiles.
+-   `dotfiles bootstrap`: Bootstrap the dotfiles.
+-   `dotfiles deps`: Install dependencies from Brewfile or Aptfile.
+
 #### Directory Operations
 
 -   `mkcd`: Create a directory and change to it.
@@ -44,16 +53,9 @@ productive and enjoyable:
 
 #### Git Operations
 
--   `dotfiles-git`: Run a git command in the dotfiles directory.
 -   `check`: Checkout a branch.
 -   `git-remove-deleted`: Remove branches that have been deleted.
 -   `git-tree`: Display a tree considering `.gitignore`.
-
-#### Dotfiles Management
-
--   `dotfiles-sync`: Sync the dotfiles.
--   `dotfiles-bootstrap`: Bootstrap the dotfiles.
--   `dotfiles-deps`: Install dependencies from Brewfile or Aptfile.
 
 #### Search Operations
 

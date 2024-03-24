@@ -34,7 +34,7 @@ Install `curl` / `wget` to download the installation script:
 ## Install any missing [dependencies](dependencies.md)
 
 ```shell
-dotfiles-deps
+dotfiles deps
 ```
 
 ## Set `zsh` as the default shell

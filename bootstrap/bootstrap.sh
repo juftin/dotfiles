@@ -111,6 +111,7 @@ DEPENDENCIES=(
 	zsh
 	tar
 	gh
+	make
 )
 
 function install_dependencies() {
@@ -131,6 +132,8 @@ function install_dependencies() {
 			curl
 			zsh
 			tar
+			make
+			gh
 		)
 	else
 		log_event "error" "No package manager detected"

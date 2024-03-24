@@ -10,12 +10,12 @@ respectively.
 
 ## Installation
 
-The `dotfiles-deps` alias will install the right dependencies for
+The `dotfiles deps` command will install the right dependencies for
 the current operating system. See the [macOS](#macos) and [Linux](#linux)
 sections for the manual installation steps.
 
 ```shell
-dotfiles-deps
+dotfiles deps
 ```
 
 ### Linux

@@ -34,7 +34,7 @@ the steps below:
 1. Install any missing dependencies
 
     ```shell
-    apt install -y git curl zsh tar gh
+    apt install -y git curl zsh make tar gh
     ```
 
 2. Clone the repo to `~/.dotfiles`
