@@ -22,7 +22,7 @@ curl -fsSL https://juftin.com/dotfiles/get | bash
 
 When using the installation script, the following steps are taken:
 
-1. Install any missing dependencies (e.g. `git`, `zsh`, `curl`, `tar`, `gh`)
+1. Install any missing dependencies (`git`, `make`, `zsh`, `curl`, `tar`, `gh`)
 2. Clone this project into `~/.dotfiles`
 3. Symbolically link the dotfiles into their proper locations
 
@@ -36,6 +36,6 @@ https://github.com/juftin/dotfiles/assets/49741340/6c04d3aa-8821-41a9-98d4-74e8b
 
 <h2 align="center">Documentation</h2>
 
-Visit the [full documentation](https://juftin.com/dotfiles/) for more information
-on how to use the dotfiles, how to install them manually, and general information
-about how to set up your development environment and get up and running quickly.
+Visit the [documentation](https://juftin.com/dotfiles/) for more information on
+how to install and use the `dotfiles`, and for more details on how to set up
+your dev environment and get up and running quickly.
