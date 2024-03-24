@@ -91,6 +91,26 @@ r() {
 ##########################################################
 
 #############################################
+# ideacd
+# -------------------------------------------
+# Open a directory in the IDE and switch to it
+#############################################
+ideacd() {
+    local dest="$(realpath "${1}")"
+    if [ -z "${dest}" ]; then
+        log_event "error" "Usage: ideacd ${BLUE}<directory>${NO_COLOR}"
+        return 1
+    fi
+    if [[ -d "${dest}" ]]; then
+        idea "${dest}" || return 1
+        cd "${dest}" || return 1
+    else
+        log_event "error" "Directory not found: ${BLUE}${dest}${NO_COLOR}"
+        return 1
+    fi
+}
+
+#############################################
 # mkcd
 # -------------------------------------------
 # Create a directory and change to it
@@ -235,6 +255,7 @@ untar() {
     *.tar.gz | *.tgz) tar -xzf "${tarball}" -C "${output_dir}" ;;
     *.tar) tar -xf "${tarball}" -C "${output_dir}" ;;
     *.zip) unzip -d "${output_dir}" "${tarball}" ;;
+    *.whl) unzip -d "${output_dir}" "${tarball}" ;;
     *)
       log_err "untar unknown archive format for ${tarball}"
       return 1
