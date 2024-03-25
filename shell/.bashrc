@@ -49,6 +49,8 @@ plugins=(
 [[ ! -f ${HOME}/.bashenv ]] || source ${HOME}/.bashenv
 # Aliases
 [[ ! -f ${HOME}/.shell_aliases ]] || source ${HOME}/.shell_aliases
+# Functions
+[[ ! -f ${HOME}/.shell_functions ]] || source ${HOME}/.shell_functions
 
 source "${OSH}/oh-my-bash.sh"
 
