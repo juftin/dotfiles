@@ -88,39 +88,49 @@ a number of useful operations:
 -   [pyenv] for managing Python versions
 -   [pipx] for installing Python CLI tools
 
+### hatch
+
+-   Sensible defaults for `hatch`
+
+??? note "📄 hatch/config.toml"
+
+    ```toml
+    --8<-- "tools/hatch/config.toml"
+    ```
+
 ## git
 
 -   Reasonable settings at `~/.gitconfig`
 -   Reasonable global gitignore at `~/.gitignore`
 -   `gh` ([GitHub CLI]) for git auth and GitHub interactions
 
-<details><summary>📄 .gitconfig</summary>
-<p>
+??? note "📄 .gitconfig"
 
-```shell
---8<-- "git/.gitconfig"
-```
+    ```shell
+    --8<-- "git/.gitconfig"
+    ```
 
-</p>
-</details>
+??? note "📄 .gitignore"
 
-<details><summary>📄 .gitignore</summary>
-<p>
-
-```shell
---8<-- "git/.gitignore"
-```
-
-</p>
-</details>
+    ```shell
+    --8<-- "git/.gitignore"
+    ```
 
 ## Applications and Tools
+
+-   [awsume] is an AWS role management tool configured with `dotfiles`. See the
+    [awsume docs](../dev-setup/aws.md#awsume) in `dev-setup` for more information.
 
 ### macOS
 
 A good number of macOS-specific applications are installed via Homebrew,
 they're enumerated in the `macos/Brewfile` which is documented in the
 [dependencies](../dotfiles/dependencies.md) section.
+
+-   [Hammerspoon](https://www.hammerspoon.org/) - installation of the
+    [hammerspoon-shiftit](https://github.com/peterklijn/hammerspoon-shiftit)
+    plugin which provides window management functionality. See the
+    [shiftit docs](../dev-setup/apps.md#shiftit) in `dev-setup` for more information.
 
 ### Linux
 
@@ -152,3 +162,4 @@ they're enumerated in the `linux/Aptfile` which is documented in the
 [zsh-users/zsh-completions]: https://github.com/zsh-users/zsh-completions
 [zsh-users/zsh-history-substring-search]: https://github.com/zsh-users/zsh-history-substring-search
 [GitHub CLI]: https://cli.github.com/
+[awsume]: https://awsu.me/

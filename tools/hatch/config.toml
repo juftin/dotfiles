@@ -1,0 +1,3 @@
+[dirs.env]
+virtual = ".venv"
+pip-compile = ".venv"

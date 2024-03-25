@@ -319,6 +319,13 @@ function symlink_bin() {
 function symlink_tools() {
 	mkdir -p ${HOME}/.config
 	symlink_item "${DOTFILES_DIR}/tools/direnv" "${HOME}/.config/direnv"
+	symlink_item "${DOTFILES_DIR}/tools/awsume" "${HOME}/.awsume"
+	if [[ $(uname) == "Linux" ]]; then
+		symlink_item "${DOTFILES_DIR}/tools/hatch/config.toml" "${XDG_CONFIG_HOME:-${HOME}/.config}/hatch/config.toml"
+	elif [[ $(uname) == "Darwin" ]]; then
+		symlink_item "${DOTFILES_DIR}/tools/hatch/config.toml" ~/Library/Application\ Support/hatch/config.toml
+		symlink_item "${DOTFILES_DIR}/tools/hammerspoon" "${HOME}/.hammerspoon"
+	fi
 }
 
 function symlink_dotfiles() {
