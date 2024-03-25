@@ -116,6 +116,39 @@ a number of useful operations:
     --8<-- "git/.gitignore"
     ```
 
+## Neovim
+
+[Neovim](https://neovim.io/) is a highly configurable, Vim-based text editor.
+The configuration of Neovim is managed by the `dotfiles` project and is
+configured with the [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
+project template.
+
+??? important "Neovim on Linux"
+
+    Because of how delayed the package managers are on Linux, it is recommended
+    to build Neovim from source to get the latest version. The `dotfiles`
+    project has exposed a simple executable to do this for you:
+
+    ```shell
+    neovim-install
+    ```
+
+    Building Neovim from source requires a number of dependencies, which can be
+    installed manually:
+
+    === "apt-get"
+
+        ```shell
+        apt-get install ninja-build gettext cmake unzip curl build-essential
+        ```
+
+    === "yum (supports direct install)"
+
+        ```shell
+        yum install gcc gcc-c++
+        yum install neovim
+        ```
+
 ## Applications and Tools
 
 -   [awsume] is an AWS role management tool configured with `dotfiles`. See the

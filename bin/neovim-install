@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+TEMP_DIR="$(mktemp -d)/neovim"
+
+git clone --branch stable --depth 1 https://github.com/neovim/neovim "${TEMP_DIR}"
+pushd "${TEMP_DIR}"
+make
+make install
+popd
+rm -rf "${TEMP_DIR}"
