@@ -7,10 +7,12 @@ if [[ ! $PATH == *"${HOME}/.local/bin"* && -d "${HOME}/.local/bin" ]]; then
 	export PATH="$PATH:${HOME}/.local/bin"
 fi
 
-if [[ $(uname -m) == "arm64" && -d /opt/homebrew ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ $(uname -m) == "x86_64" && -d /usr/local ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
+if [[ ${OSTYPE} == "darwin"* ]]; then
+    if [[ $(uname -m) == "arm64" && -d /opt/homebrew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ $(uname -m) == "x86_64" && -d /usr/local ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
 fi
 
 if [[ -d ${HOME}/.pyenv && -z ${PYENV_ROOT} ]]; then
