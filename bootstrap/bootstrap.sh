@@ -322,6 +322,7 @@ function symlink_tools() {
 	mkdir -p ${HOME}/.config
 	symlink_item "${DOTFILES_DIR}/tools/direnv" "${HOME}/.config/direnv"
 	symlink_item "${DOTFILES_DIR}/tools/awsume" "${HOME}/.awsume"
+	symlink_item "${DOTFILES_DIR}/tools/nvim" "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
 	if [[ $(uname) == "Linux" ]]; then
 		symlink_item "${DOTFILES_DIR}/tools/hatch/config.toml" "${XDG_CONFIG_HOME:-${HOME}/.config}/hatch/config.toml"
 	elif [[ $(uname) == "Darwin" ]]; then
