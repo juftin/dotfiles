@@ -255,6 +255,8 @@ function symlink_item() {
 	elif [ -L "${destination}" ]; then
 		log_event "info" "Removing existing symlink ${RED}${destination}${NO_COLOR} 🗑️"
 		rm "${destination}"
+	elif [ ! -d "$(dirname "${destination}")" ]; then
+		mkdir -p "$(dirname "${destination}")"
 	fi
 
 	# if the destination exists and is a file or directory
