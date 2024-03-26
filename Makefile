@@ -10,17 +10,7 @@ bootstrap: ## Initialize the project by running the bootstrap script.
 
 .PHONY: deps
 deps: ## Install dependencies for the project based on the OS.
-ifeq ($(OS),Linux)
-	@echo "Installing packages from Aptfile 📦"
-	$(SHELL) "$(MAKE_DIR)/bin/aptfile" "$(MAKE_DIR)/linux/Aptfile"
-else ifeq ($(OS),Darwin)
-	@echo "Installing packages from Brewfile 📦"
-	brew bundle --file "$(MAKE_DIR)/macos/Brewfile"
-else
-	@echo "Unsupported OS: $(OS)"
-	exit 1
-endif
-	@echo "Dependencies installed successfully 🎉"
+	$(SHELL) "$(MAKE_DIR)/bin/dotfiles-project-deps"
 
 .PHONY: sync
 sync: ## Update the project and its submodules.
@@ -69,13 +59,27 @@ xbrew-cleanup-force: ## Cleanup x86 Homebrew, remove unused packages.
 ##@ pyenv
 
 .PHONY: pyenv-install-all
-pyenv-install-all: ## Install all python versions into pyenv
+pyenv-install-all: ## Install all python versions into pyenv.
 	@echo "Installing all python versions into pyenv 🐍"
 	pyenv install 3.12 3.11 3.10 3.9 3.8 --skip-existing
 	pyenv global 3.11 3.12 3.10 3.9 3.8
 	pyenv rehash
 	@echo "Python versions installed successfully 🎉"
 
+.PHONY: pyenv-compile
+pyenv-compile: ## Compile pyenv bash extension to optimize performance.
+	@echo "Compiling pyenv bash extension to optimize performance 🚀"
+	bash ~/.pyenv/src/configure
+	make -C ~/.pyenv/src
+	@echo "Pyenv bash extension compiled successfully 🎉"
+
+##@ nvim
+
+.PHONY: nvim-build
+nvim-build: ## Build Neovim from source.
+	@echo "Building Neovim from source 🚀"
+	$(MAKE_DIR)/bin/neovim-install
+	@echo "Neovim built successfully 🎉"
 
 ##@ general
 

@@ -34,6 +34,24 @@ bash ~/.dotfiles/bin/aptfile ~/.dotfiles/linux/Aptfile
 </p>
 </details>
 
+??? note "Non-Debian Distributions"
+
+    Not all Linux distributions use `apt-get` as their package manager. If you
+    are using a `dnf` / `yum` based distribution, the dependencies are enumerated
+    in different files.
+
+    ??? note "📄 Yumfile"
+
+        ```shell
+        --8<-- "linux/Yumfile"
+        ```
+
+    ??? note "📄 AmazonLinuxfile"
+
+        ```shell
+        --8<-- "linux/AmazonLinuxfile"
+        ```
+
 ### macOS
 
 ```shell

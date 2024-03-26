@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+REAL_SCRIPT_PATH=$(readlink -f "${0}")
+REAL_DIR=$(dirname "${REAL_SCRIPT_PATH}")
+DOTFILES_DIR=$(dirname "${REAL_DIR}")
+
+echo "Preparing to install dependencies from dotfiles 🚀"
+echo "Inspecting environment... 🕵️"
+
+if [[ ${OSTYPE} == "linux"* ]]; then
+	echo "Linux environment detected ⚙️"
+	DNF_DETECTED="$(command -v dnf 2>/dev/null)"
+	YUM_DETECTED="$(command -v yum 2>/dev/null)"
+	APT_GET_DETECTED="$(command -v apt-get 2>/dev/null)"
+
+	if [[ -n ${DNF_DETECTED} ]]; then
+		echo "dnf detected, installing packages from Yumfile 📦"
+		PACKAGE_MANAGER="dnf"
+	elif [[ -n ${YUM_DETECTED} ]]; then
+		echo "yum detected, installing packages from Yumfile 📦"
+		PACKAGE_MANAGER="yum"
+	elif [[ -n ${APT_GET_DETECTED} ]]; then
+		echo "apt-get detected, installing packages from Aptfile 📦"
+		PACKAGE_MANAGER="apt-get"
+	else
+		echo "dnf/yum/apt-get not detected, exiting ❌"
+		exit 1
+	fi
+elif [[ ${OSTYPE} == "darwin"* ]]; then
+	echo "Mac environment detected ⚙️"
+	BREW_DETECTED="$(command -v brew 2>/dev/null)"
+	if [[ -n ${BREW_DETECTED} ]]; then
+		echo "homebrew detected, installing packages from Brewfile 📦"
+		PACKAGE_MANAGER="brew"
+	else
+		echo "brew not detected, exiting ❌"
+		exit 1
+	fi
+else
+	echo "Unsupported OS detected (${OSTYPE}), exiting ❌"
+	exit 1
+fi
+
+if [[ ${PACKAGE_MANAGER} == "dnf" ]] || [[ ${PACKAGE_MANAGER} == "yum" ]]; then
+	RELEASE_INFO="$(cat /etc/*release* || true)"
+	AMAZONLINUX_DETECTED="$(echo "${RELEASE_INFO}" | grep -i "amazon" || true)"
+	if [[ -n ${AMAZONLINUX_DETECTED} ]]; then
+		echo "Amazon Linux detected, using AmazonLinuxFile 📦"
+		bash "${DOTFILES_DIR}/linux/AmazonLinuxFile"
+	else
+		bash "${DOTFILES_DIR}/linux/Yumfile"
+	fi
+elif [[ ${PACKAGE_MANAGER} == "apt-get" ]]; then
+	bash "${DOTFILES_DIR}/bin/aptfile" "${DOTFILES_DIR}/linux/Aptfile"
+elif [[ ${PACKAGE_MANAGER} == "brew" ]]; then
+	brew bundle --file "${DOTFILES_DIR}/macos/Brewfile"
+fi
+
+echo "Dependencies installed successfully 🎉"

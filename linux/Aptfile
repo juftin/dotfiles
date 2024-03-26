@@ -23,11 +23,9 @@ package "ninja-build"
 ##########################################################
 
 package "direnv"
-package "ffmpeg"
 package "fzf"
 package "gh"
 package "git-lfs"
-package "glances"
 package "grep"
 package "htop"
 package "jq"

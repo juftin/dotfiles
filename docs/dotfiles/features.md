@@ -41,13 +41,39 @@ your terminal experience more productive and enjoyable:
 
 #### Dotfiles Management
 
-The `dotfiles` command is a wrapper around the `dotfiles` directory and provides
+The `dotfiles` command is a wrapper around the `dotfiles` project and provides
 a number of useful operations:
 
--   `dotfiles sync`: Sync the dotfiles.
--   `dotfiles bootstrap`: Bootstrap the dotfiles.
--   `dotfiles deps`: Install dependencies from Brewfile or Aptfile.
--   `dotfiles pyenv-install-all`: Install all Python versions (`3.8` - `3.12`)
+```console
+❯ dotfiles
+Usage:
+  dotfiles <target>
+
+dotfiles
+  bootstrap            Initialize the project by running the bootstrap script.
+  deps                 Install dependencies for the project based on the OS.
+  sync                 Update the project and its submodules.
+
+macOS
+  brew-bundle          Install packages from the Brewfile.
+  brew-cleanup         Cleanup Homebrew, remove unused packages (dry-run).
+  brew-cleanup-force   Cleanup Homebrew, remove unused packages.
+  xbrew-bundle         Install x86 packages from the XBrewfile.
+  xbrew-cleanup        Cleanup x86 Homebrew, remove unused packages (dry-run).
+  xbrew-cleanup-force  Cleanup x86 Homebrew, remove unused packages.
+
+pyenv
+  pyenv-install-all    Install all python versions into pyenv.
+  pyenv-compile        Compile pyenv bash extension to optimize performance.
+
+nvim
+  nvim-build           Build Neovim from source.
+
+general
+  idea                 Open the dotfiles in IntelliJ IDE.
+  version              Show the version of the project.
+  help                 Show this help message and exit.
+```
 
 #### Directory Operations
 
@@ -82,6 +108,13 @@ a number of useful operations:
 
 -   `log_event`: Log an event with a timestamp and a message. Supports different
     levels such as info, error, warning, debug, and critical.
+
+### Executables
+
+-   [aptfile]: Install packages from a file using `apt-get`
+-   [has]: Check if a program exists, and its version
+-   [now]: Get the current date and time
+-   [pacapt]: Universal package manager wrapper
 
 ## Python
 
@@ -125,12 +158,13 @@ project template.
 
 ??? important "Neovim on Linux"
 
-    Because of how delayed the package managers are on Linux, it is recommended
+    Not all linux distributions have the latest version of Neovim available
+    in their package managers. If this is the case, it is recommended
     to build Neovim from source to get the latest version. The `dotfiles`
-    project has exposed a simple executable to do this for you:
+    project has exposed a simple command to do this for you:
 
     ```shell
-    neovim-install
+    dotfiles nvim-build
     ```
 
     Building Neovim from source requires a number of dependencies, which can be
@@ -179,7 +213,7 @@ they're enumerated in the `linux/Aptfile` which is documented in the
 [zdharma-continuum/fast-syntax-highlighting]: https://github.com/zdharma-continuum/fast-syntax-highlighting
 [aliases]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 [pipx]: https://github.com/pypa/pipx
-[pyenv]: https://github.com/yyuu/pyenv
+[pyenv]: https://github.com/pyenv/pyenv
 [ohmyzsh/oh-my-zsh]: https://github.com/ohmyzsh/oh-my-zsh
 [zdharma-continuum/fast-syntax-highlighting]: https://github.com/zdharma-continuum/fast-syntax-highlighting
 [zsh-users/zsh-autosuggestions]: https://github.com/zsh-users/zsh-autosuggestions
@@ -196,3 +230,7 @@ they're enumerated in the `linux/Aptfile` which is documented in the
 [zsh-users/zsh-history-substring-search]: https://github.com/zsh-users/zsh-history-substring-search
 [GitHub CLI]: https://cli.github.com/
 [awsume]: https://awsu.me/
+[aptfile]: https://github.com/seatgeek/bash-aptfile
+[has]: https://github.com/kdabir/has
+[now]: https://github.com/apankrat/now.sh
+[pacapt]: https://github.com/icy/pacapt

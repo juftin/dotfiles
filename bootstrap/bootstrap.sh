@@ -125,16 +125,10 @@ function install_dependencies() {
 		PACKAGE_MANAGER="brew"
 	elif command -v apt &>/dev/null; then
 		PACKAGE_MANAGER="apt"
+	elif command -v dnf &>/dev/null; then
+		PACKAGE_MANAGER="dnf"
 	elif command -v yum &>/dev/null; then
 		PACKAGE_MANAGER="yum"
-		DEPENDENCIES=(
-			git
-			curl
-			zsh
-			tar
-			make
-			gh
-		)
 	else
 		log_event "error" "No package manager detected"
 		exit 1
@@ -173,6 +167,12 @@ function install_dependencies() {
 		spinner || log_event "error" "Failed to install ${PURPLE}${packages_to_install[@]}${NO_COLOR} with ${BLUE}${PACKAGE_MANAGER}${NO_COLOR}"
 	elif [ "${PACKAGE_MANAGER}" == "apt" ]; then
 		apt install -y "${packages_to_install[@]}" &>/dev/null &
+		spinner || log_event "error" "Failed to install ${PURPLE}${packages_to_install[@]}${NO_COLOR} with ${BLUE}${PACKAGE_MANAGER}${NO_COLOR}"
+	elif [ "${PACKAGE_MANAGER}" == "dnf" ]; then
+		dnf install -y "dnf-command(config-manager)" &>/dev/null &&
+			dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo &>/dev/null &
+		spinner
+		dnf install -y "${packages_to_install[@]}" &>/dev/null &
 		spinner || log_event "error" "Failed to install ${PURPLE}${packages_to_install[@]}${NO_COLOR} with ${BLUE}${PACKAGE_MANAGER}${NO_COLOR}"
 	elif [ "${PACKAGE_MANAGER}" == "yum" ]; then
 		yum install -y "${packages_to_install[@]}" &>/dev/null &
@@ -313,9 +313,9 @@ function symlink_misc() {
 function symlink_bin() {
 	symlink_item "${DOTFILES_DIR}/bin/has" "/usr/local/bin/has"
 	symlink_item "${DOTFILES_DIR}/bin/now" "/usr/local/bin/now"
+	symlink_item "${DOTFILES_DIR}/bin/pacapt" "/usr/local/bin/pacapt"
 	if [[ $(uname) == "Linux" ]]; then
 		symlink_item "${DOTFILES_DIR}/bin/aptfile" "/usr/local/bin/aptfile"
-		symlink_item "${DOTFILES_DIR}/bin/neovim-install" "/usr/local/bin/neovim-install"
 	fi
 }
 

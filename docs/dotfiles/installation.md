@@ -83,6 +83,13 @@ the steps below:
     ln -s ~/.dotfiles/git/.gitignore ~/.gitignore
     # BIN
     ls -s ~/.dotfiles/bin/aptfile /usr/local/bin/aptfile
+    ls -s ~/.dotfiles/bin/has /usr/local/bin/has
+    ls -s ~/.dotfiles/bin/now /usr/local/bin/now
+    ls -s ~/.dotfiles/bin/pacapt /usr/local/bin/pacapt
     # TOOLS
     ln -s ~/.dotfiles/tools/direnv ~/.config/direnv
+    ln -s ~/.dotfiles/tools/awsume ~/.awsume
+    ln -s ~/.dotfiles/tools/nvim ~/.config/nvim
+    ln -s ~/.dotfiles/tools/hatch/config.toml ~/.config/hatch/config.toml
+    ln -s ~/.dotfiles/tools/hammerspoon ~/.hammerspoon
     ```
