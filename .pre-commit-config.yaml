@@ -24,3 +24,8 @@ repos:
       rev: v3.8.0-1
       hooks:
           - id: shfmt
+
+    - repo: https://github.com/JohnnyMorganz/StyLua
+      rev: v0.20.0
+      hooks:
+          - id: stylua-github
