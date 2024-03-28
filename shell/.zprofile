@@ -7,10 +7,15 @@ if [[ ! $PATH == *"${HOME}/.local/bin"* && -d "${HOME}/.local/bin" ]]; then
 	export PATH="$PATH:${HOME}/.local/bin"
 fi
 
+_DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f ~/.zprofile)")")"
+if [[ ! $PATH == *"${_DOTFILES_DIR}/bin"* ]]; then
+    export PATH="$PATH:${_DOTFILES_DIR}/bin"
+fi
+
 if [[ ${OSTYPE} == "darwin"* ]]; then
-    if [[ $(uname -m) == "arm64" && -d /opt/homebrew ]]; then
+    if [[ $(uname -m) == "arm64" && -f /opt/homebrew/bin/brew ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
-    elif [[ $(uname -m) == "x86_64" && -d /usr/local ]]; then
+    elif [[ $(uname -m) == "x86_64" && -f /usr/local/bin/brew ]]; then
         eval "$(/usr/local/bin/brew shellenv)"
     fi
 fi

@@ -16,6 +16,11 @@ fi
 
 export EDITOR=nano
 
+_DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f ~/.zshrc)")")"
+if [[ ! $PATH == *"${_DOTFILES_DIR}/bin"* ]]; then
+    export PATH="$PATH:${_DOTFILES_DIR}/bin"
+fi
+
 if [[ ! $PATH == *"${HOME}/.local/bin"* ]]; then
     mkdir -p "${HOME}/.local/bin"
 	export PATH="$PATH:${HOME}/.local/bin"

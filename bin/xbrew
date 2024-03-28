@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ ${OSTYPE} != "darwin"* ]]; then
+	echo "❌ xbrew is only for macOS 🍎"
+	exit 1
+elif [[ $(uname -m) != "arm64" ]]; then
+	echo "❌ xbrew is only for Apple Silicon 🍎"
+	exit 1
+fi
+
+arch -x86_64 /usr/local/bin/brew "$@"

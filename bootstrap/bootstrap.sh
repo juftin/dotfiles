@@ -297,7 +297,7 @@ function symlink_zsh() {
 
 function symlink_bash() {
 	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-bash" "${HOME}/.oh-my-bash"
-	symlink_item "${DOTFILES_DIR}/shell/.profile" "${HOME}/.profile"
+	symlink_item "${DOTFILES_DIR}/shell/.bash_profile" "${HOME}/.bash_profile"
 	symlink_item "${DOTFILES_DIR}/shell/.bashrc" "${HOME}/.bashrc"
 }
 
@@ -308,15 +308,6 @@ function symlink_git() {
 
 function symlink_misc() {
 	symlink_item "${DOTFILES_DIR}/bootstrap/pyenv" "${HOME}/.pyenv"
-}
-
-function symlink_bin() {
-	symlink_item "${DOTFILES_DIR}/bin/has" "/usr/local/bin/has"
-	symlink_item "${DOTFILES_DIR}/bin/now" "/usr/local/bin/now"
-	symlink_item "${DOTFILES_DIR}/bin/pacapt" "/usr/local/bin/pacapt"
-	if [[ $(uname) == "Linux" ]]; then
-		symlink_item "${DOTFILES_DIR}/bin/aptfile" "/usr/local/bin/aptfile"
-	fi
 }
 
 function symlink_tools() {
@@ -338,7 +329,6 @@ function symlink_dotfiles() {
 	symlink_bash
 	symlink_git
 	symlink_misc
-	symlink_bin
 	symlink_tools
 }
 
