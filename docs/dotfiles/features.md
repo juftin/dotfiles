@@ -44,35 +44,8 @@ your terminal experience more productive and enjoyable:
 The `dotfiles` command is a wrapper around the `dotfiles` project and provides
 a number of useful operations:
 
-```console
-❯ dotfiles
-Usage:
-  dotfiles <target>
-
-dotfiles
-  bootstrap            Initialize the project by running the bootstrap script.
-  deps                 Install dependencies for the project based on the OS.
-  sync                 Update the project and its submodules.
-
-macOS
-  brew-bundle          Install packages from the Brewfile.
-  brew-cleanup         Cleanup Homebrew, remove unused packages (dry-run).
-  brew-cleanup-force   Cleanup Homebrew, remove unused packages.
-  xbrew-bundle         Install x86 packages from the XBrewfile.
-  xbrew-cleanup        Cleanup x86 Homebrew, remove unused packages (dry-run).
-  xbrew-cleanup-force  Cleanup x86 Homebrew, remove unused packages.
-
-pyenv
-  pyenv-install-all    Install all python versions into pyenv.
-  pyenv-compile        Compile pyenv bash extension to optimize performance.
-
-nvim
-  nvim-build           Build Neovim from source.
-
-general
-  idea                 Open the dotfiles in IntelliJ IDE.
-  version              Show the version of the project.
-  help                 Show this help message and exit.
+```bash exec="on" result="text" title="dotfiles"
+make | sed 's/\x1b\[[0-9;]*m//g'
 ```
 
 #### Directory Operations

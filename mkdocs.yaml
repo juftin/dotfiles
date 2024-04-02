@@ -89,3 +89,4 @@ plugins:
               - docs/gen_pages.py
     - section-index
     - callouts
+    - markdown-exec
