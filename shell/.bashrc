@@ -3,8 +3,10 @@ if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.bash
 	builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.bash"
 fi
 
+#########################################################################################################
+
 ##########################################################
-##################### ZSH SETTINGS #######################
+#################### BASH SETTINGS #######################
 ##########################################################
 
 export EDITOR=nano
@@ -54,9 +56,35 @@ source "${OSH}/oh-my-bash.sh"
 # Functions
 [[ ! -f ${HOME}/.shell_functions ]] || source ${HOME}/.shell_functions
 
+##########################################################
+############### APP SPECIFIC CONFIGS #####################
+##########################################################
+
+# python
+export PIP_REQUIRE_VIRTUALENV=true
+
+# pyenv
+if [[ -d ${HOME}/.pyenv && -z ${PYENV_ROOT} ]]; then
+	export PYENV_ROOT="${HOME}/.pyenv"
+	export PATH="${PYENV_ROOT}/bin:${PATH}"
+	eval "$(pyenv init -)"
+	export PIPX_DEFAULT_PYTHON=$(pyenv which python) #  pipx
+	alias awsume="source \$(pyenv which awsume)"
+fi
+
+# rust
+[[ ! -f ${HOME}/.cargo/env ]] || source ${HOME}/.cargo/env
+
+# thefuck
+if command -v thefuck &>/dev/null; then
+	eval "$(thefuck --alias)"
+	eval "$(thefuck --alias dang)"
+fi
 if command -v direnv &>/dev/null; then
 	eval "$(direnv hook bash)"
 fi
+
+#########################################################################################################
 
 # CodeWhisperer post block. Keep at the bottom of this file.
 if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.bash" ]]; then

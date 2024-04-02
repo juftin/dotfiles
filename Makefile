@@ -2,7 +2,7 @@ SHELL := /bin/bash
 MAKE_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 OS := $(shell uname -s)
 
-##@ dotfiles
+##@ dotfiles 🚀
 
 .PHONY: bootstrap
 bootstrap: ## Initialize the project by running the bootstrap script.
@@ -18,7 +18,7 @@ sync: ## Update the project and its submodules.
 	git pull --recurse-submodules --jobs=4
 	@echo "Dotfiles synced successfully 🎉"
 
-##@ macOS
+##@ macOS 🍏
 
 .PHONY: brew-bundle
 brew-bundle: ## Install packages from the Brewfile.
@@ -56,7 +56,7 @@ xbrew-cleanup-force: ## Cleanup x86 Homebrew, remove unused packages.
 	xbrew bundle cleanup --force --file "$(MAKE_DIR)/macos/XBrewfile"
 	@echo "x86 Homebrew cleaned up successfully 🎉"
 
-##@ pyenv
+##@ pyenv 🐍
 
 .PHONY: pyenv-install-all
 pyenv-install-all: ## Install all python versions into pyenv.
@@ -73,7 +73,7 @@ pyenv-compile: ## Compile pyenv bash extension to optimize performance.
 	make -C ~/.pyenv/src
 	@echo "Pyenv bash extension compiled successfully 🎉"
 
-##@ nvim
+##@ nvim 🌌
 
 .PHONY: nvim-build
 nvim-build: ## Build Neovim from source.
@@ -81,7 +81,15 @@ nvim-build: ## Build Neovim from source.
 	$(MAKE_DIR)/bin/neovim-install
 	@echo "Neovim built successfully 🎉"
 
-##@ general
+##@ rust 🦀
+
+.PHONY: rust-install
+rust-install: ## Install Rust and its components.
+	@echo "Installing Rust and its components 🦀"
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	@echo "Rust installed successfully 🎉"
+
+##@ general 🌐
 
 .PHONY: version
 version: ## Show the version of the project.

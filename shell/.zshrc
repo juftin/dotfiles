@@ -111,6 +111,9 @@ if [[ -d ${HOME}/.pyenv && -z ${PYENV_ROOT} ]]; then
   alias awsume="source \$(pyenv which awsume)"
 fi
 
+# rust
+[[ ! -f ${HOME}/.cargo/env ]] || source ${HOME}/.cargo/env
+
 # thefuck
 if command -v thefuck &>/dev/null; then
     eval "$(thefuck --alias)"
