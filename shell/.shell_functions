@@ -149,6 +149,27 @@ git-tree() {
     tree -C -I $((cat .gitignore 2> /dev/null || cat $(git rev-parse --show-toplevel 2> /dev/null)/.gitignore 2> /dev/null || echo "node_modules") | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|" | rev | cut -c 2- | rev)
 }
 
+#############################################
+# git-sign-commits
+# -------------------------------------------
+# Sign all commits in the current repository
+#############################################
+git-sign-commits() {
+    local public_key="${1}"
+    if [ -z "${public_key}" ]; then
+        log_event "error" "Usage: git-sign-commits ${BLUE}<public-key>${NO_COLOR}"
+        return 1
+    elif [ ! -f "${public_key}" ]; then
+        log_event "error" "Public key not found: ${BLUE}${public_key}${NO_COLOR}"
+        return 1
+    fi
+    git config --local gpg.format ssh
+    git config --local user.signingkey "${public_key}"
+    git config --local commit.gpgsign true
+    log_event "info" "Commits will be signed with public key: ${BLUE}${public_key}${NO_COLOR}"
+}
+
+
 ##########################################################
 ######################### MISC ###########################
 ##########################################################
