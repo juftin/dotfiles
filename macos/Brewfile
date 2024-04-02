@@ -53,17 +53,25 @@ brew "yq"
 ######################### CASKS ##########################
 ##########################################################
 
+cask "1password"
 cask "caffeine"
 cask "codewhisperer"
 cask "cyberduck"
+cask "devpod"
 cask "docker"
+cask "elgato-stream-deck"
+cask "google-chrome"
 cask "hammerspoon"
 cask "iterm2"
+cask "jetbrains-toolbox"
 cask "lens"
+cask "logi-options-plus"
 cask "ngrok"
+cask "slack"
 cask "spotify"
 cask "syntax-highlight", args: { no_quarantine: true }
 cask "vlc"
+cask "zoom"
 
 ##########################################################
 ######################### FONTS ##########################
