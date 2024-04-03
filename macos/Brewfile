@@ -13,8 +13,6 @@ tap "derailed/k9s"
 ##########################################################
 
 brew "asdf"
-brew "awsume"
-brew "aws-sso-util"
 brew "ca-certificates"
 brew "checkov"
 brew "curl"
