@@ -35,7 +35,6 @@ your terminal experience more productive and enjoyable:
 
 -   `c` - clear the terminal
 -   `ll` - list files in long format
--   `xbrew` - x86 homebrew (macOS only)
 
 ### Functions
 
@@ -88,6 +87,8 @@ make | sed 's/\x1b\[[0-9;]*m//g'
 -   [has]: Check if a program exists, and its version
 -   [now]: Get the current date and time
 -   [pacapt]: Universal package manager wrapper
+-   `pipx-utils`: Additional utilities for `pipx`
+-   `xbrew` - x86 homebrew (macOS only)
 
 ## Python
 

@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+set -e
+
+if ! command -v pipx &>/dev/null; then
+	echo "❌ pipx is not installed. Please install pipx first."
+	exit 1
+fi
+
+function pipx_install() {
+	local PACKAGE="${1}"
+	if [[ ${PACKAGE} == *" @ "* ]]; then
+		local CLEAN_PACKAGE="${PACKAGE%% @ *}"
+	elif [[ ${PACKAGE} == *"["* ]]; then
+		local CLEAN_PACKAGE="${PACKAGE%%[*}"
+	else
+		local CLEAN_PACKAGE="${PACKAGE}"
+	fi
+	pipx upgrade "${CLEAN_PACKAGE}" || pipx install "${PACKAGE}"
+}
+
+function pipx_install_file() {
+	local FILE="${1}"
+	if [ ! -f "${FILE}" ]; then
+		echo "❌ File not found: ${FILE}"
+		exit 1
+	fi
+	while IFS= read -r line; do
+		if [[ ${line} =~ ^[^#]*$ ]] && [[ -n ${line} ]]; then
+			local PACKAGE="${line%%#*}"
+			echo "📦 Installing ${PACKAGE}"
+			pipx_install "${PACKAGE}"
+		fi
+	done <"${FILE}"
+}
+
+PRIMARY_COMMAND="${1}"
+PACKAGE="${2}"
+
+if [ -z "${PRIMARY_COMMAND}" ] && [ -z "${PACKAGE}" ]; then
+	echo "📦 pipx-utils"
+	echo "Usage: pipx-utils <command> <package>"
+	echo ""
+	echo "Commands:"
+	echo "  install <package>     Install or upgrade a package"
+	echo "  install-file <file>   Install or upgrade packages from a file"
+	echo "  uninstall <package>   Uninstall a package"
+	echo "  upgrade <package>     Upgrade a package"
+	echo "  list                  List installed packages"
+	exit 1
+fi
+
+case ${PRIMARY_COMMAND} in
+install)
+	pipx_install "${PACKAGE}"
+	;;
+install-file)
+	pipx_install_file "${PACKAGE}"
+	;;
+uninstall)
+	pipx uninstall "${PACKAGE}"
+	;;
+upgrade)
+	pipx upgrade "${PACKAGE}"
+	;;
+list)
+	pipx list
+	;;
+*)
+	echo "❌ Invalid command. Please use 'install', 'uninstall', 'upgrade', or 'list'."
+	exit 1
+	;;
+esac

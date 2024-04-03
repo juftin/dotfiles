@@ -1,0 +1,21 @@
+browsr[remote]
+camply[all]
+cookiecutter
+dunk
+dvc
+elia-chat @ git+https://github.com/darrenburns/elia
+hatch
+hatch-pip-compile
+httpie
+jupyterlab
+llm
+llm-term
+lunchable[all]
+pdm
+pls
+poetry
+pre-commit
+pyright
+ruff
+ruff-lsp
+uv

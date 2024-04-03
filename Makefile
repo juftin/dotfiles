@@ -56,7 +56,7 @@ xbrew-cleanup-force: ## Cleanup x86 Homebrew, remove unused packages.
 	xbrew bundle cleanup --force --file "$(MAKE_DIR)/macos/XBrewfile"
 	@echo "x86 Homebrew cleaned up successfully 🎉"
 
-##@ pyenv 🐍
+##@ python 🐍
 
 .PHONY: pyenv-install-all
 pyenv-install-all: ## Install all python versions into pyenv.
@@ -72,6 +72,12 @@ pyenv-compile: ## Compile pyenv bash extension to optimize performance.
 	bash ~/.pyenv/src/configure
 	make -C ~/.pyenv/src
 	@echo "Pyenv bash extension compiled successfully 🎉"
+
+.PHONY: pipx-install-all
+pipx-install-all: ## Install pipx packages from PipxFile
+	@echo "Installing pipx packages from PipxFile 📦"
+	$(MAKE_DIR)/bin/pipx-utils install-file "$(MAKE_DIR)/tools/pipx/PipxFile"
+	@echo "pipx packages installed successfully 🎉"
 
 ##@ nvim 🌌
 
