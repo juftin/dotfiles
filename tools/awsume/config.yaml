@@ -1,3 +1,5 @@
 colors: true
 fuzzy-match: true
 role-duration: 43200
+console:
+    browser_command: '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" -incognito "{url}"'
