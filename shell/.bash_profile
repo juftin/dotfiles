@@ -1,6 +1,6 @@
-# CodeWhisperer pre block. Keep at the top of this file.
-if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.bash"
+# Amazon Q pre block. Keep at the top of this file.
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.bash"
 fi
 
 if [[ ! $PATH == *"${HOME}/.local/bin"* && -d "${HOME}/.local/bin" ]]; then
@@ -31,8 +31,8 @@ fi
 # rust
 [[ ! -f ${HOME}/.cargo/env ]] || source ${HOME}/.cargo/env
 
-# CodeWhisperer post block. Keep at the bottom of this file.
-if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.bash"
+# Amazon Q post block. Keep at the bottom of this file.
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.bash"
 fi
-# Fig Ignore
+# Q Ignore

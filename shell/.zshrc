@@ -1,6 +1,6 @@
-# CodeWhisperer pre block. Keep at the top of this file.
-if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]]; then
-  builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
+# Amazon Q pre block. Keep at the top of this file.
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]]; then
+  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -126,8 +126,8 @@ fi
 
 #########################################################################################################
 
-# CodeWhisperer post block. Keep at the bottom of this file.
-if [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]]; then
-  builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
+# Amazon Q post block. Keep at the bottom of this file.
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]]; then
+  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 fi
-# Fig Ignore
+# Q Ignore

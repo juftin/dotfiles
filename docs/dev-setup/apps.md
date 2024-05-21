@@ -95,32 +95,36 @@ eval "$(thefuck --alias dang)"
 
 ![thefuck.gif]
 
-## codewhisperer
+## Amazon Q
 
-Install [codewhisperer] (by AWS)
+Install [Amazon Q] (by AWS)
 
 ```shell
-brew install --cask codewhisperer
+brew install --cask amazon-q
 ```
 
-[codewhisperer] (formerly known as `fig`) adds IDE-style autocomplete
-to your terminal + some AI / LLM magic as well. Using `codewhisperer` requires
+[Amazon Q] (formerly known as `fig`) adds IDE-style autocomplete
+to your terminal + some AI / LLM magic as well. Using `Amazon Q` requires
 a free AWS builder account for personal use.
 
 > NOTE:
 >
-> You must open the `CodeWhisperer` app at least once to set
+> You must open the `Amazon Q` app at least once to set
 > initial permissions and log in before you can use it.
 
--   Disable telemetry and shared data:
+-   Configure some initial settings:
     ```shell
-    cw settings telemetry.enabled false
-    cw settings codeWhisperer.shareCodeWhispererContentWithAWS false
+    q settings app.disableAutoupdates true
+    q settings app.hideMenubarIcon false
+    q settings app.launchOnStartup true
+    q settings autocomplete.disable false
+    q settings codeWhisperer.shareCodeWhispererContentWithAWS false
+    q settings telemetry.enabled false
     ```
 
-![codewhisperer.gif]
+![amazon-q.gif]
 
-![codewhisperer-ai.gif]
+![amazon-q-ai.gif]
 
 ## httpie
 
@@ -214,14 +218,14 @@ brew install --cask htop
 [trash-cli]: https://github.com/sindresorhus/trash-cli
 [Hammerspoon]: https://github.com/Hammerspoon/hammerspoon
 [tmate]: https://tmate.io/
-[codewhisperer]: https://aws.amazon.com/codewhisperer/
+[Amazon Q]: https://aws.amazon.com/q/developer/
 [shiftit.gif]: https://i.imgur.com/aShGnVH.gif
 [shiftit_commands.png]: https://i.imgur.com/9bCHUOS.png
 [dunk.png]: https://i.imgur.com/fe0W8ZI.png
 [docker.png]: https://i.imgur.com/WupmcFh.png
 [quicklook.png]: https://i.imgur.com/hKsvlu9.png
 [thefuck.gif]: https://i.imgur.com/NFJsBBL.gif
-[codewhisperer.gif]: https://i.imgur.com/Ih7mq4O.gif
-[codewhisperer-ai.gif]: https://i.imgur.com/gdkmqYB.gif
+[amazon-q.gif]: https://i.imgur.com/Ih7mq4O.gif
+[amazon-q-ai.gif]: https://i.imgur.com/gdkmqYB.gif
 [httpie.gif]: https://i.imgur.com/79gWQTW.gif
 [tmate.png]: https://i.imgur.com/nt4RUCG.png

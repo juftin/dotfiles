@@ -53,8 +53,8 @@ brew "yq"
 ##########################################################
 
 cask "1password"
+cask "amazon-q"
 cask "caffeine"
-cask "codewhisperer"
 cask "cyberduck"
 cask "devpod"
 cask "docker"
