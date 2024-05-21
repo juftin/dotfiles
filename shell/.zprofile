@@ -36,4 +36,4 @@ fi
 if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]]; then
   builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 fi
-# Q Ignore
+# Fig Ignore

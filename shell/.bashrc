@@ -90,4 +90,4 @@ fi
 if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.bash" ]]; then
 	builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.bash"
 fi
-# Q Ignore
+# Fig Ignore
