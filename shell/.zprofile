@@ -1,6 +1,6 @@
 # Amazon Q pre block. Keep at the top of this file.
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]]; then
-  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zprofile.pre.zsh" ]]; then
+  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zprofile.pre.zsh"
 fi
 
 if [[ ! $PATH == *"${HOME}/.local/bin"* && -d "${HOME}/.local/bin" ]]; then
@@ -33,7 +33,7 @@ fi
 [[ ! -f ${HOME}/.cargo/env ]] || source ${HOME}/.cargo/env
 
 # Amazon Q post block. Keep at the bottom of this file.
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]]; then
-  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zprofile.post.zsh" ]]; then
+  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zprofile.post.zsh"
 fi
 # Fig Ignore

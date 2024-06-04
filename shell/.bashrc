@@ -1,6 +1,6 @@
 # Amazon Q pre block. Keep at the top of this file.
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.bash"
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash"
 fi
 
 #########################################################################################################
@@ -87,7 +87,7 @@ fi
 #########################################################################################################
 
 # Amazon Q post block. Keep at the bottom of this file.
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.bash"
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
 fi
 # Fig Ignore
