@@ -60,9 +60,6 @@ source "${OSH}/oh-my-bash.sh"
 ############### APP SPECIFIC CONFIGS #####################
 ##########################################################
 
-# python
-export PIP_REQUIRE_VIRTUALENV=true
-
 # pyenv
 if [[ -d ${HOME}/.pyenv && -z ${PYENV_ROOT} ]]; then
 	export PYENV_ROOT="${HOME}/.pyenv"
