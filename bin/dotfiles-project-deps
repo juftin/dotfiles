@@ -45,8 +45,8 @@ if [[ ${PACKAGE_MANAGER} == "dnf" ]] || [[ ${PACKAGE_MANAGER} == "yum" ]]; then
 	RELEASE_INFO="$(cat /etc/*release* || true)"
 	AMAZONLINUX_DETECTED="$(echo "${RELEASE_INFO}" | grep -i "amazon" || true)"
 	if [[ -n ${AMAZONLINUX_DETECTED} ]]; then
-		echo "Amazon Linux detected, using AmazonLinuxFile 📦"
-		bash "${DOTFILES_DIR}/linux/AmazonLinuxFile"
+		echo "Amazon Linux detected, using AmazonLinuxfile 📦"
+		bash "${DOTFILES_DIR}/linux/AmazonLinuxfile"
 	else
 		bash "${DOTFILES_DIR}/linux/Yumfile"
 	fi

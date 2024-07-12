@@ -7,19 +7,24 @@ DOTFILES_DIR=$(dirname "${REAL_DIR}")
 echo "Preparing to install AWS CLI 🚀"
 echo "Inspecting environment... 🕵️"
 
+UPDATE=""
+if [[ " $* " == *" --update "* ]]; then
+	UPDATE="--update"
+fi
+
 if [[ ${OSTYPE} == "linux"* ]]; then
 	echo "Linux environment detected ⚙️"
 	if [[ $(uname -m) == "aarch64" ]]; then
 		echo "ARM architecture detected, installing AWS CLI for ARM 🦾"
 		curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
 		unzip awscliv2.zip
-		sudo ./aws/install || ./aws/install
+		sudo ./aws/install || ./aws/install ${UPDATE}
 		rm -rf awscliv2.zip aws
 	else
 		echo "x86 architecture detected, installing AWS CLI for x86 🦾"
 		curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 		unzip awscliv2.zip
-		sudo ./aws/install || ./aws/install
+		sudo ./aws/install || ./aws/install ${UPDATE}
 		rm -rf awscliv2.zip aws
 	fi
 elif [[ ${OSTYPE} == "darwin"* ]]; then

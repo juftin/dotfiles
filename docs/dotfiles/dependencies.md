@@ -5,7 +5,7 @@ file themselves. For macOS, we use a [Homebrew](https://brew.sh/)
 [Brewfile](https://github.com/Homebrew/homebrew-bundle). In Linux,
 an [Aptfile](https://github.com/seatgeek/bash-aptfile) is used.
 
-Thesese files are located in the `dotfiles` directory under `macos` and `linux`,
+These files are located in the `dotfiles` directory under `macos` and `linux`,
 respectively.
 
 ## Installation
