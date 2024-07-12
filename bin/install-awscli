@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+REAL_SCRIPT_PATH=$(readlink -f "${0}")
+REAL_DIR=$(dirname "${REAL_SCRIPT_PATH}")
+DOTFILES_DIR=$(dirname "${REAL_DIR}")
+
+echo "Preparing to install AWS CLI 🚀"
+echo "Inspecting environment... 🕵️"
+
+if [[ ${OSTYPE} == "linux"* ]]; then
+	echo "Linux environment detected ⚙️"
+	if [[ $(uname -m) == "aarch64" ]]; then
+		echo "ARM architecture detected, installing AWS CLI for ARM 🦾"
+		curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+		unzip awscliv2.zip
+		sudo ./aws/install || ./aws/install
+		rm -rf awscliv2.zip aws
+	else
+		echo "x86 architecture detected, installing AWS CLI for x86 🦾"
+		curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+		unzip awscliv2.zip
+		sudo ./aws/install || ./aws/install
+		rm -rf awscliv2.zip aws
+	fi
+elif [[ ${OSTYPE} == "darwin"* ]]; then
+	echo "Mac environment detected ⚙️"
+	curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+	sudo installer -pkg AWSCLIV2.pkg -target /
+	rm -rf AWSCLIV2.pkg
+else
+	echo "Unsupported OS detected (${OSTYPE}), exiting ❌"
+	exit 1
+fi
+
+AWS_CLI_VERSION=$(aws --version 2>&1 | awk '{print $1}' | awk -F'/' '{print $2}')
+
+echo "AWS CLI (${AWS_CLI_VERSION}) installed successfully 🎉"
