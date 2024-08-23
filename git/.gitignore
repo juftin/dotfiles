@@ -171,7 +171,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/ # Javascript Projects
 lib64/
 parts/
 sdist/

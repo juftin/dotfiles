@@ -66,6 +66,7 @@ cask "jetbrains-toolbox"
 cask "lens"
 cask "logi-options-plus"
 cask "ngrok"
+cask "ollama"
 cask "slack"
 cask "spotify"
 cask "syntax-highlight", args: { no_quarantine: true }

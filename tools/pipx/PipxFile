@@ -5,13 +5,13 @@ camply[all]
 cookiecutter
 dunk
 dvc
-elia-chat @ git+https://github.com/darrenburns/elia
+elia-chat
 hatch
 hatch-pip-compile
 httpie
 jupyterlab
 llm
-llm-term
+llm-term[all]
 lunchable[all]
 pdm
 pls
