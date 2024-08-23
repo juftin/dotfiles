@@ -315,6 +315,7 @@ function symlink_tools() {
 	symlink_item "${DOTFILES_DIR}/tools/direnv" "${HOME}/.config/direnv"
 	symlink_item "${DOTFILES_DIR}/tools/awsume" "${HOME}/.awsume"
 	symlink_item "${DOTFILES_DIR}/tools/nvim" "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
+	symlink_item "${DOTFILES_DIR}/tools/cargo/env" "${HOME}/.cargo/env"
 	if [[ $(uname) == "Linux" ]]; then
 		symlink_item "${DOTFILES_DIR}/tools/hatch/config.toml" "${XDG_CONFIG_HOME:-${HOME}/.config}/hatch/config.toml"
 	elif [[ $(uname) == "Darwin" ]]; then

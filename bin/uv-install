@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+if ! command -v uv &>/dev/null; then
+	echo "Installing uv binary 📦"
+	curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --no-modify-path
+else
+	echo "Updating uv binary 📦"
+	uv self update
+fi

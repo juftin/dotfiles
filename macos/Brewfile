@@ -13,6 +13,7 @@ tap "derailed/k9s"
 ##########################################################
 
 brew "asdf"
+brew "bat"
 brew "ca-certificates"
 brew "checkov"
 brew "curl"

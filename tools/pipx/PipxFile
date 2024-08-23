@@ -20,4 +20,3 @@ pre-commit
 pyright
 ruff
 ruff-lsp
-uv
