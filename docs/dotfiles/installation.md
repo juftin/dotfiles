@@ -90,6 +90,7 @@ the steps below:
     ln -s ~/.dotfiles/tools/direnv ~/.config/direnv
     ln -s ~/.dotfiles/tools/awsume ~/.awsume
     ln -s ~/.dotfiles/tools/nvim ~/.config/nvim
+    ln -s ~/.dotfiles/tools/cargo/env ~/.cargo/env
     ln -s ~/.dotfiles/tools/hatch/config.toml ~/.config/hatch/config.toml
     ln -s ~/.dotfiles/tools/hammerspoon ~/.hammerspoon
     ```
