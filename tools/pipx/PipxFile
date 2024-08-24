@@ -10,6 +10,7 @@ hatch
 hatch-pip-compile
 httpie
 jupyterlab
+ipython
 llm
 llm-term[all]
 lunchable[all]
@@ -18,5 +19,6 @@ pls
 poetry
 pre-commit
 pyright
+rich-cli
 ruff
-ruff-lsp
+toolong
