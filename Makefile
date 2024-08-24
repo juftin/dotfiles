@@ -79,6 +79,10 @@ pipx-install-all: ## Install pipx packages from PipxFile
 	$(MAKE_DIR)/bin/pipx-utils install-file "$(MAKE_DIR)/tools/pipx/PipxFile"
 	@echo "pipx packages installed successfully 🎉"
 
+.PHONY: uv-install
+uv-install: ## Install uv Python manager.
+	$(MAKE_DIR)/bin/uv-install
+
 ##@ nvim 🌌
 
 .PHONY: nvim-build
@@ -91,9 +95,7 @@ nvim-build: ## Build Neovim from source.
 
 .PHONY: rust-install
 rust-install: ## Install Rust and its components.
-	@echo "Installing Rust and its components 🦀"
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-	@echo "Rust installed successfully 🎉"
+	$(MAKE_DIR)/bin/rust-install
 
 ##@ general 🌐
 
