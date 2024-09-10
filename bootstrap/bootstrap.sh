@@ -319,8 +319,10 @@ function symlink_tools() {
 	symlink_item "${DOTFILES_DIR}/tools/cargo/env" "${HOME}/.cargo/env"
 	if [[ $(uname) == "Linux" ]]; then
 		symlink_item "${DOTFILES_DIR}/tools/hatch/config.toml" "${XDG_CONFIG_HOME:-${HOME}/.config}/hatch/config.toml"
+		symlink_item "${DOTFILES_DIR}/tools/poetry/config.toml" "${XDG_CONFIG_HOME:-${HOME}/.config}/pypoetry/config.toml"
 	elif [[ $(uname) == "Darwin" ]]; then
 		symlink_item "${DOTFILES_DIR}/tools/hatch/config.toml" ~/Library/Application\ Support/hatch/config.toml
+		symlink_item "${DOTFILES_DIR}/tools/poetry/config.toml" ~/Library/Application\ Support/pypoetry/config.toml
 		symlink_item "${DOTFILES_DIR}/tools/hammerspoon" "${HOME}/.hammerspoon"
 	fi
 }
