@@ -1,6 +1,7 @@
 [user]
 	name = Justin Flannery
-	email = justin.flannery@juftin.com
+	email = justin.flannery@smarterdx.com
+	signingkey = ~/.ssh/id_ed25519
 [init]
 	defaultBranch = main
 [pull]
@@ -22,3 +23,7 @@
 [credential "https://gist.github.com"]
 	helper =
 	helper = !gh auth git-credential
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
