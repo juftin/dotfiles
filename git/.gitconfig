@@ -1,5 +1,5 @@
 [user]
-	name = juftin
+	name = Justin Flannery
 	email = justin.flannery@juftin.com
 [init]
 	defaultBranch = main
@@ -17,8 +17,6 @@
 	required = true
 	clean = git-lfs clean -- %f
 [credential "https://github.com"]
-	helper =
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
-	helper =
 	helper = !gh auth git-credential

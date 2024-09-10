@@ -66,12 +66,12 @@ function install_from_github() {
 	if [[ ! -d ${target} ]]; then
 		if [[ -n ${branch} ]]; then
 			log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} (${ORANGE}${branch}${NO_COLOR}) from GitHub: ${GREEN}${target}${NO_COLOR} 🗂️"
-			git clone -q --depth=1 --branch=${branch} https://github.com/${repo}.git ${target} &&
+			git clone -q --branch=${branch} https://github.com/${repo}.git ${target} &&
 				log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
 				log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"
 		else
 			log_event "info" "Cloning ${PURPLE}${repo}${NO_COLOR} from GitHub: ${GREEN}${target}${NO_COLOR} 🗂️"
-			git clone -q --depth=1 https://github.com/${repo}.git ${target} &&
+			git clone -q https://github.com/${repo}.git ${target} &&
 				log_event "info" "Installation of ${PURPLE}${repo}${NO_COLOR} successful 📪" ||
 				log_event "error" "Installation of ${PURPLE}${repo}${NO_COLOR} failed 🚫"
 		fi
@@ -96,7 +96,7 @@ function init_submodules() {
 	log_event "info" "Cloning tools from GitHub 🔄"
 	git -C "${DOTFILES_DIR}/bootstrap" submodule sync --quiet --recursive &
 	spinner
-	git -C "${DOTFILES_DIR}" submodule update --init --recursive --depth 1 --jobs 4 &>/dev/null &
+	git -C "${DOTFILES_DIR}" submodule update --init --recursive --jobs 4 &>/dev/null &
 	spinner
 	log_event "info" "Cloned tools initialized ✅"
 }
@@ -299,6 +299,7 @@ function symlink_bash() {
 	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-bash" "${HOME}/.oh-my-bash"
 	symlink_item "${DOTFILES_DIR}/shell/.bash_profile" "${HOME}/.bash_profile"
 	symlink_item "${DOTFILES_DIR}/shell/.bashrc" "${HOME}/.bashrc"
+	symlink_item "${DOTFILES_DIR}/shell/.profile" "${HOME}/.profile"
 }
 
 function symlink_git() {

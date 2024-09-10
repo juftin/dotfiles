@@ -121,12 +121,12 @@ on Apple Silicon Macs. Any x86 specific dependencies will be installed via the `
 
 This project uses [pipx](https://github.com/pypa/pipx) to install Python CLI
 tools globally. It also includes a `pipx-utils` executable to help manage these
-tools on a single `PipxFile`:
+tools on a single `PipFile`:
 
 === "pipx-utils"
 
     ```shell
-    pipx-utils install-file ~/.dotfiles/python/PipxFile
+    pipx-utils install-file ~/.dotfiles/python/PipFile
     ```
 
 === "dotfiles"
@@ -135,11 +135,11 @@ tools on a single `PipxFile`:
     dotfiles pipx-install-all
     ```
 
-<details><summary>📄 PipxFile</summary>
+<details><summary>📄 PipFile</summary>
 <p>
 
 ```shell
---8<-- "tools/pipx/PipxFile"
+--8<-- "tools/pipx/PipFile"
 ```
 
 </p>

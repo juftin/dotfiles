@@ -62,7 +62,7 @@ xbrew-cleanup-force: ## Cleanup x86 Homebrew, remove unused packages.
 pyenv-install-all: ## Install all python versions into pyenv.
 	@echo "Installing all python versions into pyenv 🐍"
 	pyenv install 3.12 3.11 3.10 3.9 3.8 --skip-existing
-	pyenv global 3.11 3.12 3.10 3.9 3.8
+	pyenv global 3.12 3.11 3.10 3.9 3.8
 	pyenv rehash
 	@echo "Python versions installed successfully 🎉"
 
@@ -74,10 +74,10 @@ pyenv-compile: ## Compile pyenv bash extension to optimize performance.
 	@echo "Pyenv bash extension compiled successfully 🎉"
 
 .PHONY: pipx-install-all
-pipx-install-all: ## Install pipx packages from PipxFile
-	@echo "Installing pipx packages from PipxFile 📦"
-	$(MAKE_DIR)/bin/pipx-utils install-file "$(MAKE_DIR)/tools/pipx/PipxFile"
-	@echo "pipx packages installed successfully 🎉"
+pipx-install-all: ## Install Python CLI packages from PipFile
+	@echo "Installing Python packages from PipFile 📦"
+	$(MAKE_DIR)/bin/pipx-utils install-file "$(MAKE_DIR)/tools/pipx/PipFile"
+	@echo "Python packages installed successfully 🎉"
 
 .PHONY: uv-install
 uv-install: ## Install uv Python manager.
