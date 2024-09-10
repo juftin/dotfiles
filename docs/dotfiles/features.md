@@ -51,6 +51,7 @@ make | sed 's/\x1b\[[0-9;]*m//g'
 
 -   `mkcd`: Create a directory and change to it.
 -   `mktmpdir`: Create a temporary directory.
+-   `mkcdtmp`: Create a temporary directory and change to it.
 -   `ideacd`: Open a directory in the IDE and switch to it.
 -   `runin`: Run command in another directory and return.
 

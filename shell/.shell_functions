@@ -77,9 +77,28 @@ mkcd() {
 # Create a temporary directory
 #############################################
 mktmpdir() {
-  test -z "$TMPDIR" && TMPDIR="$(mktemp -d)"
-  mkdir -p "${TMPDIR}"
-  echo "${TMPDIR}"
+    if [[ -f /usr/share/dict/words ]]; then
+      RANDOM_WORD_1=$(shuf -n 1 /usr/share/dict/words | tr '[:upper:]' '[:lower:]')
+      RANDOM_WORD_2=$(shuf -n 1 /usr/share/dict/words | tr '[:upper:]' '[:lower:]')
+      RANDOM_CHARS="${RANDOM_WORD_1}-${RANDOM_WORD_2}"
+    else
+      RANDOM_CHARS=$(date +%s.%N | sha256sum | base64 | tr -dc 'a-z' | head -c 20)
+    fi
+    DATE_STRING=$(date +%Y%m%d)
+    NEW_TEMP_DIR="/tmp/${DATE_STRING}/${RANDOM_CHARS}"
+    mkdir -p "${NEW_TEMP_DIR}"
+    echo "${NEW_TEMP_DIR}"
+}
+
+#############################################
+# mkcdtmp
+# -------------------------------------------
+# Create a temporary directory and cd into it
+#############################################
+mkcdtmp() {
+    NEW_TEMP_DIR="$(mktmpdir)"
+    echo "${NEW_TEMP_DIR}"
+    cd "${NEW_TEMP_DIR}"
 }
 
 #############################################
