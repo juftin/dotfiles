@@ -129,6 +129,15 @@ function install_dependencies() {
 		PACKAGE_MANAGER="dnf"
 	elif command -v yum &>/dev/null; then
 		PACKAGE_MANAGER="yum"
+	elif command -v pacman &>/dev/null; then
+		PACKAGE_MANAGER="pacman"
+		local DEPENDENCIES=(
+			git
+			curl
+			zsh
+			tar
+			make
+		)
 	else
 		log_event "error" "No package manager detected"
 		exit 1
@@ -176,6 +185,10 @@ function install_dependencies() {
 		spinner || log_event "error" "Failed to install ${PURPLE}${packages_to_install[@]}${NO_COLOR} with ${BLUE}${PACKAGE_MANAGER}${NO_COLOR}"
 	elif [ "${PACKAGE_MANAGER}" == "yum" ]; then
 		yum install -y "${packages_to_install[@]}" &>/dev/null &
+		spinner || log_event "error" "Failed to install ${PURPLE}${packages_to_install[@]}${NO_COLOR} with ${BLUE}${PACKAGE_MANAGER}${NO_COLOR}"
+	elif [ "${PACKAGE_MANAGER}" == "pacman" ]; then
+		pacman -Syu &>/dev/null &
+		pacman --sync --refresh --noconfirm "${packages_to_install[@]}" &>/dev/null &
 		spinner || log_event "error" "Failed to install ${PURPLE}${packages_to_install[@]}${NO_COLOR} with ${BLUE}${PACKAGE_MANAGER}${NO_COLOR}"
 	fi
 }
