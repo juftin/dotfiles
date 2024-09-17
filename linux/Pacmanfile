@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -e
+
+LINUX_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(dirname "${LINUX_DIR}")"
+
+if command -v pacman &>/dev/null; then
+    PACKAGE_MANAGER="pacman"
+else
+    echo "pacman not detected, exiting ❌"
+    exit 1
+fi
+
+##########################################################
+########################## CORE ##########################
+##########################################################
+
+${PACKAGE_MANAGER} -Syu --noconfirm \
+    dialog \
+    git \
+    curl \
+    wget \
+    gettext \
+    cmake \
+    unzip
+
+###########################################################
+######################## UTILITIES ########################
+###########################################################
+
+${PACKAGE_MANAGER} -Syu --noconfirm \
+    bat \
+    direnv \
+    fzf \
+    github-cli \
+    git-lfs \
+    grep \
+    htop \
+    jq \
+    make \
+    nano \
+    python-pipx \
+    ripgrep \
+    tree \
+    neovim
+
+##########################################################
+#################### PYTHON + PYENV ######################
+##########################################################
+
+${PACKAGE_MANAGER} -Syu --noconfirm \
+    gcc \
+    make \
+    patch \
+    zlib \
+    bzip2 \
+    bzip2 \
+    readline \
+    sqlite \
+    sqlite \
+    openssl \
+    tk \
+    libffi \
+    xz

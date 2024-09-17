@@ -12,6 +12,7 @@ if [[ ${OSTYPE} == "linux"* ]]; then
 	DNF_DETECTED="$(command -v dnf 2>/dev/null)"
 	YUM_DETECTED="$(command -v yum 2>/dev/null)"
 	APT_GET_DETECTED="$(command -v apt-get 2>/dev/null)"
+	PACMAN_DETECTED="$(command -v pacman 2>/dev/null)"
 
 	if [[ -n ${DNF_DETECTED} ]]; then
 		echo "dnf detected, installing packages from Yumfile 📦"
@@ -22,6 +23,9 @@ if [[ ${OSTYPE} == "linux"* ]]; then
 	elif [[ -n ${APT_GET_DETECTED} ]]; then
 		echo "apt-get detected, installing packages from Aptfile 📦"
 		PACKAGE_MANAGER="apt-get"
+	elif [[ -n ${PACMAN_DETECTED} ]]; then
+		echo "pacman detected, installing packages from Pacmanfile 📦"
+		PACKAGE_MANAGER="pacman"
 	else
 		echo "dnf/yum/apt-get not detected, exiting ❌"
 		exit 1
@@ -54,6 +58,8 @@ elif [[ ${PACKAGE_MANAGER} == "apt-get" ]]; then
 	bash "${DOTFILES_DIR}/bin/aptfile" "${DOTFILES_DIR}/linux/Aptfile"
 elif [[ ${PACKAGE_MANAGER} == "brew" ]]; then
 	brew bundle --file "${DOTFILES_DIR}/macos/Brewfile"
+elif [[ ${PACKAGE_MANAGER} == "pacman" ]]; then
+	bash "${DOTFILES_DIR}/linux/Pacmanfile"
 fi
 
 echo "Dependencies installed successfully 🎉"
