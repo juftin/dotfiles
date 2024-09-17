@@ -4,7 +4,7 @@ set -e
 
 if ! command -v rustup &>/dev/null; then
 	echo "Installing Rust and its components 🦀"
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 	echo "Rust installed successfully 🎉"
 else
 	echo "Rust is already installed, updating components 🦀"

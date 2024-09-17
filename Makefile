@@ -119,6 +119,16 @@ fmt:
 docs:
 	hatch run docs:serve --livereload
 
+# Build the Docker Image
+.PHONY: docker-build
+docker-build:
+	docker build -t juftin/juftin:latest .
+
+# Run the Docker Image
+.PHONY: docker-run
+docker-run:
+	docker run --rm -it --env TERM --env COLORTERM juftin/juftin:latest
+
 .DEFAULT_GOAL := help
 .PHONY: help
 help: ## Show this help message and exit.
