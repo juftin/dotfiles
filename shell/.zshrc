@@ -90,11 +90,13 @@ setopt inc_append_history       # Add commands to the history file immediately.
 ##########################################################
 
 # Environment Variables
+[[ ! -f ${HOME}/.shell_vars ]] || source ${HOME}/.shell_vars
 [[ ! -f ${HOME}/.zshenv ]] || source ${HOME}/.zshenv
 # Aliases
 [[ ! -f ${HOME}/.shell_aliases ]] || source ${HOME}/.shell_aliases
-[[ ! -f ${HOME}/.shell_functions ]] || source ${HOME}/.shell_functions
 [[ ! -f ${HOME}/.zsh_aliases ]] || source ${HOME}/.zsh_aliases
+# Functions
+[[ ! -f ${HOME}/.shell_functions ]] || source ${HOME}/.shell_functions
 
 ##########################################################
 ############### APP SPECIFIC CONFIGS #####################

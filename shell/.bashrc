@@ -50,6 +50,7 @@ plugins=(
 source "${OSH}/oh-my-bash.sh"
 
 # Environment Variables
+[[ ! -f ${HOME}/.shell_vars ]] || source ${HOME}/.shell_vars
 [[ ! -f ${HOME}/.bashenv ]] || source ${HOME}/.bashenv
 # Aliases
 [[ ! -f ${HOME}/.shell_aliases ]] || source ${HOME}/.shell_aliases

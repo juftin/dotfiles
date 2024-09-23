@@ -265,12 +265,15 @@ untar() {
 # Login to AWS ECR
 #############################################
 aws-docker-login() {
+    log_event "info" "Logging into AWS ECR..."
 	AWS_DOCKER_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 	aws ecr get-login-password \
 		--region us-east-1 |
 		docker login \
 			--username AWS \
-			--password-stdin ${AWS_DOCKER_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+			--password-stdin ${AWS_DOCKER_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com \
+            > /dev/null
+    log_event "info" "AWS ECR Authentication Successful."
 }
 
 ##########################################################
