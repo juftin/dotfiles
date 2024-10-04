@@ -4,6 +4,8 @@
 
 tap "homebrew/bundle"
 tap "homebrew/services"
+tap "hashicorp/tap"
+tap "go-task/tap"
 
 ##########################################################
 ####################### UTILITIES ########################
@@ -40,7 +42,7 @@ brew "openjdk"
 brew "pipx"
 brew "ripgrep"
 brew "sops"
-brew "terraform"
+brew "hashicorp/tap/terraform"
 brew "terragrunt"
 brew "thefuck"
 brew "tree"

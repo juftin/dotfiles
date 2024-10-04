@@ -26,9 +26,6 @@ if [[ ! $PATH == *"${HOME}/.local/bin"* ]]; then
 	export PATH="$PATH:${HOME}/.local/bin"
 fi
 
-# disable autocd
-unsetopt autocd
-
 # source the `.zshrc` file
 function sync() {
 	log_event info "Syncing ZSH Configuration..."
@@ -123,6 +120,9 @@ fi
 if command -v direnv &>/dev/null; then
     eval "$(direnv hook zsh)"
 fi
+
+# disable autocd
+unsetopt autocd
 
 #########################################################################################################
 
