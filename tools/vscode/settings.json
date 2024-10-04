@@ -1,0 +1,51 @@
+{
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+    "editor.accessibilitySupport": "off",
+    "editor.fontSize": 14,
+    "editor.lineHeight": 1.5,
+    "explorer.confirmDelete": false,
+    "explorer.fileNesting.enabled": true,
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.coverage*": true,
+        "**/.git": true,
+        "**/.idea": true,
+        "**/.mypy_cache": true,
+        "**/.pytest_cache": true,
+        "**/.ruff_cache": true,
+        "**/.tox": true,
+        "**/.venv": true,
+        "**/__pycache__": true,
+        "**/coverage.xml": true,
+        "htmlcov": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "github.copilot.editor.enableAutoCompletions": true,
+    "python.testing.pytestArgs": ["."],
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/.venv": true
+    },
+    "settingsSync.ignoredExtensions": [],
+    "snowflake.connectionsConfigFile": "~/.snowflake/connections.toml",
+    "terminal.integrated.env.osx": {
+        "CW_NEW_SESSION": "1",
+        "FIG_NEW_SESSION": "1",
+        "Q_NEW_SESSION": "1"
+    },
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.fontSize": 15,
+    "terminal.integrated.fontWeight": 500,
+    "terminal.integrated.lineHeight": 1.2,
+    "terminal.integrated.shellIntegration.enabled": true,
+    "window.zoomLevel": 0.5
+}
