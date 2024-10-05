@@ -5,6 +5,9 @@
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
+    "[yaml]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "editor.accessibilitySupport": "off",
     "editor.fontSize": 14,
     "editor.lineHeight": 1.5,
@@ -25,9 +28,16 @@
         "**/coverage.xml": true,
         "htmlcov": true
     },
-    "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
     "github.copilot.editor.enableAutoCompletions": true,
+    "github.copilot.enable": {
+        "*": true,
+        "markdown": true,
+        "plaintext": true,
+        "scminput": true
+    },
+    "github.experimental.multipleAccounts": true,
     "python.testing.pytestArgs": ["."],
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,

@@ -73,6 +73,12 @@ fi
 # rust
 [[ ! -f ${HOME}/.cargo/env ]] || source ${HOME}/.cargo/env
 
+# go
+GOBIN="${GOBIN:-${HOME}/go/bin}"
+if [[ -d ${GOBIN} && $PATH != *"${GOBIN}"* ]]; then
+	export PATH="${GOBIN}:${PATH}"
+fi
+
 # thefuck
 if command -v thefuck &>/dev/null; then
 	eval "$(thefuck --alias)"

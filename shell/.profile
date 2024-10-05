@@ -32,6 +32,12 @@ fi
 # rust
 [[ ! -f ${HOME}/.cargo/env ]] || source ${HOME}/.cargo/env
 
+# go
+GOBIN="${GOBIN:-${HOME}/go/bin}"
+if [[ -d ${GOBIN} && ! $PATH == *"${GOBIN}"* ]]; then
+    export PATH="${GOBIN}:${PATH}"
+fi
+
 # Amazon Q post block. Keep at the bottom of this file.
 if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/profile.post.zsh" ]]; then
   builtin source "${HOME}/Library/Application Support/amazon-q/shell/profile.post.zsh"
