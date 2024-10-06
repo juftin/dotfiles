@@ -22,6 +22,8 @@
         "**/.mypy_cache": true,
         "**/.pytest_cache": true,
         "**/.ruff_cache": true,
+        "**/.terraform": true,
+        "**/.terragrunt-cache": true,
         "**/.tox": true,
         "**/.venv": true,
         "**/__pycache__": true,
@@ -30,6 +32,7 @@
     },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
+    "git.autofetch": true,
     "github.copilot.editor.enableAutoCompletions": true,
     "github.copilot.enable": {
         "*": true,
@@ -42,17 +45,18 @@
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "search.exclude": {
-        "**/node_modules": true,
-        "**/.venv": true
+        "**/.venv": true,
+        "**/node_modules": true
     },
     "settingsSync.ignoredExtensions": [],
     "snowflake.connectionsConfigFile": "~/.snowflake/connections.toml",
     "terminal.integrated.env.osx": {
         "CW_NEW_SESSION": "1",
+        "DIRENV_LOG_FORMAT": "",
         "FIG_NEW_SESSION": "1",
         "Q_NEW_SESSION": "1"
     },
-    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.fontFamily": "MesloLGS Nerd Font",
     "terminal.integrated.fontSize": 15,
     "terminal.integrated.fontWeight": 500,
     "terminal.integrated.lineHeight": 1.2,
