@@ -1,11 +1,11 @@
-# Amazon Q pre block. Keep at the top of this file.
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]]; then
-  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-fi
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-${HOME}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-${HOME}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Amazon Q pre block. Keep at the top of this file.
+if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]]; then
+  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 fi
 
 #########################################################################################################
@@ -46,7 +46,6 @@ plugins=(
     docker
     asdf
     web-search
-    nvm
     z
     fast-syntax-highlighting
     zsh-autosuggestions
