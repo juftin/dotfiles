@@ -24,6 +24,7 @@ RUN ${DOTFILES_DIR}/bootstrap/pyenv/bin/pyenv global system
 RUN ${DOTFILES_DIR}/bootstrap/pyenv/bin/pyenv rehash
 RUN make -C ${HOME}/.dotfiles uv-install
 RUN make -C ${HOME}/.dotfiles nvim-build
+RUN ${DOTFILES_DIR}/bin/install-awscli
 
 RUN pipx install "browsr[all]"
 

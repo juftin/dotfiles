@@ -14,19 +14,10 @@ fi
 
 if [[ ${OSTYPE} == "linux"* ]]; then
 	echo "Linux environment detected ⚙️"
-	if [[ $(uname -m) == "aarch64" ]]; then
-		echo "ARM architecture detected, installing AWS CLI for ARM 🦾"
-		curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
-		unzip awscliv2.zip
-		sudo ./aws/install || ./aws/install ${UPDATE}
-		rm -rf awscliv2.zip aws
-	else
-		echo "x86 architecture detected, installing AWS CLI for x86 🦾"
-		curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-		unzip awscliv2.zip
-		sudo ./aws/install || ./aws/install ${UPDATE}
-		rm -rf awscliv2.zip aws
-	fi
+	curl "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" -o "awscliv2.zip"
+	unzip awscliv2.zip
+	sudo ./aws/install || ./aws/install ${UPDATE}
+	rm -rf awscliv2.zip aws
 elif [[ ${OSTYPE} == "darwin"* ]]; then
 	echo "Mac environment detected ⚙️"
 	curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
