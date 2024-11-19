@@ -10,13 +10,15 @@
 [core]
 	excludesfile = ~/.gitignore
 [alias]
-	dunk = !git diff HEAD | dunk | less -R
+	dunk = !git add --all --intent-to-add && git diff HEAD | dunk | less -R --mouse --wheel-lines=3
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
 [credential "https://github.com"]
+	helper =
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
+	helper =
 	helper = !gh auth git-credential

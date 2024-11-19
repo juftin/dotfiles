@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+if [ $# -lt 1 ]; then
+	echo -e "${GREEN}Usage:${NC} ${BLUE}docker-run <IMAGE> [<DOCKER-ARGS>] -- <COMMAND>${NC}"
+	exit 1
+fi
+
+IMAGE="${1}"
+shift
+
+DOCKER_ARGS=()
+COMMAND=()
+
+DOCKER_ARGS+=(
+	"--rm"
+	"-it"
+	"--env" "TERM=xterm-256color"
+	"--env" "COLORTERM=truecolor"
+	"--volume" "${PWD}:/work/${PWD##*/}"
+	"--workdir" "/work/${PWD##*/}"
+)
+
+PARSING_COMMAND=false
+while [ $# -gt 0 ]; do
+	if [ "$1" = "--" ]; then
+		PARSING_COMMAND=true
+		shift
+		continue
+	fi
+	if [ "$PARSING_COMMAND" = true ]; then
+		COMMAND+=("$1")
+	else
+		DOCKER_ARGS+=("$1")
+	fi
+	shift
+done
+
+if [ ${#COMMAND[@]} -eq 0 ]; then
+	DOCKER_RUN_COMMAND="docker run ${DOCKER_ARGS[*]} ${IMAGE}"
+else
+	DOCKER_RUN_COMMAND="docker run ${DOCKER_ARGS[*]} ${IMAGE} ${COMMAND[*]}"
+fi
+
+echo -e "${GREEN}Docker Command:${NC} ${BLUE}${DOCKER_RUN_COMMAND}${NC}"
+eval "${DOCKER_RUN_COMMAND}"
