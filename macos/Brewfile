@@ -16,6 +16,7 @@ brew "asdf"
 brew "bat"
 brew "ca-certificates"
 brew "checkov"
+brew "coreutils"
 brew "curl"
 brew "direnv"
 brew "ffmpeg"
@@ -57,34 +58,35 @@ brew "yq"
 ######################### CASKS ##########################
 ##########################################################
 
-cask "1password"
-cask "amazon-q"
-cask "caffeine"
-cask "cyberduck"
-cask "docker"
-cask "elgato-stream-deck"
-cask "github"
-cask "google-chrome"
-cask "hammerspoon"
-cask "iterm2"
-cask "jetbrains-toolbox"
-cask "lens"
-cask "logi-options+"
-cask "ollama"
-cask "slack"
-cask "sourcetree"
-cask "spotify"
-cask "syntax-highlight", args: { no_quarantine: true }
-cask "visual-studio-code"
-cask "vlc"
-cask "zoom"
+cask "1password", greedy: true
+cask "amazon-q", greedy: true
+cask "caffeine", greedy: true
+cask "cyberduck", greedy: true
+cask "docker", greedy: true
+cask "elgato-stream-deck", greedy: true
+cask "ghostty", greedy: true
+cask "github", greedy: true
+cask "google-chrome", greedy: true
+cask "hammerspoon", greedy: true
+cask "iterm2", greedy: true
+cask "jetbrains-toolbox", greedy: true
+cask "lens", greedy: true
+cask "logi-options+", greedy: true
+cask "ollama", greedy: true
+cask "slack", greedy: true
+cask "sourcetree", greedy: true
+cask "spotify", greedy: true
+cask "syntax-highlight", greedy: true, args: { no_quarantine: true }
+cask "visual-studio-code", greedy: true
+cask "vlc", greedy: true
+cask "zoom", greedy: true
 
 ##########################################################
 ######################### FONTS ##########################
 ##########################################################
 
-cask "font-fontawesome"
-cask "font-meslo-lg-nerd-font"
+cask "font-fontawesome", greedy: true
+cask "font-meslo-lg-nerd-font", greedy: true
 
 ##########################################################
 #################### PYTHON + PYENV ######################

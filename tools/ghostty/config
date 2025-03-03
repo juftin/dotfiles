@@ -1,0 +1,4 @@
+keybind = global:control+option+cmd+i=toggle_quick_terminal
+background = 000000
+font-family = MesloLGS NF
+font-size = 16

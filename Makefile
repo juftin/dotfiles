@@ -23,7 +23,7 @@ sync: ## Update the project and its submodules.
 .PHONY: brew-bundle
 brew-bundle: ## Install packages from the Brewfile.
 	@echo "Installing packages from Brewfile 📦"
-	brew bundle --file "$(MAKE_DIR)/macos/Brewfile"
+	brew bundle --upgrade --file "$(MAKE_DIR)/macos/Brewfile"
 	@echo "Packages installed successfully 🎉"
 
 .PHONY: brew-cleanup
