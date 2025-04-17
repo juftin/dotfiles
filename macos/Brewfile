@@ -5,7 +5,6 @@
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "hashicorp/tap"
-tap "go-task/tap"
 tap "juftin/terraform-docs-recursive", "https://github.com/juftin/terraform-docs-recursive"
 
 ##########################################################
@@ -27,7 +26,7 @@ brew "git-lfs"
 brew "glances"
 brew "gnupg"
 brew "go"
-brew "go-task/tap/go-task"
+brew "go-task"
 brew "grep"
 brew "hashicorp/tap/terraform"
 brew "helm"
