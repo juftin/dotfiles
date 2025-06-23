@@ -71,12 +71,13 @@ cask "iterm2", greedy: true
 cask "jetbrains-toolbox", greedy: true
 cask "lens", greedy: true
 cask "logi-options+", greedy: true
+cask "maccy", greedy: true
 cask "ollama", greedy: true
 cask "slack", greedy: true
 cask "sourcetree", greedy: true
 cask "spotify", greedy: true
-cask "syntax-highlight", greedy: true, args: { no_quarantine: true }
 cask "visual-studio-code", greedy: true
+cask "vivaldi", greedy: true
 cask "vlc", greedy: true
 cask "zoom", greedy: true
 
