@@ -114,16 +114,12 @@ DEPENDENCIES=(
 	make
 )
 
-function install_starship() {
-	if [[ $(uname) == "Linux" ]]; then
-		log_event "info" "Installing ${PURPLE}starship${NO_COLOR} with ${BLUE}curl${NO_COLOR} 🚀"
-		curl -sS https://starship.rs/install.sh | sh -s -- --yes &>/dev/null &
-		spinner || log_event "error" "Failed to install ${PURPLE}starship${NO_COLOR} with ${BLUE}curl${NO_COLOR}"
-	elif [[ $(uname) == "Darwin" ]]; then
-		log_event "info" "Installing ${PURPLE}starship${NO_COLOR} with ${BLUE}brew${NO_COLOR} 🚀"
-		brew install starship
-	fi
-}
+if [[ $(uname) == "Darwin" ]]; then
+	DEPENDENCIES+=(
+		starship
+		zoxide
+	)
+fi
 
 function install_dependencies() {
 	local package
@@ -202,7 +198,32 @@ function install_dependencies() {
 		pacman --sync --refresh --noconfirm "${packages_to_install[@]}" &>/dev/null &
 		spinner || log_event "error" "Failed to install ${PURPLE}${packages_to_install[@]}${NO_COLOR} with ${BLUE}${PACKAGE_MANAGER}${NO_COLOR}"
 	fi
-	install_starship
+}
+
+###########################
+# Install a Binary from URL
+###########################
+function install_binary() {
+	local binary_name=${1}
+	local binary_url=${2}
+	local args=("${@:3}")
+	# exit early if the binary is already installed
+	if command -v "${binary_name}" &>/dev/null; then
+		return 0
+	fi
+	log_event "info" "Installing ${PURPLE}${binary_name}${NO_COLOR} with ${BLUE}curl${NO_COLOR} 📦"
+	curl -sSfL "${binary_url}" | sh -s -- ${args[@]} &>/dev/null &
+	spinner || log_event "error" "Failed to install ${PURPLE}${binary_name}${NO_COLOR} with ${BLUE}curl${NO_COLOR}"
+}
+
+###########################
+# Install Binary Deps
+###########################
+function install_binaries() {
+	if [[ $(uname) == "Linux" ]]; then
+		install_binary starship "https://starship.rs/install.sh" "--yes"
+		install_binary zoxide "https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh"
+	fi
 }
 
 ##########################################################
@@ -371,6 +392,7 @@ function symlink_dotfiles() {
 
 dotfiles_ascii
 install_dependencies
+install_binaries
 install_dotfiles
 init_submodules
 symlink_dotfiles

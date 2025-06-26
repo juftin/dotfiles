@@ -44,6 +44,7 @@ completions=(
 	makefile
 	ssh
 	uv
+	zoxide
 )
 aliases=(
 	general
@@ -80,6 +81,10 @@ fi
 # direnv
 if command -v direnv &>/dev/null; then
 	eval "$(direnv hook bash)"
+fi
+# fzf
+if command -v fzf &>/dev/null; then
+	eval "$(fzf --bash)"
 fi
 
 #########################################################################################################

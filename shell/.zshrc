@@ -17,7 +17,7 @@ plugins=(
     docker
     asdf
     web-search
-    z
+    zoxide
     fast-syntax-highlighting
     zsh-autosuggestions
     zsh-completions
@@ -79,6 +79,10 @@ fi
 # direnv
 if command -v direnv &>/dev/null; then
     eval "$(direnv hook zsh)"
+fi
+# fzf
+if command -v fzf &>/dev/null; then
+    source <(fzf --zsh)
 fi
 
 # disable autocd
