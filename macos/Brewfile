@@ -2,11 +2,6 @@
 ######################### TAPS ###########################
 ##########################################################
 
-tap "homebrew/bundle"
-tap "homebrew/services"
-tap "hashicorp/tap"
-tap "juftin/terraform-docs-recursive", "https://github.com/juftin/terraform-docs-recursive"
-
 ##########################################################
 ####################### UTILITIES ########################
 ##########################################################
@@ -26,13 +21,12 @@ brew "git-lfs"
 brew "glances"
 brew "gnupg"
 brew "go"
-brew "go-task"
+brew "go-task/tap/go-task"
 brew "grep"
 brew "hashicorp/tap/terraform"
 brew "helm"
 brew "htop"
 brew "hugo"
-brew "juftin/terraform-docs-recursive/terraform-docs-recursive"
 brew "jc"
 brew "jq"
 brew "k9s"
@@ -61,7 +55,7 @@ cask "1password", greedy: true
 cask "amazon-q", greedy: true
 cask "caffeine", greedy: true
 cask "cyberduck", greedy: true
-cask "docker", greedy: true
+cask "docker-desktop", greedy: true
 cask "elgato-stream-deck", greedy: true
 cask "ghostty", greedy: true
 cask "github", greedy: true
@@ -72,7 +66,7 @@ cask "jetbrains-toolbox", greedy: true
 cask "lens", greedy: true
 cask "logi-options+", greedy: true
 cask "maccy", greedy: true
-cask "ollama", greedy: true
+cask "ollama-app", greedy: true
 cask "slack", greedy: true
 cask "sourcetree", greedy: true
 cask "spotify", greedy: true
