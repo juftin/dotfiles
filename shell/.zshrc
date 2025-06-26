@@ -1,37 +1,12 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-if [[ -r "${XDG_CACHE_HOME:-${HOME}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-${HOME}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+#########################################################################################################
 
-# Amazon Q pre block. Keep at the top of this file.
+# Amazon Q
 if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]]; then
   builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 fi
 
-#########################################################################################################
-
-##########################################################
-##################### ZSH SETTINGS #######################
-##########################################################
-
-export EDITOR=nano
-
-_DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f ~/.zshrc)")")"
-if [[ ! $PATH == *"${_DOTFILES_DIR}/bin"* ]]; then
-    export PATH="$PATH:${_DOTFILES_DIR}/bin"
-fi
-
-if [[ ! $PATH == *"${HOME}/.local/bin"* ]]; then
-    mkdir -p "${HOME}/.local/bin"
-	export PATH="$PATH:${HOME}/.local/bin"
-fi
-
-# source the `.zshrc` file
-function sync() {
-	log_event info "Syncing ZSH Configuration..."
-	source ~/.zshrc
-	log_event info "ZSH Synced!"
-}
+# shell-startup
+[[ ! -f "${HOME}/.shell_startup" ]] || source "${HOME}/.shell_startup"
 
 ##########################################################
 ####################### OH-MY-ZSH ########################
@@ -85,43 +60,31 @@ setopt inc_append_history       # Add commands to the history file immediately.
 ############### ENV / ALIASES / FUNCTIONS ################
 ##########################################################
 
-# Environment Variables
-[[ ! -f ${HOME}/.shell_vars ]] || source ${HOME}/.shell_vars
-[[ ! -f ${HOME}/.zshenv ]] || source ${HOME}/.zshenv
-# Aliases
-[[ ! -f ${HOME}/.shell_aliases ]] || source ${HOME}/.shell_aliases
-[[ ! -f ${HOME}/.zsh_aliases ]] || source ${HOME}/.zsh_aliases
-# Functions
-[[ ! -f ${HOME}/.shell_functions ]] || source ${HOME}/.shell_functions
+# variables
+[[ ! -f "${HOME}/.shell_vars" ]] || source "${HOME}/.shell_vars"
+[[ ! -f "${HOME}/.zshenv" ]] || source "${HOME}/.zshenv"
+# aliases
+[[ ! -f "${HOME}/.shell_aliases" ]] || source "${HOME}/.shell_aliases"
+# functions
+[[ ! -f "${HOME}/.shell_functions" ]] || source "${HOME}/.shell_functions"
+
+# source the `.zshrc` file
+function sync() {
+	log_event info "Syncing ZSH Configuration..."
+	source ~/.zshrc
+	log_event info "ZSH Synced!"
+}
 
 ##########################################################
 ############### APP SPECIFIC CONFIGS #####################
 ##########################################################
-
-# pyenv
-if [[ -d ${HOME}/.pyenv && -z ${PYENV_ROOT} ]]; then
-  export PYENV_ROOT="${HOME}/.pyenv"
-  export PATH="${PYENV_ROOT}/bin:${PATH}"
-  eval "$(pyenv init -)"
-  export PIPX_DEFAULT_PYTHON=$(pyenv which python) #  pipx
-  alias awsume="source \$(pyenv which awsume)"
-fi
-
-# rust
-[[ ! -f ${HOME}/.cargo/env ]] || source ${HOME}/.cargo/env
-
-# go
-GOBIN="${GOBIN:-${HOME}/go/bin}"
-if [[ -d ${GOBIN} && ! $PATH == *"${GOBIN}"* ]]; then
-    export PATH="${GOBIN}:${PATH}"
-fi
 
 # thefuck
 if command -v thefuck &>/dev/null; then
     eval "$(thefuck --alias)"
     eval "$(thefuck --alias dang)"
 fi
-
+# direnv
 if command -v direnv &>/dev/null; then
     eval "$(direnv hook zsh)"
 fi
@@ -131,7 +94,7 @@ unsetopt autocd
 
 #########################################################################################################
 
-# Amazon Q post block. Keep at the bottom of this file.
+# Amazon Q
 if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]]; then
   builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 fi

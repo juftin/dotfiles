@@ -15,13 +15,21 @@ alias status="git status --verbose --ahead-behind --branch --find-renames"
 ##########################################################
 
 if [[ ${OSTYPE} == "darwin"* ]]; then
-    ######################################################
-    ################### X86 ALIASES ######################
-    ######################################################
-    alias xpython3.12="\$(xbrew --prefix python@3.12)/bin/python3.12"
-    alias xpython3.11="\$(xbrew --prefix python@3.11)/bin/python3.11"
-    alias xpython3.10="\$(xbrew --prefix python@3.10)/bin/python3.10"
-    alias xpython3.9="\$(xbrew --prefix python@3.9)/bin/python3.9"
-    alias xpython3.8="\$(xbrew --prefix python@3.8)/bin/python3.8"
-    ######################################################
+	######################################################
+	################### X86 ALIASES ######################
+	######################################################
+	alias xpython3.12="\$(xbrew --prefix python@3.12)/bin/python3.12"
+	alias xpython3.11="\$(xbrew --prefix python@3.11)/bin/python3.11"
+	alias xpython3.10="\$(xbrew --prefix python@3.10)/bin/python3.10"
+	alias xpython3.9="\$(xbrew --prefix python@3.9)/bin/python3.9"
+	alias xpython3.8="\$(xbrew --prefix python@3.8)/bin/python3.8"
+	######################################################
+fi
+
+##########################################################
+##################### APPLICATIONS #######################
+##########################################################
+
+if command -v awsume &>/dev/null; then
+	alias awsume="source \$(pyenv which awsume)"
 fi

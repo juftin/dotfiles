@@ -290,6 +290,7 @@ function symlink_item() {
 ##########################################################
 
 function symlink_shell() {
+	symlink_item "${DOTFILES_DIR}/shell/.shell_startup" "${HOME}/.shell_startup"
 	symlink_item "${DOTFILES_DIR}/shell/.shell_vars" "${HOME}/.shell_vars"
 	symlink_item "${DOTFILES_DIR}/shell/.shell_aliases" "${HOME}/.shell_aliases"
 	symlink_item "${DOTFILES_DIR}/shell/.shell_functions" "${HOME}/.shell_functions"

@@ -3,12 +3,12 @@
 set -e
 
 if command -v dnf &>/dev/null; then
-    PACKAGE_MANAGER="dnf"
+	PACKAGE_MANAGER="dnf"
 elif command -v yum &>/dev/null; then
-    PACKAGE_MANAGER="yum"
+	PACKAGE_MANAGER="yum"
 else
-    echo "dnf/yum not detected, exiting ❌"
-    exit 1
+	echo "dnf/yum not detected, exiting ❌"
+	exit 1
 fi
 
 ##########################################################
@@ -16,51 +16,51 @@ fi
 ##########################################################
 
 ${PACKAGE_MANAGER} install --allowerasing -y \
-    dialog \
-    apt-utils \
-    git \
-    curl \
-    wget \
-    gettext \
-    cmake \
-    unzip \
-    ninja-build
+	dialog \
+	apt-utils \
+	git \
+	curl \
+	wget \
+	gettext \
+	cmake \
+	unzip \
+	ninja-build
 
 ##########################################################
 ####################### UTILITIES ########################
 ##########################################################
 
 ${PACKAGE_MANAGER} install -y \
-    bat \
-    direnv \
-    fzf \
-    gh \
-    git-lfs \
-    grep \
-    htop \
-    jq \
-    make \
-    nano \
-    pipx \
-    ripgrep \
-    tree \
-    neovim
+	bat \
+	direnv \
+	fzf \
+	gh \
+	git-lfs \
+	grep \
+	htop \
+	jq \
+	make \
+	nano \
+	pipx \
+	ripgrep \
+	tree \
+	neovim
 
 ##########################################################
 #################### PYTHON + PYENV ######################
 ##########################################################
 
 ${PACKAGE_MANAGER} install -y \
-    gcc \
-    make \
-    patch \
-    zlib-devel \
-    bzip2 \
-    bzip2-devel \
-    readline-devel \
-    sqlite \
-    sqlite-devel \
-    openssl-devel \
-    tk-devel \
-    libffi-devel \
-    xz-devel
+	gcc \
+	make \
+	patch \
+	zlib-devel \
+	bzip2 \
+	bzip2-devel \
+	readline-devel \
+	sqlite \
+	sqlite-devel \
+	openssl-devel \
+	tk-devel \
+	libffi-devel \
+	xz-devel

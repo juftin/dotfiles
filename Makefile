@@ -61,8 +61,8 @@ xbrew-cleanup-force: ## Cleanup x86 Homebrew, remove unused packages.
 .PHONY: pyenv-install-all
 pyenv-install-all: ## Install all python versions into pyenv.
 	@echo "Installing all python versions into pyenv 🐍"
-	pyenv install 3.12 3.11 3.10 3.9 3.8 --skip-existing
-	pyenv global 3.12 3.11 3.10 3.9 3.8
+	pyenv install 3.12 3.11 3.10 3.9 --skip-existing
+	pyenv global 3.12 3.11 3.10 3.9
 	pyenv rehash
 	@echo "Python versions installed successfully 🎉"
 
@@ -128,6 +128,12 @@ docker-build:
 .PHONY: docker-run
 docker-run:
 	docker run --rm -it --env TERM --env COLORTERM juftin/juftin:latest
+
+# Pull / Recreate all Submodules
+.PHONY: submodules
+submodules:
+	git submodule update --init --recursive --remote --jobs=4
+	git pull --recurse-submodules --jobs=4
 
 .DEFAULT_GOAL := help
 .PHONY: help

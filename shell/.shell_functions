@@ -8,12 +8,12 @@
 # Run a make command in the dotfiles directory
 #############################################
 dotfiles() {
-    local DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
-    if [[ "${*}" == *"--help"* ]]; then
-        make -s -C "${DOTFILES_DIR:-${HOME}/.dotfiles}" help
-        return 0
-    fi
-    make -s -C "${DOTFILES_DIR:-${HOME}/.dotfiles}" ${*}
+	local DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+	if [[ ${*} == *"--help"* ]]; then
+		make -s -C "${DOTFILES_DIR:-${HOME}/.dotfiles}" help
+		return 0
+	fi
+	make -s -C "${DOTFILES_DIR:-${HOME}/.dotfiles}" ${*}
 }
 
 ##########################################################
@@ -48,18 +48,18 @@ r() {
 # Open a directory in the IDE and switch to it
 #############################################
 ideacd() {
-    local dest="$(realpath "${1}")"
-    if [ -z "${dest}" ]; then
-        log_event "error" "Usage: ideacd ${BLUE}<directory>${NO_COLOR}"
-        return 1
-    fi
-    if [[ -d "${dest}" ]]; then
-        idea "${dest}" || return 1
-        cd "${dest}" || return 1
-    else
-        log_event "error" "Directory not found: ${BLUE}${dest}${NO_COLOR}"
-        return 1
-    fi
+	local dest="$(realpath "${1}")"
+	if [ -z "${dest}" ]; then
+		log_event "error" "Usage: ideacd ${BLUE}<directory>${NO_COLOR}"
+		return 1
+	fi
+	if [[ -d ${dest} ]]; then
+		idea "${dest}" || return 1
+		cd "${dest}" || return 1
+	else
+		log_event "error" "Directory not found: ${BLUE}${dest}${NO_COLOR}"
+		return 1
+	fi
 }
 
 #############################################
@@ -77,17 +77,17 @@ mkcd() {
 # Create a temporary directory
 #############################################
 mktmpdir() {
-    if [[ -f /usr/share/dict/words ]]; then
-      RANDOM_WORD_1=$(shuf -n 1 /usr/share/dict/words | tr '[:upper:]' '[:lower:]')
-      RANDOM_WORD_2=$(shuf -n 1 /usr/share/dict/words | tr '[:upper:]' '[:lower:]')
-      RANDOM_CHARS="${RANDOM_WORD_1}-${RANDOM_WORD_2}"
-    else
-      RANDOM_CHARS=$(date +%s.%N | sha256sum | base64 | tr -dc 'a-z' | head -c 20)
-    fi
-    DATE_STRING=$(date +%Y%m%d)
-    NEW_TEMP_DIR="/tmp/${DATE_STRING}/${RANDOM_CHARS}"
-    mkdir -p "${NEW_TEMP_DIR}"
-    echo "${NEW_TEMP_DIR}"
+	if [[ -f /usr/share/dict/words ]]; then
+		local RANDOM_WORD_1=$(shuf -n 1 /usr/share/dict/words | tr '[:upper:]' '[:lower:]')
+		local RANDOM_WORD_2=$(shuf -n 1 /usr/share/dict/words | tr '[:upper:]' '[:lower:]')
+		local RANDOM_CHARS="${RANDOM_WORD_1}-${RANDOM_WORD_2}"
+	else
+		local RANDOM_CHARS=$(date +%s.%N | sha256sum | base64 | tr -dc 'a-z' | head -c 20)
+	fi
+	local DATE_STRING=$(date +%Y%m%d)
+	local NEW_TEMP_DIR="/tmp/${DATE_STRING}/${RANDOM_CHARS}"
+	mkdir -p "${NEW_TEMP_DIR}"
+	echo "${NEW_TEMP_DIR}"
 }
 
 #############################################
@@ -96,9 +96,9 @@ mktmpdir() {
 # Create a temporary directory and cd into it
 #############################################
 mkcdtmp() {
-    NEW_TEMP_DIR="$(mktmpdir)"
-    echo "${NEW_TEMP_DIR}"
-    cd "${NEW_TEMP_DIR}"
+	local NEW_TEMP_DIR="$(mktmpdir)"
+	echo "${NEW_TEMP_DIR}"
+	cd "${NEW_TEMP_DIR}"
 }
 
 #############################################
@@ -107,31 +107,31 @@ mkcdtmp() {
 # Run command in another directory and return
 #############################################
 runin() {
-    if [ "${#}" -lt 2 ]; then
-        log_event "error" "Usage: runin ${BLUE}<directory>${NO_COLOR} ${CYAN}<command>${NO_COLOR}"
-        return 1
-    fi
-    local dir="${1}"
-    shift
-    local cmd="${*}"
-    local current_dir=$(pwd)
-    if [ "${current_dir}" = "$(realpath "${dir}")" ]; then
-        if ! eval "${cmd}"; then
-            log_event "error" "Command failed in ${BLUE}${dir}${NO_COLOR}: ${RED}${cmd}${NO_COLOR}"
-            return 1
-        fi
-        return 0
-    fi
-    pushd "${dir}" &>/dev/null || {
-        log_event "error" "Failed to change to directory: ${BLUE}${dir}${NO_COLOR}"
-        return 1
-    }
-    if ! eval "${cmd}"; then
-        log_event "error" "Command failed in ${BLUE}${dir}${NO_COLOR}: ${RED}${cmd}${NO_COLOR}"
-        popd &>/dev/null
-        return 1
-    fi
-    popd &>/dev/null || log_event "warning" "Failed to return to previous directory."
+	if [ "${#}" -lt 2 ]; then
+		log_event "error" "Usage: runin ${BLUE}<directory>${NO_COLOR} ${CYAN}<command>${NO_COLOR}"
+		return 1
+	fi
+	local dir="${1}"
+	shift
+	local cmd="${*}"
+	local current_dir=$(pwd)
+	if [ "${current_dir}" = "$(realpath "${dir}")" ]; then
+		if ! eval "${cmd}"; then
+			log_event "error" "Command failed in ${BLUE}${dir}${NO_COLOR}: ${RED}${cmd}${NO_COLOR}"
+			return 1
+		fi
+		return 0
+	fi
+	pushd "${dir}" &>/dev/null || {
+		log_event "error" "Failed to change to directory: ${BLUE}${dir}${NO_COLOR}"
+		return 1
+	}
+	if ! eval "${cmd}"; then
+		log_event "error" "Command failed in ${BLUE}${dir}${NO_COLOR}: ${RED}${cmd}${NO_COLOR}"
+		popd &>/dev/null
+		return 1
+	fi
+	popd &>/dev/null || log_event "warning" "Failed to return to previous directory."
 }
 
 ##########################################################
@@ -165,7 +165,7 @@ git-remove-deleted() {
 # Display a tree considering .gitignore
 #############################################
 git-tree() {
-    tree -C -I $((cat .gitignore 2> /dev/null || cat $(git rev-parse --show-toplevel 2> /dev/null)/.gitignore 2> /dev/null || echo "node_modules") | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|" | rev | cut -c 2- | rev)
+	git ls-tree -r --name-only HEAD | tree --fromfile
 }
 
 #############################################
@@ -174,20 +174,19 @@ git-tree() {
 # Sign all commits in the current repository
 #############################################
 git-sign-commits() {
-    local public_key="${1}"
-    if [ -z "${public_key}" ]; then
-        log_event "error" "Usage: git-sign-commits ${BLUE}<public-key>${NO_COLOR}"
-        return 1
-    elif [ ! -f "${public_key}" ]; then
-        log_event "error" "Public key not found: ${BLUE}${public_key}${NO_COLOR}"
-        return 1
-    fi
-    git config --local gpg.format ssh
-    git config --local user.signingkey "${public_key}"
-    git config --local commit.gpgsign true
-    log_event "info" "Commits will be signed with public key: ${BLUE}${public_key}${NO_COLOR}"
+	local public_key="${1}"
+	if [ -z "${public_key}" ]; then
+		log_event "error" "Usage: git-sign-commits ${BLUE}<public-key>${NO_COLOR}"
+		return 1
+	elif [ ! -f "${public_key}" ]; then
+		log_event "error" "Public key not found: ${BLUE}${public_key}${NO_COLOR}"
+		return 1
+	fi
+	git config --local gpg.format ssh
+	git config --local user.signingkey "${public_key}"
+	git config --local commit.gpgsign true
+	log_event "info" "Commits will be signed with public key: ${BLUE}${public_key}${NO_COLOR}"
 }
-
 
 ##########################################################
 ######################### MISC ###########################
@@ -199,7 +198,7 @@ git-sign-commits() {
 # Check if a command exists
 #############################################
 is_command() {
-  command -v "$1" >/dev/null
+	command -v "$1" >/dev/null
 }
 
 #############################################
@@ -208,7 +207,7 @@ is_command() {
 # Generate an ISO8601 formatted date string
 #############################################
 date_iso8601() {
-  date -u +%Y-%m-%dT%H:%M:%S+0000
+	date -u +%Y-%m-%dT%H:%M:%S+0000
 }
 
 #############################################
@@ -218,17 +217,17 @@ date_iso8601() {
 # If no input is provided, generate a hash
 #############################################
 hash_sha256() {
-  if [ -p /dev/stdin ]; then
-    cat - | shasum -a 256 | awk '{print $1}'
-  elif [ -n "$1" ]; then
-    if [ -f "$1" ]; then
-      shasum -a 256 "${1}" | awk '{print $1}'
-    else
-      printf '%s' "${1}" | shasum -a 256 | awk '{print $1}'
-    fi
-  else
-    printf '%s' "$(date +%s)$(openssl rand -hex 12)" | shasum -a 256 | awk '{print $1}'
-  fi
+	if [ -p /dev/stdin ]; then
+		cat - | shasum -a 256 | awk '{print $1}'
+	elif [ -n "$1" ]; then
+		if [ -f "$1" ]; then
+			shasum -a 256 "${1}" | awk '{print $1}'
+		else
+			printf '%s' "${1}" | shasum -a 256 | awk '{print $1}'
+		fi
+	else
+		printf '%s' "$(date +%s)$(openssl rand -hex 12)" | shasum -a 256 | awk '{print $1}'
+	fi
 }
 
 #############################################
@@ -237,22 +236,22 @@ hash_sha256() {
 # Unpack a tarball or zip file
 #############################################
 untar() {
-  tarball=${1}
-  output_dir=${2:-$(pwd)}
+	local tarball=${1}
+	local output_dir=${2:-$(pwd)}
 
-  # Create output directory if it does not exist
-  mkdir -p "${output_dir}"
+	# Create output directory if it does not exist
+	mkdir -p "${output_dir}"
 
-  case "${tarball}" in
-    *.tar.gz | *.tgz) tar -xzf "${tarball}" -C "${output_dir}" ;;
-    *.tar) tar -xf "${tarball}" -C "${output_dir}" ;;
-    *.zip) unzip -d "${output_dir}" "${tarball}" ;;
-    *.whl) unzip -d "${output_dir}" "${tarball}" ;;
-    *)
-      log_err "untar unknown archive format for ${tarball}"
-      return 1
-      ;;
-  esac
+	case "${tarball}" in
+	*.tar.gz | *.tgz) tar -xzf "${tarball}" -C "${output_dir}" ;;
+	*.tar) tar -xf "${tarball}" -C "${output_dir}" ;;
+	*.zip) unzip -d "${output_dir}" "${tarball}" ;;
+	*.whl) unzip -d "${output_dir}" "${tarball}" ;;
+	*)
+		log_err "untar unknown archive format for ${tarball}"
+		return 1
+		;;
+	esac
 }
 
 ##########################################################
@@ -265,15 +264,15 @@ untar() {
 # Login to AWS ECR
 #############################################
 aws-docker-login() {
-    log_event "info" "Logging into AWS ECR..."
-	AWS_DOCKER_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+	log_event "info" "Logging into AWS ECR..."
+	local AWS_DOCKER_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 	aws ecr get-login-password \
 		--region us-east-1 |
 		docker login \
 			--username AWS \
 			--password-stdin ${AWS_DOCKER_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com \
-            > /dev/null
-    log_event "info" "AWS ECR Authentication Successful."
+			>/dev/null
+	log_event "info" "AWS ECR Authentication Successful."
 }
 
 ##########################################################
@@ -306,11 +305,11 @@ log_event() {
 		echo -e "${LOGGING_TIMESTAMP} ${ORANGE}[ WARNING]: ${NO_COLOR}${2}"
 		;;
 	"debug")
-        echo -e "${LOGGING_TIMESTAMP} ${PURPLE}[   DEBUG]: ${NO_COLOR}${2}"
-        ;;
-    "critical")
-        echo -e "${LOGGING_TIMESTAMP} ${CYAN}[CRITICAL]: ${NO_COLOR}${2}"
-        ;;
+		echo -e "${LOGGING_TIMESTAMP} ${PURPLE}[   DEBUG]: ${NO_COLOR}${2}"
+		;;
+	"critical")
+		echo -e "${LOGGING_TIMESTAMP} ${CYAN}[CRITICAL]: ${NO_COLOR}${2}"
+		;;
 	*)
 		echo -e "${LOGGING_TIMESTAMP} ${GREEN}[    INFO]: ${NO_COLOR}${1}"
 		;;
