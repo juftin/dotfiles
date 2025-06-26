@@ -13,11 +13,6 @@
 	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
 	shallow = true
 	branch = master
-[submodule "bootstrap/powerlevel10k"]
-	path = bootstrap/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k
-	shallow = true
-	branch = master
 [submodule "bootstrap/zsh-completions"]
 	path = bootstrap/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions

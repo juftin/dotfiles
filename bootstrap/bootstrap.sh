@@ -114,6 +114,17 @@ DEPENDENCIES=(
 	make
 )
 
+function install_starship() {
+	if [[ $(uname) == "Linux" ]]; then
+		log_event "info" "Installing ${PURPLE}starship${NO_COLOR} with ${BLUE}curl${NO_COLOR} 🚀"
+		curl -sS https://starship.rs/install.sh | sh -s -- --yes &>/dev/null &
+		spinner || log_event "error" "Failed to install ${PURPLE}starship${NO_COLOR} with ${BLUE}curl${NO_COLOR}"
+	elif [[ $(uname) == "Darwin" ]]; then
+		log_event "info" "Installing ${PURPLE}starship${NO_COLOR} with ${BLUE}brew${NO_COLOR} 🚀"
+		brew install starship
+	fi
+}
+
 function install_dependencies() {
 	local package
 	local packages_to_install=()
@@ -191,6 +202,7 @@ function install_dependencies() {
 		pacman --sync --refresh --noconfirm "${packages_to_install[@]}" &>/dev/null &
 		spinner || log_event "error" "Failed to install ${PURPLE}${packages_to_install[@]}${NO_COLOR} with ${BLUE}${PACKAGE_MANAGER}${NO_COLOR}"
 	fi
+	install_starship
 }
 
 ##########################################################
@@ -294,20 +306,19 @@ function symlink_shell() {
 	symlink_item "${DOTFILES_DIR}/shell/.shell_vars" "${HOME}/.shell_vars"
 	symlink_item "${DOTFILES_DIR}/shell/.shell_aliases" "${HOME}/.shell_aliases"
 	symlink_item "${DOTFILES_DIR}/shell/.shell_functions" "${HOME}/.shell_functions"
+	symlink_item "${DOTFILES_DIR}/tools/starship/starship.toml" "${HOME}/.config/starship.toml"
 }
 
 function symlink_zsh() {
 	# OhMyZsh
 	symlink_item "${DOTFILES_DIR}/bootstrap/oh-my-zsh" "${HOME}/.oh-my-zsh"
 	# OhMyZsh Custom Plugins
-	symlink_item "${DOTFILES_DIR}/bootstrap/powerlevel10k" "${HOME}/.oh-my-zsh/custom/themes/powerlevel10k"
 	symlink_item "${DOTFILES_DIR}/bootstrap/fast-syntax-highlighting" "${HOME}/.oh-my-zsh/custom/plugins/fast-syntax-highlighting"
 	symlink_item "${DOTFILES_DIR}/bootstrap/zsh-autosuggestions" "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 	symlink_item "${DOTFILES_DIR}/bootstrap/zsh-completions" "${HOME}/.oh-my-zsh/custom/plugins/zsh-completions"
 	# Shell Files
 	symlink_item "${DOTFILES_DIR}/shell/.zshrc" "${HOME}/.zshrc"
 	symlink_item "${DOTFILES_DIR}/shell/.zprofile" "${HOME}/.zprofile"
-	symlink_item "${DOTFILES_DIR}/shell/.p10k.zsh" "${HOME}/.p10k.zsh"
 }
 
 function symlink_bash() {

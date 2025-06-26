@@ -34,9 +34,6 @@ function sync() {
 export OSH="${HOME}/.oh-my-bash"
 
 # Oh My Bash Settings
-OSH_THEME="powerline-multiline"
-OMB_PROMPT_SHOW_PYTHON_VENV=true
-
 completions=(
 	awscli
 	brew
@@ -52,6 +49,7 @@ aliases=(
 	general
 )
 plugins=(
+	starship
 	git
 	bashmarks
 )

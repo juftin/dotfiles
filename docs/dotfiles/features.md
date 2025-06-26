@@ -18,7 +18,7 @@ your terminal experience more productive and enjoyable:
 
 -   Frameworks and Themes
     -   [ohmyzsh/oh-my-zsh] - The framework for managing your zsh shell
-    -   [romkatv/powerlevel10k] - A powerful OhMyZSH theme and prompt
+    -   [starship/starship] - The minimal, blazing-fast, and infinitely customizable prompt for any shell!
 -   oh-my-zsh Plugins
     -   [oh-my-zsh/git] - Git aliases and functions
     -   [oh-my-zsh/dotenv] - Loads environment variables from `.env` for the current directory
@@ -181,7 +181,6 @@ they're enumerated in the `linux/Aptfile` which is documented in the
 [dependencies](../dotfiles/dependencies.md) section.
 
 [OhMyBash]: https://github.com/ohmybash/oh-my-bash
-[powerlevel10k]: https://github.com/romkatv/powerlevel10k
 [OhMyZsh]: https://ohmyz.sh/
 [zsh-users/zsh-autosuggestions]: https://github.com/zsh-users/zsh-autosuggestions
 [zsh-users/zsh-completions]: https://github.com/zsh-users/zsh-completions
@@ -192,7 +191,7 @@ they're enumerated in the `linux/Aptfile` which is documented in the
 [ohmyzsh/oh-my-zsh]: https://github.com/ohmyzsh/oh-my-zsh
 [zdharma-continuum/fast-syntax-highlighting]: https://github.com/zdharma-continuum/fast-syntax-highlighting
 [zsh-users/zsh-autosuggestions]: https://github.com/zsh-users/zsh-autosuggestions
-[romkatv/powerlevel10k]: https://github.com/romkatv/powerlevel10k
+[starship/starship]: https://github.com/starship/starship
 [oh-my-zsh/git]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 [oh-my-zsh/dotenv]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/dotenv
 [oh-my-zsh/macos]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/macos

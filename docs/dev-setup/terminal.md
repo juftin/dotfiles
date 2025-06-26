@@ -88,7 +88,7 @@ productive and enjoyable:
 
 -   Frameworks and Themes
     -   [ohmyzsh/oh-my-zsh] - The framework for managing your zsh shell
-    -   [romkatv/powerlevel10k] - A powerful OhMyZSH theme and prompt
+    -   [starship/starship] - The minimal, blazing-fast, and infinitely customizable prompt for any shell!
 -   OhMyZsh Plugins
     -   [oh-my-zsh/git] - Git aliases and functions
     -   [oh-my-zsh/dotenv] - Loads environment variables from `.env` for the current directory
@@ -107,7 +107,7 @@ productive and enjoyable:
 [ohmyzsh/oh-my-zsh]: https://github.com/ohmyzsh/oh-my-zsh
 [zdharma-continuum/fast-syntax-highlighting]: https://github.com/zdharma-continuum/fast-syntax-highlighting
 [zsh-users/zsh-autosuggestions]: https://github.com/zsh-users/zsh-autosuggestions
-[romkatv/powerlevel10k]: https://github.com/romkatv/powerlevel10k
+[starship/starship]: https://github.com/starship/starship
 [oh-my-zsh/git]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 [oh-my-zsh/dotenv]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/dotenv
 [oh-my-zsh/macos]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/macos

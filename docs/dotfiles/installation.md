@@ -63,17 +63,16 @@ the steps below:
     ```shell
     # ZSH
     ln -s ~/.dotfiles/bootstrap/oh-my-zsh ~/.oh-my-zsh
-    ln -s ~/.dotfiles/bootstrap/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k
     ln -s ~/.dotfiles/bootstrap/fast-syntax-highlighting ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting
     ln -s ~/.dotfiles/bootstrap/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     ln -s ~/.dotfiles/bootstrap/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
     ln -s ~/.dotfiles/shell/.zshrc ~/.zshrc
-    ln -s ~/.dotfiles/shell/.p10k.zsh ~/.p10k.zsh
     # BASH
     ln -s ~/.dotfiles/bootstrap/oh-my-bash ~/.oh-my-bash
     ln -s ~/.dotfiles/shell/.bashrc ~/.bashrc
     ln -s ~/.dotfiles/shell/.profile ~/.profile
     # SHELL
+    ln -s ~/.dotfiles/shell/.shell_startup ~/.shell_startup
     ln -s ~/.dotfiles/shell/.shell_vars ~/.shell_vars
     ln -s ~/.dotfiles/shell/.shell_aliases ~/.shell_aliases
     ln -s ~/.dotfiles/shell/.shell_functions ~/.shell_functions

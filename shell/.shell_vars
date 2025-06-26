@@ -4,3 +4,4 @@
 
 export EDITOR="nano"
 export AWS_PAGER=""
+export SHOW_AWS_PROMPT="false"

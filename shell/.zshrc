@@ -9,13 +9,14 @@ fi
 [[ ! -f "${HOME}/.shell_startup" ]] || source "${HOME}/.shell_startup"
 
 ##########################################################
-####################### OH-MY-ZSH ########################
+################# STARSHIP + OH-MY-ZSH ###################
 ##########################################################
 
+# oh-my-zsh
 ZSH="${HOME}/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
+    starship
     aws
     git
     docker
@@ -29,10 +30,6 @@ plugins=(
 
 if ! command -v omz &> /dev/null; then
     source "${ZSH}/oh-my-zsh.sh"
-fi
-
-if [[ -z ${POWERLEVEL9K_INSTANT_PROMPT} && -f ${HOME}/.p10k.zsh ]]; then
-  source ${HOME}/.p10k.zsh
 fi
 
 ##########################################################
