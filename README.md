@@ -29,7 +29,7 @@ When using the installation script, the following steps are taken:
 <details><summary>🌈 Bootstrapping Screen Recording</summary>
 <p>
 
-https://github.com/juftin/dotfiles/assets/49741340/b524d9db-c41c-4aa0-b503-7fe318e20fa5
+https://github.com/user-attachments/assets/ee3f96f4-a028-47b8-b1bf-7e653c8964cc
 
 </p>
 </details>
