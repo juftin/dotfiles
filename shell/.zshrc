@@ -1,10 +1,5 @@
 #########################################################################################################
 
-# Amazon Q
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]]; then
-  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-fi
-
 # shell-startup
 [[ ! -f "${HOME}/.shell_startup" ]] || source "${HOME}/.shell_startup"
 
@@ -91,8 +86,4 @@ unsetopt autocd
 
 #########################################################################################################
 
-# Amazon Q
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]]; then
-  builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
-fi
 # Fig Ignore
