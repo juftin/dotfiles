@@ -118,6 +118,7 @@ if [[ $(uname) == "Darwin" ]]; then
 	DEPENDENCIES+=(
 		starship
 		zoxide
+		fzf
 	)
 fi
 
@@ -206,14 +207,27 @@ function install_dependencies() {
 function install_binary() {
 	local binary_name=${1}
 	local binary_url=${2}
-	local args=("${@:3}")
+	local shell=${3:-"sh"}
+	local args=("${@:4}")
 	# exit early if the binary is already installed
 	if command -v "${binary_name}" &>/dev/null; then
 		return 0
 	fi
 	log_event "info" "Installing ${PURPLE}${binary_name}${NO_COLOR} with ${BLUE}curl${NO_COLOR} 📦"
-	curl -sSfL "${binary_url}" | sh -s -- ${args[@]} &>/dev/null &
+	curl -sSfL "${binary_url}" | ${shell} -s -- ${args[@]} &>/dev/null &
 	spinner || log_event "error" "Failed to install ${PURPLE}${binary_name}${NO_COLOR} with ${BLUE}curl${NO_COLOR}"
+}
+
+###########################
+# Install fzf binary
+###########################
+function install_fzf() {
+	local temp_dir=$(mktemp -d)
+	cd "${temp_dir}" || exit 1
+	install_binary fzf https://raw.githubusercontent.com/junegunn/fzf/refs/heads/master/install bash --bin
+	mkdir -p "${HOME}/.local/bin"
+	mv "${temp_dir}/bin/fzf" "${HOME}/.local/bin/fzf"
+	rm -rf "${temp_dir}"
 }
 
 ###########################
@@ -221,9 +235,11 @@ function install_binary() {
 ###########################
 function install_binaries() {
 	if [[ $(uname) == "Linux" ]]; then
-		install_binary starship "https://starship.rs/install.sh" "--yes"
-		install_binary zoxide "https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh"
+		install_binary starship https://starship.rs/install.sh sh --yes
+		install_binary zoxide https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh
+		install_fzf
 	fi
+	install_binary uv https://astral.sh/uv/install.sh sh --no-modify-path
 }
 
 ##########################################################

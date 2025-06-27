@@ -53,10 +53,8 @@ plugins=(
 	git
 	bashmarks
 	zoxide
+	fzf
 )
-if command -v fzf &>/dev/null; then
-	plugins+=("fzf")
-fi
 
 source "${OSH}/oh-my-bash.sh"
 

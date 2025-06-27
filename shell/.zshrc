@@ -18,13 +18,11 @@ plugins=(
     asdf
     web-search
     zoxide
+    fzf
     fast-syntax-highlighting
     zsh-autosuggestions
     zsh-completions
 )
-if command -v fzf &>/dev/null; then
-    plugins+=("fzf")
-fi
 
 if ! command -v omz &> /dev/null; then
     source "${ZSH}/oh-my-zsh.sh"
