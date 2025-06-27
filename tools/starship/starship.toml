@@ -11,6 +11,7 @@ ${directory}\
 [](fg:color_yellow bg:color_aqua)\
 ${git_branch}\
 ${git_status}\
+${git_state}\
 [](fg:color_aqua bg:color_blue)\
 ${c}\
 ${cpp}\
@@ -125,9 +126,24 @@ style = "bg:color_aqua"
 format = "[[ ${symbol} ${branch} ](fg:color_fg0 bg:color_aqua)](${style})"
 
 [git_status]
-disabled = true
+disabled = false
+conflicted = "️${count}"
+ahead = "️${count}"
+behind = "${count}"
+diverged = "${ahead_count} ${behind_count}"
+untracked = "${count}"
+modified = "󰙏${count}"
+staged = "${count}"
+deleted = "${count}"
+renamed = "${count}"
+stashed = ""
 style = "bg:color_aqua"
 format = "[[(${all_status}${ahead_behind} )](fg:color_fg0 bg:color_aqua)](${style})"
+
+[git_state]
+disabled = false
+format = "[[\\(${state}( ${progress_current}/${progress_total})\\)](bold fg:color_yellow bg:color_aqua)](${style})"
+style = "bg:color_aqua"
 
 [nodejs]
 symbol = ""
