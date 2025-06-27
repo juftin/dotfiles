@@ -22,6 +22,9 @@ plugins=(
     zsh-autosuggestions
     zsh-completions
 )
+if command -v fzf &>/dev/null; then
+    plugins+=("fzf")
+fi
 
 if ! command -v omz &> /dev/null; then
     source "${ZSH}/oh-my-zsh.sh"
@@ -79,10 +82,6 @@ fi
 # direnv
 if command -v direnv &>/dev/null; then
     eval "$(direnv hook zsh)"
-fi
-# fzf
-if command -v fzf &>/dev/null; then
-    source <(fzf --zsh)
 fi
 
 # disable autocd

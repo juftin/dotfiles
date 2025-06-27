@@ -44,7 +44,6 @@ completions=(
 	makefile
 	ssh
 	uv
-	zoxide
 )
 aliases=(
 	general
@@ -53,7 +52,11 @@ plugins=(
 	starship
 	git
 	bashmarks
+	zoxide
 )
+if command -v fzf &>/dev/null; then
+	plugins+=("fzf")
+fi
 
 source "${OSH}/oh-my-bash.sh"
 
@@ -81,10 +84,6 @@ fi
 # direnv
 if command -v direnv &>/dev/null; then
 	eval "$(direnv hook bash)"
-fi
-# fzf
-if command -v fzf &>/dev/null; then
-	eval "$(fzf --bash)"
 fi
 
 #########################################################################################################
