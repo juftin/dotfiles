@@ -223,10 +223,11 @@ function install_binary() {
 ###########################
 function install_fzf() {
 	local temp_dir=$(mktemp -d)
-	cd "${temp_dir}" || exit 1
+	pushd "${temp_dir}" &>/dev/null
 	install_binary fzf https://raw.githubusercontent.com/junegunn/fzf/refs/heads/master/install bash --bin
 	mkdir -p "${HOME}/.local/bin"
 	mv "${temp_dir}/bin/fzf" "${HOME}/.local/bin/fzf"
+	popd &>/dev/null
 	rm -rf "${temp_dir}"
 }
 
