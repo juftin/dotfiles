@@ -1,6 +1,7 @@
 [user]
 	name = Justin Flannery
-	email = justin.flannery@juftin.com
+	email = justin.flannery@smarterdx.com
+	signingkey = ~/.ssh/id_ed25519
 [init]
 	defaultBranch = main
 [pull]
@@ -18,10 +19,14 @@
 	clean = git-lfs clean -- %f
 [credential "https://github.com"]
 	helper =
-	helper = !gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper =
-	helper = !gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
 [oh-my-zsh]
 	hide-info = 1
 	hide-status = 1
