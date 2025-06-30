@@ -134,6 +134,9 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
+# Nuclear Option
+.idea/
+
 #################################################################################
 # https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
 #################################################################################
@@ -308,3 +311,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# MLflow
+mlruns/

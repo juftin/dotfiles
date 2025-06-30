@@ -5,3 +5,4 @@
 export EDITOR="nano"
 export AWS_PAGER=""
 export SHOW_AWS_PROMPT="false"
+export PROMPT_EOL_MARK=""
