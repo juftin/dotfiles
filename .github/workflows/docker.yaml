@@ -17,12 +17,8 @@ jobs:
                     - linux/amd64
                     - linux/arm64
         steps:
-            - name: Set up Github Workspace
+            - name: checkout
               uses: actions/checkout@v4
-            - name: Setup Hatch
-              uses: juftin/actions/hatch-setup@v1
-              with:
-                  python_version: "3.12"
             - name: Get Version
               id: version
               run: echo ::set-output name=version::$(make version | sed 's/dotfiles v//')
