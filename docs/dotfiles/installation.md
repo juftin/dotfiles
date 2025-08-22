@@ -76,8 +76,6 @@ the steps below:
     ln -s ~/.dotfiles/shell/.shell_vars ~/.shell_vars
     ln -s ~/.dotfiles/shell/.shell_aliases ~/.shell_aliases
     ln -s ~/.dotfiles/shell/.shell_functions ~/.shell_functions
-    # PYENV
-    ln -s ~/.dotfiles/bootstrap/pyenv ~/.pyenv
     # GIT
     ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
     ln -s ~/.dotfiles/git/.gitignore ~/.gitignore

@@ -21,8 +21,8 @@ curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o ~/Downloads/AWSCLIV2.pkg && 
 Install [awsume] and its helper, [aws-sso-util]
 
 ```shell
-pipx install "awsume[console,fuzzy]"
-pipx install aws-sso-util
+uv tool install "awsume[console,fuzzy]"
+uv tool install aws-sso-util
 ```
 
 ![awsume.gif]

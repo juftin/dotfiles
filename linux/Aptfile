@@ -32,24 +32,5 @@ package "htop"
 package "jq"
 package "make"
 package "nano"
-package "pipx"
 package "ripgrep"
 package "tree"
-
-##########################################################
-#################### PYTHON + PYENV ######################
-##########################################################
-
-package "libssl-dev"
-package "zlib1g-dev"
-package "libbz2-dev"
-package "libreadline-dev"
-package "libsqlite3-dev"
-package "curl"
-package "libncursesw5-dev"
-package "xz-utils"
-package "tk-dev"
-package "libxml2-dev"
-package "libxmlsec1-dev"
-package "libffi-dev"
-package "liblzma-dev"

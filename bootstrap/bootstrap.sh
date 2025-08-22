@@ -371,10 +371,6 @@ function symlink_git() {
 	symlink_item "${DOTFILES_DIR}/git/.gitignore" "${HOME}/.gitignore"
 }
 
-function symlink_misc() {
-	symlink_item "${DOTFILES_DIR}/bootstrap/pyenv" "${HOME}/.pyenv"
-}
-
 function symlink_tools() {
 	mkdir -p ${HOME}/.config
 	symlink_item "${DOTFILES_DIR}/tools/direnv" "${HOME}/.config/direnv"
@@ -399,7 +395,6 @@ function symlink_dotfiles() {
 	symlink_zsh
 	symlink_bash
 	symlink_git
-	symlink_misc
 	symlink_tools
 }
 

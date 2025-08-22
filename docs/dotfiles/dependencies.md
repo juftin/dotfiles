@@ -119,27 +119,27 @@ on Apple Silicon Macs. Any x86 specific dependencies will be installed via the `
 
 ### Python
 
-This project uses [pipx](https://github.com/pypa/pipx) to install Python CLI
-tools globally. It also includes a `pipx-utils` executable to help manage these
-tools on a single `PipFile`:
+This project uses [uv tool](https://docs.astral.sh/uv/concepts/tools/) to install Python CLI
+tools globally. It also includes a `uv-tool-utils` executable to help manage these
+tools on a single `UvToolFile`:
 
-=== "pipx-utils"
+=== "uv-tool-utils"
 
     ```shell
-    pipx-utils install-file ~/.dotfiles/python/PipFile
+    uv-tool-utils install-file ~/.dotfiles/tools/uv/UvToolFile
     ```
 
 === "dotfiles"
 
     ```shell
-    dotfiles pipx-install-all
+    dotfiles uv-tools-install-all
     ```
 
 <details><summary>📄 PipFile</summary>
 <p>
 
 ```shell
---8<-- "tools/pipx/PipFile"
+--8<-- "tools/uv/UvToolFile"
 ```
 
 </p>

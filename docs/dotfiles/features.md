@@ -88,13 +88,12 @@ make | sed 's/\x1b\[[0-9;]*m//g'
 -   [has]: Check if a program exists, and its version
 -   [now]: Get the current date and time
 -   [pacapt]: Universal package manager wrapper
--   `pipx-utils`: Additional utilities for `pipx`
+-   `uv-tool-utils`: Additional utilities for `uv tool`
 -   `xbrew` - x86 homebrew (macOS only)
 
 ## Python
 
--   [pyenv] for managing Python versions
--   [pipx] for installing Python CLI tools
+-   [uv] for managing Python versions and CLI tools
 
 ### hatch
 
@@ -186,8 +185,6 @@ they're enumerated in the `linux/Aptfile` which is documented in the
 [zsh-users/zsh-completions]: https://github.com/zsh-users/zsh-completions
 [zdharma-continuum/fast-syntax-highlighting]: https://github.com/zdharma-continuum/fast-syntax-highlighting
 [aliases]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-[pipx]: https://github.com/pypa/pipx
-[pyenv]: https://github.com/pyenv/pyenv
 [ohmyzsh/oh-my-zsh]: https://github.com/ohmyzsh/oh-my-zsh
 [zdharma-continuum/fast-syntax-highlighting]: https://github.com/zdharma-continuum/fast-syntax-highlighting
 [zsh-users/zsh-autosuggestions]: https://github.com/zsh-users/zsh-autosuggestions
@@ -208,3 +205,4 @@ they're enumerated in the `linux/Aptfile` which is documented in the
 [has]: https://github.com/kdabir/has
 [now]: https://github.com/apankrat/now.sh
 [pacapt]: https://github.com/icy/pacapt
+[uv]: https://github.com/astral-sh/uv

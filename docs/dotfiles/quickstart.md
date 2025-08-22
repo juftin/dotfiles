@@ -63,14 +63,13 @@ of Python `3.12`, `3.11`, `3.10`, `3.9`, and `3.8`.
 `3.11` is the current default.
 
 ```shell
-dotfiles pyenv-install-all
+dotfiles python-install-all
 ```
 
 > [!NOTE]
 > This is the same as running:
 >
 > ```shell
-> pyenv install 3.11 3.12 3.10 3.9 3.8
-> pyenv global 3.11 3.12 3.10 3.9 3.8
-> pyenv rehash
+> uv python install 3.13 3.12 3.11 3.10 3.9
+> uv python install 3.12 --default --preview-features python-install-default
 > ```

@@ -40,26 +40,7 @@ ${PACKAGE_MANAGER} -Syu --noconfirm \
 	jq \
 	make \
 	nano \
-	python-pipx \
 	ripgrep \
 	tree \
-	neovim
-
-##########################################################
-#################### PYTHON + PYENV ######################
-##########################################################
-
-${PACKAGE_MANAGER} -Syu --noconfirm \
-	gcc \
-	make \
-	patch \
-	zlib \
-	bzip2 \
-	bzip2 \
-	readline \
-	sqlite \
-	sqlite \
-	openssl \
-	tk \
-	libffi \
-	xz
+	neovim \
+	zoxide

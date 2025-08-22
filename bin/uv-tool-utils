@@ -2,13 +2,16 @@
 
 set -e
 
-if ! command -v pipx &>/dev/null; then
-	echo "❌ pipx is not installed. Please install pipx first."
+if ! command -v uv &>/dev/null; then
+	echo "❌ uv is not installed. Please install uv first."
 	exit 1
 fi
 
-function pipx_install() {
+function uv_install() {
 	local PACKAGE="${1}"
+	shift
+	local EXTRA_ARGS=("$@")
+
 	if [[ ${PACKAGE} == *" @ "* ]]; then
 		local CLEAN_PACKAGE="${PACKAGE%% @ *}"
 	elif [[ ${PACKAGE} == *"["* ]]; then
@@ -16,20 +19,23 @@ function pipx_install() {
 	else
 		local CLEAN_PACKAGE="${PACKAGE}"
 	fi
-	pipx upgrade "${CLEAN_PACKAGE}" || pipx install "${PACKAGE}"
+
+	uv tool upgrade "${CLEAN_PACKAGE}" "${EXTRA_ARGS[@]}" || uv tool install "${PACKAGE}" "${EXTRA_ARGS[@]}"
 }
 
-function pipx_install_file() {
+function uv_tool_install_file() {
 	local FILE="${1}"
+
 	if [ ! -f "${FILE}" ]; then
 		echo "❌ File not found: ${FILE}"
 		exit 1
 	fi
+
 	while IFS= read -r line; do
 		if [[ ${line} =~ ^[^#]*$ ]] && [[ -n ${line} ]]; then
 			local PACKAGE="${line%%#*}"
 			echo "📦 Installing ${PACKAGE}"
-			pipx_install "${PACKAGE}"
+			uv_install ${PACKAGE}
 		fi
 	done <"${FILE}"
 }
@@ -38,8 +44,8 @@ PRIMARY_COMMAND="${1}"
 PACKAGE="${2}"
 
 if [ -z "${PRIMARY_COMMAND}" ] && [ -z "${PACKAGE}" ]; then
-	echo "📦 pipx-utils"
-	echo "Usage: pipx-utils <command> <package>"
+	echo "📦 uv-tool-utils"
+	echo "Usage: uv-tool-utils <command> <package>"
 	echo ""
 	echo "Commands:"
 	echo "  install <package>     Install or upgrade a package"
@@ -52,19 +58,19 @@ fi
 
 case ${PRIMARY_COMMAND} in
 install)
-	pipx_install "${PACKAGE}"
+	uv_install "${PACKAGE}"
 	;;
 install-file)
-	pipx_install_file "${PACKAGE}"
+	uv_tool_install_file "${PACKAGE}"
 	;;
 uninstall)
-	pipx uninstall "${PACKAGE}"
+	uv tool uninstall "${PACKAGE}"
 	;;
 upgrade)
-	pipx upgrade "${PACKAGE}"
+	piuv tool upgrade "${PACKAGE}"
 	;;
 list)
-	pipx list
+	uv tool list
 	;;
 *)
 	echo "❌ Invalid command. Please use 'install', 'uninstall', 'upgrade', or 'list'."

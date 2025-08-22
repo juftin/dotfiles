@@ -40,7 +40,7 @@ Install and use [dunk] for git diffs
 Pipe your git diff output into dunk to make it prettier!
 
 ```shell
-pipx install dunk
+uv tool install dunk
 git config --global alias.dunk '!git diff | dunk | less -R'
 ```
 
@@ -131,7 +131,7 @@ a free AWS builder account for personal use.
 Install [HTTPie]
 
 ```shell
-pipx install httpie
+uv tool install httpie
 ```
 
 [HTTPie] is a command-line HTTP client. The `http` & `https` commands allow for creating and

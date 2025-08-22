@@ -31,5 +31,5 @@ fi
 ##########################################################
 
 if command -v awsume &>/dev/null; then
-	alias awsume="source \$(pyenv which awsume)"
+	alias awsume="source awsume"
 fi

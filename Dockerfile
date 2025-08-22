@@ -1,5 +1,4 @@
-ARG PYTHON_VERSION=3.12
-FROM python:${PYTHON_VERSION}-slim AS builder
+FROM debian:bookworm-slim
 
 RUN apt update \
     && apt install -y sudo git curl zsh tar gh make
@@ -19,14 +18,13 @@ SHELL ["/bin/zsh", "-c"]
 RUN make -C ${HOME}/.dotfiles deps
 RUN apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN make -C ${HOME}/.dotfiles pyenv-compile
-RUN ${DOTFILES_DIR}/bootstrap/pyenv/bin/pyenv global system
-RUN ${DOTFILES_DIR}/bootstrap/pyenv/bin/pyenv rehash
 RUN make -C ${HOME}/.dotfiles uv-install
 RUN make -C ${HOME}/.dotfiles nvim-build
 RUN ${DOTFILES_DIR}/bin/install-awscli
 
-RUN pipx install "browsr[all]"
+ARG PYTHON_VERSION=3.12
+RUN /root/.local/bin/uv python install ${PYTHON_VERSION} --default --preview-features python-install-default
+RUN /root/.local/bin/uv tool install "browsr[all]"
 
 RUN /bin/zsh -c "echo exit | script -qec zsh /dev/null >/dev/null"
 

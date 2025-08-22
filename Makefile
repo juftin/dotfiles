@@ -58,25 +58,17 @@ xbrew-cleanup-force: ## Cleanup x86 Homebrew, remove unused packages.
 
 ##@ python 🐍
 
-.PHONY: pyenv-install-all
-pyenv-install-all: ## Install all python versions into pyenv.
-	@echo "Installing all python versions into pyenv 🐍"
-	pyenv install 3.12 3.11 3.10 3.9 --skip-existing
-	pyenv global 3.12 3.11 3.10 3.9
-	pyenv rehash
+.PHONY: python-install-all
+python-install-all: ## Install all python versions onto your system.
+	@echo "Installing all python versions into ~/.local/bin 🐍"
+	uv python install 3.13 3.12 3.11 3.10 3.9
+	uv python install 3.12 --default --preview-features python-install-default
 	@echo "Python versions installed successfully 🎉"
 
-.PHONY: pyenv-compile
-pyenv-compile: ## Compile pyenv bash extension to optimize performance.
-	@echo "Compiling pyenv bash extension to optimize performance 🚀"
-	bash ~/.pyenv/src/configure
-	make -C ~/.pyenv/src
-	@echo "Pyenv bash extension compiled successfully 🎉"
-
-.PHONY: pipx-install-all
-pipx-install-all: ## Install Python CLI packages from PipFile
-	@echo "Installing Python packages from PipFile 📦"
-	$(MAKE_DIR)/bin/pipx-utils install-file "$(MAKE_DIR)/tools/pipx/PipFile"
+.PHONY: uv-tool-install-all
+uv-tool-install-all: ## Install Python CLI packages from PipFile
+	@echo "Installing Python packages from UvToolFile 📦"
+	$(MAKE_DIR)/bin/uv-tool-utils install-file "$(MAKE_DIR)/tools/uv/UvToolFile"
 	@echo "Python packages installed successfully 🎉"
 
 .PHONY: uv-install

@@ -1,4 +1,5 @@
 .idea/
 .venv/
+site/
 bootstrap/
 !bootstrap/bootstrap.sh
