@@ -30,14 +30,16 @@ brew "hugo"
 brew "jc"
 brew "jq"
 brew "k9s"
+brew "kind"
+brew "kustomize"
 brew "libomp"
 brew "make"
+brew "multi-gitter"
 brew "nano"
 brew "neovim"
 brew "node"
 brew "nvm"
 brew "openjdk"
-brew "pipx"
 brew "ripgrep"
 brew "rich-cli"
 brew "sops"
@@ -45,6 +47,7 @@ brew "starship"
 brew "terraform-docs"
 brew "terragrunt"
 brew "thefuck"
+brew "tmux"
 brew "tree"
 brew "wget"
 brew "yq"
@@ -55,6 +58,7 @@ brew "zoxide"
 ##########################################################
 
 cask "1password", greedy: true
+cask "1password-cli", greedy: true
 cask "amazon-q", greedy: true
 cask "caffeine", greedy: true
 cask "cyberduck", greedy: true
@@ -84,14 +88,3 @@ cask "zoom", greedy: true
 
 cask "font-fontawesome", greedy: true
 cask "font-meslo-lg-nerd-font", greedy: true
-
-##########################################################
-#################### PYTHON + PYENV ######################
-##########################################################
-
-brew "openssl"
-brew "readline"
-brew "sqlite3"
-brew "tcl-tk"
-brew "xz"
-brew "zlib"
