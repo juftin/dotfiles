@@ -6,10 +6,10 @@ cookiecutter
 dunk
 dvc
 elia-chat
-hatch
+hatch --with pip
 hatch-pip-compile
 httpie
-jupyterlab
+jupyterlab --with pandas --with numpy --with s3fs[boto3] --with pyarrow --with scikit-learn
 ipython
 llm
 llm-term[all]

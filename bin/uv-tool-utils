@@ -19,8 +19,8 @@ function uv_install() {
 	else
 		local CLEAN_PACKAGE="${PACKAGE}"
 	fi
-
-	uv tool upgrade "${CLEAN_PACKAGE}" "${EXTRA_ARGS[@]}" || uv tool install "${PACKAGE}" "${EXTRA_ARGS[@]}"
+	echo "📦 Installing ${CLEAN_PACKAGE}"
+	uv tool install --upgrade "${PACKAGE}" "${EXTRA_ARGS[@]}"
 }
 
 function uv_tool_install_file() {
@@ -34,7 +34,6 @@ function uv_tool_install_file() {
 	while IFS= read -r line; do
 		if [[ ${line} =~ ^[^#]*$ ]] && [[ -n ${line} ]]; then
 			local PACKAGE="${line%%#*}"
-			echo "📦 Installing ${PACKAGE}"
 			uv_install ${PACKAGE}
 		fi
 	done <"${FILE}"
