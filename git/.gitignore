@@ -314,3 +314,6 @@ cython_debug/
 
 # MLflow
 mlruns/
+
+# LLM Configuration Files
+.serena
