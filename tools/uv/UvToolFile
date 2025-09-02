@@ -10,6 +10,7 @@ hatch --with pip
 hatch-pip-compile
 httpie
 jupyterlab --with pandas --with numpy --with s3fs[boto3] --with pyarrow --with scikit-learn
+keyring --with keyrings.codeartifact
 ipython
 llm
 llm-term[all]
