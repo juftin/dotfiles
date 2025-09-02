@@ -25,6 +25,7 @@ plugins=(
 )
 
 if ! command -v omz &> /dev/null; then
+    export DISABLE_AUTO_UPDATE="1"
     source "${ZSH}/oh-my-zsh.sh"
 fi
 

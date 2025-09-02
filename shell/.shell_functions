@@ -315,3 +315,26 @@ log_event() {
 		;;
 	esac
 }
+
+#############################################
+# bat
+#############################################
+pager() {
+	local FIRST_ARG=${1:-""}
+	local EXTRA_ARGS=("${@:2}")
+	BAT_ARGS=(
+		"bat"
+		"--force-colorization"
+		"--pager"
+		"less"
+	)
+	if [ -t 0 ]; then
+		BAT_ARGS+=("${FIRST_ARG}")
+	else
+		if [ -n "${FIRST_ARG}" ]; then
+			BAT_ARGS+=("--language=${FIRST_ARG}")
+		fi
+	fi
+	BAT_ARGS+=("${EXTRA_ARGS[@]}")
+	"${BAT_ARGS[@]}"
+}
