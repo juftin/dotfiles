@@ -34,12 +34,14 @@ brew "kind"
 brew "kustomize"
 brew "libomp"
 brew "make"
+brew "mise"
 brew "multi-gitter"
 brew "nano"
 brew "neovim"
 brew "node"
 brew "nvm"
 brew "openjdk"
+brew "opentofu"
 brew "ripgrep"
 brew "rich-cli"
 brew "sops"
@@ -57,7 +59,7 @@ brew "zoxide"
 ######################### CASKS ##########################
 ##########################################################
 
-cask "1password", greedy: true
+cask "1password", greedy: true, args: { appdir: "/Applications" }
 cask "1password-cli", greedy: true
 cask "amazon-q", greedy: true
 cask "caffeine", greedy: true

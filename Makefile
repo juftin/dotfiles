@@ -38,24 +38,6 @@ brew-cleanup-force: ## Cleanup Homebrew, remove unused packages.
 	brew bundle cleanup --force --file "$(MAKE_DIR)/macos/Brewfile"
 	@echo "Homebrew cleaned up successfully 🎉"
 
-.PHONY: xbrew-bundle
-xbrew-bundle: ## Install x86 packages from the XBrewfile.
-	@echo "Installing x86 packages from XBrewfile 📦"
-	xbrew bundle --file "$(MAKE_DIR)/macos/XBrewfile"
-	@echo "x86 packages installed successfully 🎉"
-
-.PHONY: xbrew-cleanup
-xbrew-cleanup: ## Cleanup x86 Homebrew, remove unused packages (dry-run).
-	@echo "x86 Homebrew cleanup summary 🧹"
-	xbrew bundle cleanup --file "$(MAKE_DIR)/macos/XBrewfile"
-	@echo "x86 Homebrew cleanup summary complete 🎉"
-
-.PHONY: xbrew-cleanup-force
-xbrew-cleanup-force: ## Cleanup x86 Homebrew, remove unused packages.
-	@echo "Cleaning up x86 Homebrew 🧹"
-	xbrew bundle cleanup --force --file "$(MAKE_DIR)/macos/XBrewfile"
-	@echo "x86 Homebrew cleaned up successfully 🎉"
-
 ##@ python 🐍
 
 .PHONY: python-install-all

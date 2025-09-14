@@ -20,6 +20,7 @@ if [[ $(uname) == "Darwin" ]]; then
 	elif [[ $(uname -m) == "x86_64" && -f /usr/local/bin/brew ]]; then
 		eval "$(/usr/local/bin/brew shellenv)"
 	fi
+	export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications"
 fi
 
 # ~/.local/bin

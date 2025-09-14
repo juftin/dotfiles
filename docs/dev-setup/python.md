@@ -55,6 +55,7 @@ uv tool install <package-name>
 
 [Python]: https://python.org/
 [uv tool]: https://docs.astral.sh/uv/guides/tools/
-[uv]: https://docs.astral.sh/uv/
+[uv]: https://github.com/astral-sh/uv
 [IPython]: http://ipython.org/
 [ipython.png]: https://i.imgur.com/pu16vey.png
+[uv]: https://github.com/astral-sh/uv

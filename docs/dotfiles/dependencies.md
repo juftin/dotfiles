@@ -100,23 +100,6 @@ packages.
     dotfiles brew-cleanup-force
     ```
 
-#### x86 macOS
-
-This project uses x86 emulation via [Rosetta 2](https://support.apple.com/en-us/HT211861)
-on Apple Silicon Macs. Any x86 specific dependencies will be installed via the `XBrewfile`:
-
-=== "xbrew"
-
-    ```shell
-    xbrew bundle --file ~/.dotfiles/macos/XBrewfile
-    ```
-
-=== "dotfiles"
-
-    ```shell
-    dotfiles xbrew-bundle
-    ```
-
 ### Python
 
 This project uses [uv tool](https://docs.astral.sh/uv/concepts/tools/) to install Python CLI
