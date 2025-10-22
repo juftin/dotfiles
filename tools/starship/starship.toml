@@ -125,18 +125,18 @@ format = "[[ ${symbol} ${branch} ](fg:color_fg0 bg:color_aqua)](${style})"
 
 [git_status]
 disabled = false
-conflicted = "️${count}"
-ahead = "️${count}"
-behind = "${count}"
-diverged = "${ahead_count} ${behind_count}"
-untracked = "${count}"
-modified = "󰙏${count}"
-staged = "${count}"
-deleted = "${count}"
-renamed = "${count}"
+conflicted = "️${count} "
+ahead = "️${count} "
+behind = "${count} "
+diverged = "${ahead_count} ${behind_count} "
+untracked = "${count} "
+modified = "󰙏${count} "
+staged = "${count} "
+deleted = "${count} "
+renamed = "${count} "
 stashed = ""
 style = "bg:color_aqua"
-format = "[[(${all_status}${ahead_behind} )](fg:color_fg0 bg:color_aqua)](${style})"
+format = "[[(${all_status}${ahead_behind})](fg:color_fg0 bg:color_aqua)](${style})"
 
 [git_state]
 disabled = false
