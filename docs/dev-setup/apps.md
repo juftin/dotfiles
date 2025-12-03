@@ -95,21 +95,20 @@ eval "$(thefuck --alias dang)"
 
 ![thefuck.gif]
 
-## Amazon Q
+## kiro-cli
 
-Install [Amazon Q] (by AWS)
+Install [kiro-cli] (by AWS)
 
 ```shell
-brew install --cask amazon-q
+brew install --cask kiro-cli
 ```
 
-[Amazon Q] (formerly known as `fig`) adds IDE-style autocomplete
-to your terminal + some AI / LLM magic as well. Using `Amazon Q` requires
-a free AWS builder account for personal use.
+[kiro-cli] (formerly known as `amazon-q`, formerly known as `fig`) adds IDE-style autocomplete
+to your terminal + some AI / LLM magic as well.
 
 > NOTE:
 >
-> You must open the `Amazon Q` app at least once to set
+> You must open the `kiro-cli` app at least once to set
 > initial permissions and log in before you can use it.
 
 -   Configure some initial settings:
@@ -218,7 +217,7 @@ brew install --cask htop
 [trash-cli]: https://github.com/sindresorhus/trash-cli
 [Hammerspoon]: https://github.com/Hammerspoon/hammerspoon
 [tmate]: https://tmate.io/
-[Amazon Q]: https://aws.amazon.com/q/developer/
+[kiro-cli]: https://aws.amazon.com/q/developer/
 [shiftit.gif]: https://i.imgur.com/aShGnVH.gif
 [shiftit_commands.png]: https://i.imgur.com/9bCHUOS.png
 [dunk.png]: https://i.imgur.com/fe0W8ZI.png

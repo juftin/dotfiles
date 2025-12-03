@@ -1,8 +1,8 @@
 #########################################################################################################
 
-# Amazon Q
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash"
+# kiro-cli
+if [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/bashrc.pre.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/kiro-cli/shell/bashrc.pre.bash"
 fi
 
 # shell-startup
@@ -86,8 +86,8 @@ fi
 
 #########################################################################################################
 
-# Amazon Q
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
+# kiro-cli
+if [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/bashrc.post.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/kiro-cli/shell/bashrc.post.bash"
 fi
 # Fig Ignore

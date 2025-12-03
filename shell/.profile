@@ -1,6 +1,6 @@
-# Amazon Q
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/profile.pre.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/amazon-q/shell/profile.pre.bash"
+# kiro-cli
+if [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/profile.pre.bash" ]]; then
+	builtin source "${HOME}/Library/Application Support/kiro-cli/shell/profile.pre.bash"
 fi
 
 # startup
@@ -8,8 +8,8 @@ fi
 # variables
 [[ ! -f "${HOME}/.shell_vars" ]] || source "${HOME}/.shell_vars"
 
-# Amazon Q
-if [[ -f "${HOME}/Library/Application Support/amazon-q/shell/profile.post.bash" ]]; then
-	source "${HOME}/Library/Application Support/amazon-q/shell/profile.post.bash"
+# kiro-cli
+if [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/profile.post.bash" ]]; then
+	source "${HOME}/Library/Application Support/kiro-cli/shell/profile.post.bash"
 fi
 # Fig Ignore
