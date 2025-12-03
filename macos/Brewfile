@@ -7,6 +7,7 @@
 ##########################################################
 
 brew "asdf"
+brew "awscli"
 brew "bat"
 brew "ca-certificates"
 brew "checkov"
@@ -61,8 +62,10 @@ brew "zoxide"
 
 cask "1password", greedy: true, args: { appdir: "/Applications" }
 cask "1password-cli", greedy: true
-cask "amazon-q", greedy: true
 cask "caffeine", greedy: true
+cask "claude", greedy: true
+cask "claude-code", greedy: true
+cask "codex", greedy: true
 cask "cyberduck", greedy: true
 cask "docker-desktop", greedy: true
 cask "elgato-stream-deck", greedy: true
