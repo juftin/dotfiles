@@ -17,8 +17,20 @@ fi
 if [[ $(uname) == "Darwin" ]]; then
 	if [[ $(uname -m) == "arm64" && -f /opt/homebrew/bin/brew ]]; then
 		eval "$(/opt/homebrew/bin/brew shellenv)"
+		# Java (OpenJDK) for Apple Silicon
+		if [[ -d /opt/homebrew/opt/openjdk/bin ]]; then
+			if [[ $PATH != *"/opt/homebrew/opt/openjdk/bin"* ]]; then
+				export PATH="/opt/homebrew/opt/openjdk/bin:${PATH}"
+			fi
+		fi
 	elif [[ $(uname -m) == "x86_64" && -f /usr/local/bin/brew ]]; then
 		eval "$(/usr/local/bin/brew shellenv)"
+		# Java (OpenJDK) for Intel
+		if [[ -d /usr/local/opt/openjdk/bin ]]; then
+			if [[ $PATH != *"/usr/local/opt/openjdk/bin"* ]]; then
+				export PATH="/usr/local/opt/openjdk/bin:${PATH}"
+			fi
+		fi
 	fi
 	export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications"
 fi
