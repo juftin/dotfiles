@@ -35,6 +35,11 @@ if [[ $(uname) == "Darwin" ]]; then
 	export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications"
 fi
 
+# bun
+if [[ ${PATH} != *"${HOME}/.bun/bin"* && -d ${HOME}/.bun/bin ]]; then
+	export PATH="${HOME}/.bun/bin:${PATH}"
+fi
+
 # ~/.local/bin
 if [[ ${PATH} != *"${HOME}/.local/bin"* && -d ${HOME}/.local/bin ]]; then
 	export PATH="${HOME}/.local/bin:${PATH}"

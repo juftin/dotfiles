@@ -25,7 +25,7 @@ plugins=(
 )
 
 if ! command -v omz &> /dev/null; then
-    export DISABLE_AUTO_UPDATE="1"
+    zstyle ':omz:update' mode disabled
     source "${ZSH}/oh-my-zsh.sh"
 fi
 
@@ -78,9 +78,9 @@ if command -v thefuck &>/dev/null; then
     eval "$(thefuck --alias)"
     eval "$(thefuck --alias dang)"
 fi
-# direnv
-if command -v direnv &>/dev/null; then
-    eval "$(direnv hook zsh)"
+# mise
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
 fi
 
 # disable autocd

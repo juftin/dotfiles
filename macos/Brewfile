@@ -2,6 +2,8 @@
 ######################### TAPS ###########################
 ##########################################################
 
+tap "oven-sh/bun"
+
 ##########################################################
 ####################### UTILITIES ########################
 ##########################################################
@@ -14,6 +16,7 @@ brew "checkov"
 brew "coreutils"
 brew "curl"
 brew "direnv"
+brew "dua-cli"
 brew "ffmpeg"
 brew "fzf"
 brew "gh"
@@ -22,7 +25,7 @@ brew "git-lfs"
 brew "glances"
 brew "gnupg"
 brew "go"
-brew "go-task/tap/go-task"
+brew "go-task"
 brew "grep"
 brew "hashicorp/tap/terraform"
 brew "helm"
@@ -43,6 +46,7 @@ brew "node"
 brew "nvm"
 brew "openjdk"
 brew "opentofu"
+brew "oven-sh/bun/bun"
 brew "ripgrep"
 brew "rich-cli"
 brew "sops"

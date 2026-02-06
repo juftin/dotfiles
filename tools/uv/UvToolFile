@@ -1,11 +1,11 @@
 aws-sso-util
 awsume[fuzzy,console]
-browsr[remote]
+batrachian-toad
+browsr[all]
 camply[all]
 cookiecutter
 dunk
 dvc
-elia-chat
 hatch --with pip
 hatch-pip-compile
 httpie
