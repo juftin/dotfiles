@@ -9,9 +9,9 @@ dvc
 hatch --with pip
 hatch-pip-compile
 httpie
+ipython
 jupyterlab --with pandas --with numpy --with s3fs[boto3] --with pyarrow --with scikit-learn
 keyring --with keyrings.codeartifact
-ipython
 llm
 llm-term[all]
 lunchable[all]
@@ -22,4 +22,5 @@ pre-commit
 pyright
 rich-cli
 ruff
+specify-cli --from git+https://github.com/github/spec-kit.git
 toolong

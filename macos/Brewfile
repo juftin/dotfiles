@@ -70,6 +70,7 @@ cask "caffeine", greedy: true
 cask "claude", greedy: true
 cask "claude-code", greedy: true
 cask "codex", greedy: true
+cask "copilot-cli", greedy: true
 cask "cyberduck", greedy: true
 cask "docker-desktop", greedy: true
 cask "elgato-stream-deck", greedy: true
