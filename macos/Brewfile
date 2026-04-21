@@ -11,5 +11,6 @@ end
 include_brewfile "taps.Brewfile"
 include_brewfile "formulae.Brewfile"
 include_brewfile "ai.Brewfile"
-include_brewfile "casks.Brewfile"
 include_brewfile "fonts.Brewfile"
+include_brewfile "casks.Brewfile"
+include_brewfile "admin.Brewfile"
