@@ -317,3 +317,10 @@ mlruns/
 
 # LLM Configuration Files
 .serena
+**/.claude/settings.local.json
+.claude/settings.local.json
+
+# Worktrees
+*/.worktrees/
+.worktrees/
+.claude/worktrees/

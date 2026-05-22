@@ -390,12 +390,25 @@ function symlink_tools() {
 	fi
 }
 
+function symlink_ai_files() {
+	# Gemini
+	mkdir -p "${HOME}/.gemini"
+	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.gemini/GEMINI.md"
+	# Claude
+	mkdir -p "${HOME}/.claude"
+	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
+	# Codex
+	mkdir -p "${HOME}/.codex"
+	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.codex/AGENTS.md"
+}
+
 function symlink_dotfiles() {
 	symlink_shell
 	symlink_zsh
 	symlink_bash
 	symlink_git
 	symlink_tools
+	symlink_ai_files
 }
 
 ##########################################################

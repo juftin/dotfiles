@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+set -e
+
+HELP_TEXT=$(
+	cat <<'EOF'
+Usage: worktree [OPTIONS]
+Options:
+  -n, --name NAME       Name of the worktree (required)
+  -b, --branch BRANCH   Branch name to create (defaults to NAME)
+  -t, --track TRACK     Remote branch to track (defaults to origin/main)
+
+EOF
+)
+
+NAME=""
+BRANCH=""
+TRACK="origin/main"
+
+# Parse Command-Line Arguments
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+	-n | --name)
+		NAME="$2"
+		shift 2
+		;;
+	-b | --branch)
+		BRANCH="$2"
+		shift 2
+		;;
+	-t | --track)
+		TRACK="$2"
+		shift 2
+		;;
+	-h | --help)
+		echo "${HELP_TEXT}"
+		exit 0
+		;;
+	*)
+		echo "Unknown option: $1"
+		echo "${HELP_TEXT}"
+		exit 1
+		;;
+	esac
+done
+
+# Resolve Worktree Directory
+WORKTREE_DIR="${PWD}/.worktrees/${NAME}"
+# Validate Name Argument
+if [[ -z ${NAME} ]]; then
+	echo "Error: Missing required argument: -n/--name"
+	echo ""
+	echo "${HELP_TEXT}"
+	exit 1
+fi
+# Validate Branch Name
+if [[ -z ${BRANCH} ]]; then
+	BRANCH="${NAME}"
+fi
+# Validate Name for Spaces
+if [[ ${NAME} == *" "* ]]; then
+	echo "Error: Worktree name cannot contain spaces: ${NAME}"
+	exit 1
+fi
+# Create Worktree
+git worktree add "${WORKTREE_DIR}" -b "${BRANCH}" --track "${TRACK}"
+echo "Worktree added at: ${WORKTREE_DIR}"
