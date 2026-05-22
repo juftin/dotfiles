@@ -20,6 +20,7 @@ pls
 poetry
 pre-commit
 pyright
+pyrefly
 rich-cli
 ruff
 specify-cli --from git+https://github.com/github/spec-kit.git
