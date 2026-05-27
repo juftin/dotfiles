@@ -57,6 +57,7 @@ setopt inc_append_history       # Add commands to the history file immediately.
 # variables
 [[ ! -f "${HOME}/.shell_vars" ]] || source "${HOME}/.shell_vars"
 [[ ! -f "${HOME}/.zshenv" ]] || source "${HOME}/.zshenv"
+[[ ! -f "${HOME}/.env.sh" ]] || source "${HOME}/.env.sh"
 # aliases
 [[ ! -f "${HOME}/.shell_aliases" ]] || source "${HOME}/.shell_aliases"
 # functions
