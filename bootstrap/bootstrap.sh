@@ -397,6 +397,7 @@ function symlink_ai_files() {
 	# Claude
 	mkdir -p "${HOME}/.claude"
 	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
+	symlink_item "${DOTFILES_DIR}/ai/claude/settings.json" "${HOME}/.claude/settings.json"
 	# Codex
 	mkdir -p "${HOME}/.codex"
 	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.codex/AGENTS.md"

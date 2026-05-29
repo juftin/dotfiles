@@ -1,0 +1,57 @@
+{
+    "$schema": "https://json.schemastore.org/claude-code-settings.json",
+    "env": {
+        "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    },
+    "attribution": {
+        "commit": "",
+        "pr": ""
+    },
+    "enabledPlugins": {
+        "astral@astral-sh": true,
+        "code-review@claude-plugins-official": true,
+        "commit-commands@claude-plugins-official": true,
+        "context7@claude-plugins-official": true,
+        "github@claude-plugins-official": true,
+        "pr-review-toolkit@claude-plugins-official": true,
+        "serena@claude-plugins-official": true,
+        "skill-creator@claude-plugins-official": true,
+        "slack@claude-plugins-official": true,
+        "typescript-lsp@claude-plugins-official": true,
+        "juftin@juftin": true,
+        "superpowers@superpowers-marketplace": true,
+        "superpowers-developing-for-claude-code@superpowers-marketplace": true
+    },
+    "extraKnownMarketplaces": {
+        "claude-plugins-official": {
+            "source": {
+                "source": "github",
+                "repo": "anthropics/claude-plugins-official"
+            }
+        },
+        "juftin": {
+            "source": {
+                "source": "github",
+                "repo": "juftin/skills"
+            }
+        },
+        "astral-sh": {
+            "source": {
+                "source": "github",
+                "repo": "astral-sh/claude-code-plugins"
+            }
+        },
+        "superpowers-marketplace": {
+            "source": {
+                "source": "github",
+                "repo": "obra/superpowers-marketplace"
+            }
+        }
+    },
+    "skipDangerousModePermissionPrompt": true,
+    "theme": "dark",
+    "skipAutoPermissionPrompt": true,
+    "feedbackSurveyState": {
+        "lastShownTime": 1754022474705
+    }
+}
