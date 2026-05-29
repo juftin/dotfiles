@@ -91,16 +91,17 @@ and ordering - bypassing it produces results that don't match CI.
 
 Discover what's available with `task --list-all`. The standard entrypoints:
 
-| Task                 | Purpose                                      |
-| -------------------- | -------------------------------------------- |
-| `task install`       | Install Project + Dev Dependencies           |
-| `task fix`           | Code Quality Auto-Fix - Formatting + Linting |
-| `task lint`          | Code Quality Check - Formatting + Linting    |
-| `task check`         | Code Quality Check - Type Checking           |
-| `task test`          | Testing - PyTest                             |
-| `task build`         | Artifact Building - Docker                   |
-| `task lock`          | Regenerate `uv.lock`                         |
-| `task run -- <args>` | Run a command in the project environment     |
+| Task                 | Purpose                                                   |
+| -------------------- | --------------------------------------------------------- |
+| `task install`       | Install Project + Dev Dependencies                        |
+| `task fix`           | Code Quality Auto-Fix - Formatting + Linting              |
+| `task check`         | Code Quality Check - Formatting + Linting + Type Checking |
+| `task check:style`   | Code Quality Check - Formatting + Linting                 |
+| `task check:types`   | Code Quality Check - Type Checking                        |
+| `task test`          | Testing - PyTest                                          |
+| `task build`         | Artifact Building - Docker                                |
+| `task lock`          | Regenerate `uv.lock`                                      |
+| `task run -- <args>` | Run a command in the project environment                  |
 
 Pass extra args through with `{{.CLI_ARGS}}`, e.g. `task test -- tests/test_foo.py::test_bar`.
 
@@ -154,50 +155,31 @@ current `uv` usage details.
 
 ## Committing Code
 
--   When committing code, use the Gitmoji spec: `<intention> [scope?][:?] <message>`
-
-    -   intention: The intention you want to express with the commit, using an emoji from `gitmoji`
-    -   scope: An optional string that adds contextual information for the scope of the change.
-    -   message: A brief explanation of the change.
+-   When committing code, use conventional commits:
 
     ```
-    <intention> [scope?][:?] <message>
+    <type>[optional scope]: <description>
 
     [optional body]
 
     [optional footer(s)]
     ```
 
-    -   Examples:
+    -   Example:
 
-        -   ```
-            ⚡️ Lazyload home screen images
+        ```
+        feat(perf): increase parallel computations
 
-            Optimize performance by loading images only when they are
-            about to enter the viewport.
-            ```
+        Use asynchronous thread workers to get more work done concurrently.
+        ```
 
-        -   ```
-            🎉️ package-name
+    -   When you know it from the branch name, history, context, use the Jira ticket number:
 
-            First commit of the project! This commit sets up the
-            initial project structure and skaffolding.
-            ```
+        ```
+        feat(CED-123): increase parallel computations
 
-        -   ```
-            💥️ Remove support for User Signup via Email
-
-            This is a breaking change. Users will need
-            to sign up using OAuth providers.
-            ```
-
-        -   ✨ Add new feature to user profile page
-        -   🐛 Fix `onClick` event handler
-        -   🔖 Bump version to 1.2.0
-        -   ♻️ (components): Transform classes to hooks
-        -   📈 Add analytics to the dashboard
-        -   🌐 Support Japanese language
-        -   ♿️ (account): Improve modals a11y
+        Use asynchronous thread workers to get more work done concurrently.
+        ```
 
 -   Don't add yourself as a Co-Author unless explicitly requested to, or if the project
     documentation requires it.
@@ -207,10 +189,9 @@ current `uv` usage details.
 Before committing, ensure that your code passes all checks:
 
 1. Run `task fix` to automatically fix any formatting or linting issues.
-2. Run `task lint` to verify formatting and linting.
-3. Run `task check` to verify type checking.
-4. Run `task test` to ensure all tests pass and coverage is sufficient.
-5. Run `pre-commit` hooks if the project uses them.
+2. Run `task check` to verify formatting, linting, and type checking.
+3. Run `task test` to ensure all tests pass and coverage is sufficient.
+4. Run `pre-commit` hooks if the project uses them.
 
 ## Pull Request Etiquette
 

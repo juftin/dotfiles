@@ -20,7 +20,11 @@
         "typescript-lsp@claude-plugins-official": true,
         "juftin@juftin": true,
         "superpowers@superpowers-marketplace": true,
-        "superpowers-developing-for-claude-code@superpowers-marketplace": true
+        "superpowers-developing-for-claude-code@superpowers-marketplace": true,
+        "ced@ced": true,
+        "atlassian@claude-plugins-official": true,
+        "notion-workspace-plugin@notion-plugin-marketplace": true,
+        "pup@datadog-pup": true
     },
     "extraKnownMarketplaces": {
         "claude-plugins-official": {
@@ -45,6 +49,24 @@
             "source": {
                 "source": "github",
                 "repo": "obra/superpowers-marketplace"
+            }
+        },
+        "ced": {
+            "source": {
+                "source": "github",
+                "repo": "smarterdx/ced-claude-plugin-poc"
+            }
+        },
+        "notion-plugin-marketplace": {
+            "source": {
+                "source": "github",
+                "repo": "makenotion/claude-code-notion-plugin"
+            }
+        },
+        "datadog-pup": {
+            "source": {
+                "source": "github",
+                "repo": "DataDog/pup"
             }
         }
     },
