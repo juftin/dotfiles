@@ -5,7 +5,7 @@
 cask "1password", greedy: true, args: { appdir: "/Applications" }
 cask "1password-cli", greedy: true
 cask "caffeine", greedy: true
-cask "cyberduck", greedy: true
+# cask "cyberduck", greedy: true
 cask "ghostty", greedy: true
 cask "github", greedy: true
 cask "google-chrome", greedy: true
@@ -18,5 +18,5 @@ cask "ollama-app", greedy: true, args: { appdir: "/Applications" }
 cask "obsidian", greedy: true
 cask "slack", greedy: true
 cask "vivaldi", greedy: true
-cask "vlc", greedy: true
+# cask "vlc", greedy: true
 cask "zoom", greedy: true
