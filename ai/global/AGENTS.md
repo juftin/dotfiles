@@ -61,17 +61,13 @@ For multi-step tasks, state a brief plan:
 
 ## Preferences
 
--   **Testing**: All code changes must be accompanied by tests that verify the
-    intended behavior and prevent regressions. Tests should be meaningful.
-    Sometime, a test may not be necessary - do not add tests for the sake
-    of adding tests, but do add tests when they can be put to meaningful
-    use.
+-   **Testing**: Tests verify behavior and prevent regressions. Add them when they
+    catch something a future change could break; don't add them just to lift coverage.
 -   **Linting and Formatting**: All code must adhere to the project's linting and formatting
     standards. Before committing code, ensure that it passes all linting checks and is
     properly formatted.
--   **Documentation**: All code changes should be accompanied by appropriate documentation.
-    This includes docstrings for code, as well as updates to any relevant project documentation
-    to reflect meaningful changes made.
+-   **Documentation**: Update project documentation (README, CHANGELOG, etc.) when changes
+    are meaningful enough to warrant it.
 -   **DRY**: Avoid code duplication. If you find yourself copying and pasting code, consider refactoring
     to create reusable functions or modules.
 -   **YAGNI**: You aren't gonna need it. Avoid adding functionality until it is necessary. This helps to
@@ -123,15 +119,38 @@ Python project dependency and environment management is handled by
 -   **Syncing**: `uv sync` installs everything from the lockfile. `task install` wraps this.
 -   **Lockfile**: `uv.lock` is committed. Regenerate via `task lock` when needed.
 
-Prefer the `task` wrappers below; reach for `uv` directly only when no Taskfile entrypoint exists.
+Prefer the `task` wrappers above; reach for `uv` directly only when no Taskfile entrypoint exists.
 
 **LLM reference**: <https://docs.astral.sh/uv/llms.txt> — fetch this when you need authoritative,
 current `uv` usage details.
 
-### General
+### Python Style
 
--   `pre-commit` is widely used, make sure to run pre-commit hooks alongside Taskfile
-    development tasks to ensure code is ready to be committed.
+-   **Docstrings**: Every module, class, function, method, and notable attribute
+    gets a docstring — including private helpers, test functions, and pytest
+    fixtures.
+    -   **Style**: NumPy (Parameters / Returns / Raises / Notes) by default;
+        match the project's existing style if it differs.
+    -   **AttributeDocStrings**: a bare triple-quoted string on the line
+        immediately after a class- or module-level assignment documents
+        attributes, dataclass fields, TypedDict keys, and module constants in
+        place.
+    -   **Content**: explain _what and why a caller would reach for it_ — don't
+        just restate the signature. One-liners for trivial helpers; full
+        sections when params/returns/raises are worth documenting.
+    -   **Docstrings vs `#` comments**: put rationale and invariants in the
+        docstring — docstrings are introspectable (`help()`, IDE tooltips,
+        generated docs). Reserve `#` comments for non-obvious local mechanics
+        (bug workarounds, subtle invariants).
+-   **Keyword Arguments**: Prefer keyword arguments over positional for anything beyond
+    the obvious first argument or two. Keyword call sites are self-documenting, survive
+    parameter reorderings, and make diffs easier to review. Applies to your own code and
+    to library calls (e.g. `df.to_parquet(path, index=False)`,
+    `subprocess.run(cmd, check=True, capture_output=True)`).
+-   **Type Hints**: Annotate every function and method — parameters and return types —
+    including unit tests (`def test_foo() -> None:`) and pytest fixtures. Annotate local
+    variables when the type is non-obvious. Use modern syntax (`list[str]`,
+    `dict[str, int]`, `X | None`) on Python 3.10+.
 
 ## Committing Code
 
@@ -191,12 +210,13 @@ Before committing, ensure that your code passes all checks:
 2. Run `task lint` to verify formatting and linting.
 3. Run `task check` to verify type checking.
 4. Run `task test` to ensure all tests pass and coverage is sufficient.
+5. Run `pre-commit` hooks if the project uses them.
 
 ## Pull Request Etiquette
 
 Rules:
 
--   Pull request titles should coform to the conventional commit spec (see above)
+-   Pull request titles should conform to the conventional commit spec (see above)
 -   Follow the below PR Template unless the project uses a different one:
 
 ````
@@ -226,7 +246,7 @@ Rules:
 
 ## Behavior Diagram
 
-[If relevant, this section should include a Mermaid diagram explaining this PR]
+[This section should include a Mermaid diagram explaining this PR. Omit section if not relevant]
 
 ```mermaid
 graph LR
@@ -237,13 +257,14 @@ graph LR
 ```
 ````
 
--   Don't credit yourself as a Co-Author, or indicate that the PR was created by an
-    agent, unless explicitly requested to, or if the project documentation requires it.
+-   Don't credit yourself on PRs, and don't indicate that the work was created by an agent, unless
+    the user explicitly requests it or project documentation requires it.
 
 ## Security Considerations
 
--   PHI/PII: Under no circumstances should Patient Health Information or Personally Identifiable Information be included
-    in code, comments, or PR descriptions.
+-   PHI/PII (for projects that touch sensitive data): Under no circumstances should Patient
+    Health Information or Personally Identifiable Information be included in code,
+    comments, or PR descriptions.
 -   Secrets: Use environment variables. Never commit API keys or database credentials.
 -   Synthetic Data: Use only generated synthetic data for unit and integration tests.
 -   Never read secret files like `.env` or use tools to decrypt secrets in your context.
