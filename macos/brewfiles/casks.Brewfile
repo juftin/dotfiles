@@ -15,6 +15,7 @@ cask "kiro-cli", greedy: true
 cask "lens", greedy: true
 cask "maccy", greedy: true
 cask "ollama-app", greedy: true, args: { appdir: "/Applications" }
+cask "obsidian", greedy: true
 cask "slack", greedy: true
 cask "vivaldi", greedy: true
 cask "vlc", greedy: true
