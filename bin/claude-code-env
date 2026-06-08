@@ -1,0 +1,373 @@
+#!/usr/bin/env bash
+
+# ==========================================================
+# CLAUDE CODE ENVIRONMENT MANAGER
+# ----------------------------------------------------------
+# A profile-based environment switcher for Claude Code.
+# Profiles are defined declaratively as JSON below.
+# ==========================================================
+
+if ! command -v python3 >/dev/null 2>&1; then
+	echo "ERROR: python3 is required but not found." >&2
+	exit 1
+fi
+
+#############################################
+# _claude_code_env_profiles_json
+# -------------------------------------------
+# Returns the JSON profile definitions.
+# Add new profiles here — no code changes needed.
+# ###########################################
+_claude_code_env_profiles_json() {
+	cat <<'EOF'
+{
+  "deepseek": {
+    "description": "Redirects Claude Code to DeepSeek backend APIs",
+    "auth": {
+      "env_vars": ["ANTHROPIC_AUTH_TOKEN", "DEEPSEEK_API_KEY"],
+      "export_as": "ANTHROPIC_AUTH_TOKEN"
+    },
+    "exports": {
+      "ANTHROPIC_BASE_URL": "https://api.deepseek.com/anthropic",
+      "ANTHROPIC_MODEL": "deepseek-v4-pro[1m]",
+      "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-v4-pro[1m]",
+      "ANTHROPIC_DEFAULT_SONNET_MODEL": "deepseek-v4-pro[1m]",
+      "ANTHROPIC_DEFAULT_HAIKU_MODEL": "deepseek-v4-flash",
+      "CLAUDE_CODE_SUBAGENT_MODEL": "deepseek-v4-flash",
+      "CLAUDE_CODE_EFFORT_LEVEL": "max",
+      "CLAUDE_CODE_ENV_PROFILE": "deepseek"
+    }
+  },
+  "anthropic": {
+    "description": "Resets environment back to native Anthropic APIs",
+    "unsets": [
+      "ANTHROPIC_BASE_URL", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_MODEL",
+      "ANTHROPIC_DEFAULT_OPUS_MODEL", "ANTHROPIC_DEFAULT_SONNET_MODEL",
+      "ANTHROPIC_DEFAULT_HAIKU_MODEL", "CLAUDE_CODE_SUBAGENT_MODEL",
+      "CLAUDE_CODE_EFFORT_LEVEL"
+    ],
+    "exports": {
+      "CLAUDE_CODE_ENV_PROFILE": "anthropic"
+    }
+  }
+}
+EOF
+}
+
+#############################################
+# _claude_code_env_log
+# -------------------------------------------
+# Internal log helper using dotfiles log_event
+# if available, falling back to basic colors.
+# ###########################################
+_claude_code_env_log() {
+	local level="$1"
+	local msg="$2"
+	if declare -f log_event >/dev/null; then
+		log_event "${level}" "${msg}"
+	else
+		local color=""
+		local reset="\033[0m"
+		case "${level}" in
+		"info") color="\033[0;32m[    INFO]: " ;;
+		"error") color="\033[0;31m[   ERROR]: " ;;
+		"warning") color="\033[0;33m[ WARNING]: " ;;
+		*) color="\033[0;32m[    INFO]: " ;;
+		esac
+		echo -e "${color}${msg}${reset}" >&2
+	fi
+}
+
+#############################################
+# _claude_code_env_list_profiles
+# -------------------------------------------
+# Lists all available profiles from JSON
+# ###########################################
+_claude_code_env_list_profiles() {
+	echo "Available Claude Code Profiles:"
+	local json
+	json=$(_claude_code_env_profiles_json)
+	python3 -c '
+import sys, json
+data = json.loads(sys.argv[1])
+for name, cfg in data.items():
+    desc = cfg.get("description", "")
+    print(f"  {name:12s} - {desc}")
+' "$json"
+}
+
+#############################################
+# _claude_code_env_set_profile
+# -------------------------------------------
+# Generic profile setter driven by JSON.
+# Saves current env before switching so original
+# values are restored when switching back.
+# ###########################################
+_claude_code_env_set_profile() {
+	local profile="$1"
+	local token="${2:-}"
+	local json
+	json=$(_claude_code_env_profiles_json)
+
+	# Validate profile exists and get auth config
+	local auth_env_vars
+	auth_env_vars=$(_CCE_PROFILE="${profile}" python3 -c '
+import os, sys, json
+data = json.loads(sys.argv[1])
+cfg = data.get(os.environ["_CCE_PROFILE"])
+if not cfg:
+    sys.exit(1)
+auth = cfg.get("auth")
+if auth:
+    print("\n".join(auth.get("env_vars", [])))
+' "$json" </dev/null)
+	if [ $? -ne 0 ]; then
+		_claude_code_env_log "error" "Unknown profile: ${profile}"
+		return 1
+	fi
+
+	# Resolve token from environment variables
+	if [ -n "${auth_env_vars}" ] && [ -z "${token}" ]; then
+		local var
+		for var in ${auth_env_vars}; do
+			token="${!var:-}"
+			[ -n "${token}" ] && break
+		done
+	fi
+
+	# Prompt securely if still empty and interactive
+	if [ -n "${auth_env_vars}" ] && [ -z "${token}" ]; then
+		if [ -t 0 ]; then
+			printf "Enter your API Key: " >&2
+			stty -echo
+			read -r token
+			stty echo
+			echo "" >&2
+		else
+			_claude_code_env_log "error" "API Key is not set, and no interactive terminal is available."
+			return 1
+		fi
+	fi
+
+	if [ -n "${auth_env_vars}" ] && [ -z "${token}" ]; then
+		_claude_code_env_log "error" "API Key cannot be empty."
+		return 1
+	fi
+
+	# Generate shell commands from profile JSON.
+	# Three phases: save current state, apply new profile, restore unrelated saved vars.
+	_CCE_PROFILE="${profile}" _CCE_TOKEN="${token:-}" python3 -c '
+import os, sys, json, shlex
+
+data = json.loads(sys.argv[1])
+target_profile = os.environ["_CCE_PROFILE"]
+token = os.environ.get("_CCE_TOKEN") or ""
+
+# Collect every env var managed across all profiles
+all_managed = set()
+for _cfg in data.values():
+    for _var in _cfg.get("exports", {}):
+        all_managed.add(_var)
+    for _var in _cfg.get("unsets", []):
+        all_managed.add(_var)
+    _auth = _cfg.get("auth")
+    if _auth:
+        all_managed.add(_auth["export_as"])
+
+# Phase 1: Save current values before they get clobbered.
+# Only save if not already saved — first save wins (preserves originals).
+for var in sorted(all_managed):
+    current_val = os.environ.get(var)
+    saved_val = os.environ.get(f"__CCE_SAVED_{var}")
+    if current_val and not saved_val:
+        print(f"export __CCE_SAVED_{var}={shlex.quote(current_val)}")
+
+# Phase 2: Apply the new profile.
+cfg = data[target_profile]
+for var in cfg.get("unsets", []):
+    print(f"unset {shlex.quote(var)}")
+for var, val in cfg.get("exports", {}).items():
+    print(f"export {shlex.quote(var)}={shlex.quote(val)}")
+auth = cfg.get("auth")
+if auth and token:
+    export_as = auth["export_as"]
+    print(f"export {shlex.quote(export_as)}={shlex.quote(token)}")
+
+# Phase 3: Restore saved vars the target profile does NOT explicitly set.
+# "Explicitly set" means exported (not just unset).
+target_sets = set(cfg.get("exports", {}).keys())
+if cfg.get("auth"):
+    target_sets.add(cfg["auth"]["export_as"])
+
+for var in sorted(all_managed):
+    if var not in target_sets:
+        saved_val = os.environ.get(f"__CCE_SAVED_{var}")
+        if saved_val:
+            print(f"export {shlex.quote(var)}={shlex.quote(saved_val)}")
+' "$json"
+}
+
+#############################################
+# _claude_code_env_unset
+# -------------------------------------------
+# Returns clean unsets for all custom vars
+# including saved state.
+# ###########################################
+_claude_code_env_unset() {
+	# Clear saved env state
+	local var
+	for var in $(compgen -v __CCE_SAVED_ 2>/dev/null); do
+		echo "unset ${var}"
+	done
+
+	echo "unset ANTHROPIC_BASE_URL"
+	echo "unset ANTHROPIC_AUTH_TOKEN"
+	echo "unset ANTHROPIC_MODEL"
+	echo "unset ANTHROPIC_DEFAULT_OPUS_MODEL"
+	echo "unset ANTHROPIC_DEFAULT_SONNET_MODEL"
+	echo "unset ANTHROPIC_DEFAULT_HAIKU_MODEL"
+	echo "unset CLAUDE_CODE_SUBAGENT_MODEL"
+	echo "unset CLAUDE_CODE_EFFORT_LEVEL"
+	echo "unset CLAUDE_CODE_ENV_PROFILE"
+}
+
+#############################################
+# _claude_code_env_status
+# -------------------------------------------
+# Renders the current variables and values
+# ###########################################
+_claude_code_env_status() {
+	local vars=(
+		"CLAUDE_CODE_ENV_PROFILE"
+		"ANTHROPIC_BASE_URL"
+		"ANTHROPIC_AUTH_TOKEN"
+		"ANTHROPIC_MODEL"
+		"ANTHROPIC_DEFAULT_OPUS_MODEL"
+		"ANTHROPIC_DEFAULT_SONNET_MODEL"
+		"ANTHROPIC_DEFAULT_HAIKU_MODEL"
+		"CLAUDE_CODE_SUBAGENT_MODEL"
+		"CLAUDE_CODE_EFFORT_LEVEL"
+	)
+
+	echo "Current Claude Code Environment Status:" >&2
+	echo "------------------------------------------" >&2
+	local var
+	for var in "${vars[@]}"; do
+		local val=""
+		eval val=\$"${var}"
+
+		if [ -n "${val}" ]; then
+			if [ "${var}" = "ANTHROPIC_AUTH_TOKEN" ]; then
+				local masked=""
+				if [ ${#val} -le 8 ]; then
+					masked="********"
+				else
+					masked="${val:0:4}********${val: -4}"
+				fi
+				printf "  %-35s = %s\n" "${var}" "${masked}" >&2
+			elif [ "${var}" = "CLAUDE_CODE_ENV_PROFILE" ]; then
+				printf "  %-35s = \033[0;32m%s\033[0m\n" "${var}" "${val}" >&2
+			else
+				printf "  %-35s = %s\n" "${var}" "${val}" >&2
+			fi
+		else
+			printf "  %-35s = \033[0;33m[NOT SET]\033[0m\n" "${var}" >&2
+		fi
+	done
+}
+
+#############################################
+# claude_code_env
+# -------------------------------------------
+# Core dispatcher function for managing profiles
+# ###########################################
+claude_code_env() {
+	local cmd="${1:-status}"
+	case "${cmd}" in
+	"set")
+		local profile="${2:-""}"
+		if [ -z "${profile}" ]; then
+			_claude_code_env_log "error" "Please specify a profile to set. Usage: claude-code-env set <profile>"
+			_claude_code_env_list_profiles >&2
+			return 1
+		fi
+
+		local commands=""
+		if ! commands=$(_claude_code_env_set_profile "${profile}" "${3:-""}"); then
+			return 1
+		fi
+
+		# Apply environment changes
+		if [ "${sourced}" -eq 1 ]; then
+			eval "${commands}"
+			_claude_code_env_log "info" "Claude Code profile '${profile}' successfully applied!"
+		else
+			# Standalone execution (either directly or via wrapper)
+			echo "${commands}"
+			if [ "${CLAUDE_CODE_ENV_SOURCED:-0}" -eq 1 ]; then
+				_claude_code_env_log "info" "Claude Code profile '${profile}' successfully applied!"
+			else
+				_claude_code_env_log "warning" "Executed directly. To apply these changes to your current shell session, run:" >&2
+				_claude_code_env_log "warning" "  eval \$(claude-code-env set ${profile})" >&2
+			fi
+		fi
+		;;
+	"unset")
+		local commands
+		commands=$(_claude_code_env_unset)
+		if [ "${sourced}" -eq 1 ]; then
+			eval "${commands}"
+			_claude_code_env_log "info" "Claude Code environment successfully reset/unset."
+		else
+			echo "${commands}"
+			if [ "${CLAUDE_CODE_ENV_SOURCED:-0}" -eq 1 ]; then
+				_claude_code_env_log "info" "Claude Code environment successfully reset/unset."
+			else
+				_claude_code_env_log "warning" "Executed directly. To apply these changes to your current shell session, run:" >&2
+				_claude_code_env_log "warning" '  eval $(claude-code-env unset)' >&2
+			fi
+		fi
+		;;
+	"status")
+		_claude_code_env_status
+		;;
+	"profiles" | "list")
+		_claude_code_env_list_profiles
+		;;
+	"-h" | "--help" | "help")
+		echo "Claude Code Environment Switcher" >&2
+		echo "Usage: claude-code-env <command> [args]" >&2
+		echo "" >&2
+		echo "Commands:" >&2
+		echo "  set <profile> [api_key] - Switch to a specific profile" >&2
+		echo "  unset                   - Reset/unset all Claude Code variables" >&2
+		echo "  status                  - View current active profile and variables" >&2
+		echo "  profiles                - List available profiles" >&2
+		echo "" >&2
+		echo "Tip: Source this script in your shell to use the 'claude-code-env' command natively:" >&2
+		echo "  source bin/claude-code-env" >&2
+		;;
+	*)
+		_claude_code_env_log "error" "Unknown command: ${cmd}"
+		echo "Usage: claude-code-env <command> [args]" >&2
+		return 1
+		;;
+	esac
+}
+
+#############################################
+# Entrypoint & Sourcing Check
+# ###########################################
+(return 0 2>/dev/null) && sourced=1 || sourced=0
+
+if [ "${sourced}" -eq 1 ]; then
+	export CLAUDE_CODE_ENV_SOURCED=1
+	# Define both underscores and hyphenated function names for maximum compatibility
+	claude-code-env() {
+		claude_code_env "$@"
+	}
+else
+	# If running as a standalone script, respect CLAUDE_CODE_ENV_SOURCED if already set
+	export CLAUDE_CODE_ENV_SOURCED="${CLAUDE_CODE_ENV_SOURCED:-0}"
+	claude_code_env "$@"
+fi

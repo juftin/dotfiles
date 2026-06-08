@@ -338,3 +338,13 @@ pager() {
 	BAT_ARGS+=("${EXTRA_ARGS[@]}")
 	"${BAT_ARGS[@]}"
 }
+
+#############################################
+# claude-code-env
+# -------------------------------------------
+# Profile-based environment switcher wrapper for Claude Code
+#############################################
+claude-code-env() {
+	local DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+	eval "$(CLAUDE_CODE_ENV_SOURCED=1 "${DOTFILES_DIR}/bin/claude-code-env" "${@}")"
+}
