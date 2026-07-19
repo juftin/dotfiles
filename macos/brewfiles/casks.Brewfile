@@ -16,7 +16,6 @@ cask "lens", greedy: true
 cask "maccy", greedy: true
 cask "ollama-app", greedy: true, args: { appdir: "/Applications" }
 cask "slack", greedy: true
-cask "sourcetree", greedy: true
 cask "vivaldi", greedy: true
 cask "vlc", greedy: true
 cask "zoom", greedy: true
