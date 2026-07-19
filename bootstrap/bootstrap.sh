@@ -401,6 +401,9 @@ function symlink_ai_files() {
 	# Codex
 	mkdir -p "${HOME}/.codex"
 	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.codex/AGENTS.md"
+	# OpenCode
+	mkdir -p "${HOME}/.config/opencode"
+	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
 }
 
 function symlink_dotfiles() {
