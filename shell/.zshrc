@@ -83,6 +83,11 @@ fi
 if command -v mise &> /dev/null; then
   eval "$(mise activate zsh)"
 fi
+# orbstack
+if [[ -f "${HOME}/.orbstack/shell/init.zsh" && -z "${_ORBSTACK_INIT}" ]]; then
+	source "${HOME}/.orbstack/shell/init.zsh"
+	export _ORBSTACK_INIT=1
+fi
 
 # disable autocd
 unsetopt autocd

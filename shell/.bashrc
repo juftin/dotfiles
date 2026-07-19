@@ -83,6 +83,11 @@ fi
 if command -v mise &>/dev/null; then
 	eval "$(mise activate bash)"
 fi
+# orbstack
+if [[ -f "${HOME}/.orbstack/shell/init.bash" && -z ${_ORBSTACK_INIT} ]]; then
+	source "${HOME}/.orbstack/shell/init.bash"
+	export _ORBSTACK_INIT=1
+fi
 
 #########################################################################################################
 
