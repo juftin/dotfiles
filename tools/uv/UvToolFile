@@ -4,6 +4,7 @@ batrachian-toad
 browsr[all]
 camply[all]
 cookiecutter
+copier
 dunk
 dvc
 hatch --with pip
@@ -18,7 +19,8 @@ lunchable[all]
 pdm
 pls
 poetry
-pre-commit
+pre-commit --with pre-commit-uv
+prek
 pyright
 pyrefly
 rich-cli
