@@ -7,6 +7,12 @@
         "commit": "",
         "pr": ""
     },
+    "statusLine": {
+        "type": "command",
+        "command": "~/.claude/statusline.sh",
+        "padding": 0,
+        "refreshInterval": 10
+    },
     "enabledPlugins": {
         "astral@astral-sh": true,
         "code-review@claude-plugins-official": true,
