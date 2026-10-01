@@ -216,7 +216,10 @@ Before committing, ensure that your code passes all checks:
 
 Rules:
 
--   Pull request titles should conform to the conventional commit spec (see above)
+-   Pull request titles should conform to the conventional commit spec (see above).
+-   PRs must represent their final state. Focus strictly on what the changes achieve and why; do not narrate intermediate attempts, discarded approaches, or implementation thought processes.
+-   Keep the PR title and description up to date whenever newly pushed code materially changes the PR.
+-   GitHub does not render newlines well. Remove hard line breaks within paragraphs before updating the PR body so text renders cleanly.
 -   Follow the below PR Template unless the project uses a different one:
 
 ````
