@@ -1,13 +1,3 @@
-#########################################################################################################
-
-# kiro-cli
-if [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/bashrc.pre.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/kiro-cli/shell/bashrc.pre.bash"
-fi
-
-# shell-startup
-[[ ! -f "${HOME}/.shell_startup" ]] || source "${HOME}/.shell_startup"
-
 ##########################################################
 ############### ENV / ALIASES / FUNCTIONS ################
 ##########################################################
@@ -88,11 +78,8 @@ if [[ -f "${HOME}/.orbstack/shell/init.bash" && -z ${_ORBSTACK_INIT} ]]; then
 	source "${HOME}/.orbstack/shell/init.bash"
 	export _ORBSTACK_INIT=1
 fi
-
-#########################################################################################################
-
-# kiro-cli
-if [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/bashrc.post.bash" ]]; then
-	builtin source "${HOME}/Library/Application Support/kiro-cli/shell/bashrc.post.bash"
+# inshellisense
+if [[ -f "${HOME}/.local/share/inshellisense/init/zsh/init.zsh" && -z ${_INSHELLISENSE_INIT} ]]; then
+	source "${HOME}/.local/share/inshellisense/init/zsh/init.zsh"
+	export _INSHELLISENSE_INIT=1
 fi
-# Fig Ignore
