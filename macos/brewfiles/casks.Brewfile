@@ -11,7 +11,6 @@ cask "github", greedy: true
 cask "google-chrome", greedy: true
 cask "hammerspoon", greedy: true
 cask "iterm2", greedy: true
-cask "kiro-cli", greedy: true
 cask "lens", greedy: true
 cask "maccy", greedy: true
 cask "ollama-app", greedy: true, args: { appdir: "/Applications" }
