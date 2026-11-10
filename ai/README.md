@@ -108,6 +108,8 @@ when present, rather than trusting an unused cache path.
 `make agents-check` compares the generated manifest with the source inventory,
 verifies that declared native and managed plugins are installed and enabled, and
 checks loaded global and plugin MCP definitions against their declared owners.
+It also reports declared MCP names loaded by other enabled user plugins, without
+changing those plugins or their settings. Resolve these overlaps in the client.
 It also shows dotagents' upstream plugin compatibility warnings as advisories. The current Astral, Atlassian, and Pup bundles report legacy or
 native-resource warnings; inspect those messages before depending on
 runtime-specific plugin components. Missing dependencies, broken runtime

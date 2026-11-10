@@ -154,6 +154,54 @@ export function inventoryChecks(
                 );
             }
         }
+        // Unmanaged plugins remain untouched, but their connections can still
+        // conflict with the manifest's exactly-one-owner contract.
+        const additional =
+            agent === "claude"
+                ? claudePlugins.filter(
+                      (entry) => entry.scope === "user" && entry.enabled,
+                  )
+                : codexPlugins
+                      .filter((entry) => entry.installed && entry.enabled)
+                      .map((entry) => ({ ...entry, id: entry.pluginId }));
+        for (const plugin of additional.filter(
+            (entry) => !plan.some((managed) => managed.id === entry.id),
+        )) {
+            try {
+                const roots = pluginRoots(
+                    userHome,
+                    agent,
+                    plugin,
+                    codexPlugins,
+                    claudePlugins,
+                );
+                if (!roots.length) throw new Error("Missing active plugin root");
+                for (const root of roots) {
+                    const servers =
+                        agent === "claude" && plugin.mcpServers
+                            ? plugin.mcpServers
+                            : pluginMcpServers(root, agent);
+                    for (const name of Object.keys(servers)) {
+                        if (!manifest.mcp?.some((server) => server.name === name))
+                            continue;
+                        if (
+                            agent === "codex" &&
+                            settings.plugins?.[plugin.id]?.mcp_servers?.[name]
+                                ?.enabled === false
+                        )
+                            continue;
+                        record(name, plugin.id);
+                        mcpIssues.push(
+                            `${agent}: ${name} is also loaded by unmanaged plugin ${plugin.id}; disable that connection in the client.`,
+                        );
+                    }
+                }
+            } catch {
+                mcpIssues.push(
+                    `Unable to inspect ${agent} MCP definitions for active unmanaged plugin ${plugin.id}.`,
+                );
+            }
+        }
         try {
             const config =
                 agent === "claude"

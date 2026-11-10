@@ -20,7 +20,8 @@
 
 -   [x] T008 Run Make tests/checks, syntax validation, hooks, and isolated regression fixtures.
 -   [x] T009 Apply installation, verify live Claude/Codex ownership, and assess convergence against spec.md.
--   [ ] T010 Publish upstream PR, run an independent review, address findings, and update the PR.
+-   [x] T010 Publish upstream PR, run an independent review, address findings, and update the PR.
+-   [x] T011 Report MCP overlaps from active unmanaged plugins without modifying their resources; cover both clients with regression fixtures.
 
 US2 depends on the US1 plugin helpers. US3 is independent. Complete regression
 fixtures before their implementations; validate each story before final checks.

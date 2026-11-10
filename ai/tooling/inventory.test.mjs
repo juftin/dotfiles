@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "nod
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
-import { stringify } from "smol-toml";
+import { parse, stringify } from "smol-toml";
 import { inventoryChecks } from "./check.mjs";
 import { globalMcp } from "./config.mjs";
 import { dotagentsConfig, pluginPlan } from "./manifest.mjs";
@@ -206,6 +206,67 @@ test("Claude in-place load paths take priority over healthy but unused caches", 
     );
     assert.equal(check.status, "error");
     assert.match(check.message, /global is loaded by non-owner/);
+});
+
+test("unmanaged plugin overlaps fail without modifying unrelated client resources", (t) => {
+    const f = fixture(t);
+    const paths = {
+        claude: join(f.userHome, ".claude/settings.json"),
+        codex: join(f.userHome, ".codex/config.toml"),
+    };
+    const extras = {
+        claude: join(f.userHome, "personal-plugin"),
+        codex: join(f.userHome, ".codex/plugins/cache/personal/extra/1"),
+    };
+    for (const agent of ["claude", "codex"]) {
+        f.write(join(extras[agent], ".mcp.json"), {
+            mcpServers: { service: { command: "synthetic" } },
+        });
+        const path = paths[agent];
+        const config =
+            agent === "claude"
+                ? JSON.parse(readFileSync(path, "utf8"))
+                : parse(readFileSync(path, "utf8"));
+        if (agent === "claude") config.enabledPlugins["extra@personal"] = true;
+        else config.plugins["extra@personal"] = { enabled: true };
+        f.write(path, config, agent === "codex");
+    }
+    f.claudePlugins = [
+        {
+            id: "extra@personal",
+            scope: "user",
+            enabled: true,
+            readFromFolder: extras.claude,
+            installPath: extras.claude,
+        },
+    ];
+    f.codexPlugins.push({
+        pluginId: "extra@personal",
+        installed: true,
+        enabled: true,
+        version: "1",
+    });
+    const before = Object.values(paths).map((path) => readFileSync(path, "utf8"));
+    let checks = inventoryChecks(f.manifest, f);
+    for (const agent of ["claude", "codex"]) {
+        const check = checks.find((entry) => entry.name === `${agent} MCP ownership`);
+        assert.equal(check.status, "error");
+        assert.match(
+            check.message,
+            /service is also loaded by unmanaged plugin extra@personal/,
+        );
+    }
+    assert.deepEqual(
+        Object.values(paths).map((path) => readFileSync(path, "utf8")),
+        before,
+    );
+    for (const root of Object.values(extras)) {
+        f.write(join(root, ".mcp.json"), {
+            mcpServers: { unrelated: { command: "synthetic" } },
+        });
+    }
+    checks = inventoryChecks(f.manifest, f);
+    assert.ok(checks.every((check) => check.status === "ok"));
 });
 
 test("missing plugin-owned MCPs and stale global transports fail verification", (t) => {
