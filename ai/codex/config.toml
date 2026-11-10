@@ -1,0 +1,22 @@
+# Portable preferences; the installer merges these into ~/.codex/config.toml.
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+web_search = "cached"
+openai_base_url = "https://us.api.openai.com/v1"
+cli_auth_credentials_store = "keyring"
+
+[features]
+apps = false
+remote_plugin = false
+browser_use = false
+browser_use_external = false
+computer_use = false
+in_app_browser = false
+
+[analytics]
+enabled = false
+
+[feedback]
+enabled = false

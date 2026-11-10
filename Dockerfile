@@ -11,7 +11,7 @@ WORKDIR ${HOME}
 
 COPY --chown=juftin:juftin . ${DOTFILES_DIR}
 
-RUN make -C ${HOME}/.dotfiles bootstrap
+RUN DOTFILES_SKIP_AGENTS=1 make -C ${HOME}/.dotfiles bootstrap
 
 SHELL ["/bin/zsh", "-c"]
 
