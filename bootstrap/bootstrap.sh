@@ -391,13 +391,16 @@ function symlink_tools() {
 }
 
 function symlink_ai_files() {
-	# Gemini
-	mkdir -p "${HOME}/.gemini"
-	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.gemini/GEMINI.md"
+	# The installer generates agents.toml; the lockfile is written through its symlink.
+	mkdir -p "${HOME}/.agents"
+	symlink_item "${DOTFILES_DIR}/ai/agents/agents.lock" "${HOME}/.agents/agents.lock"
+	# Optional private skills are kept out of version control.
+	mkdir -p "${DOTFILES_DIR}/ai/agents/private"
+	symlink_item "${DOTFILES_DIR}/ai/agents/private" "${HOME}/.agents/private"
+	mkdir -p "${HOME}/.agents/skills"
 	# Claude
 	mkdir -p "${HOME}/.claude"
 	symlink_item "${DOTFILES_DIR}/ai/global/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
-	symlink_item "${DOTFILES_DIR}/ai/claude/settings.json" "${HOME}/.claude/settings.json"
 	symlink_item "${DOTFILES_DIR}/ai/claude/statusline.sh" "${HOME}/.claude/statusline.sh"
 	# Codex
 	mkdir -p "${HOME}/.codex"
@@ -416,9 +419,25 @@ function symlink_dotfiles() {
 	symlink_ai_files
 }
 
+function install_ai_agents() {
+	if ! command -v npm >/dev/null 2>&1; then
+		log_event "error" "npm is required to install agent files (Node.js 20+)"
+		return 1
+	fi
+	log_event "info" "Installing agent files with dotagents 🤖"
+	npm ci --prefix "${DOTFILES_DIR}/ai/tooling" --ignore-scripts --no-audit --no-fund
+	node "${DOTFILES_DIR}/ai/tooling/install.mjs"
+}
+
 ##########################################################
 ######################## script ##########################
 ##########################################################
+
+if [ "${1:-}" = "--agents" ]; then
+	symlink_ai_files
+	install_ai_agents
+	exit 0
+fi
 
 dotfiles_ascii
 install_dependencies
@@ -426,4 +445,7 @@ install_binaries
 install_dotfiles
 init_submodules
 symlink_dotfiles
+if [ "${DOTFILES_SKIP_AGENTS:-0}" != "1" ]; then
+	install_ai_agents
+fi
 log_success

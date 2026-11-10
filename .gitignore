@@ -1,2 +1,4 @@
 cache/
 macos/*.lock.json
+ai/agents/private/
+ai/tooling/node_modules/

@@ -25,5 +25,5 @@ pyright
 pyrefly
 rich-cli
 ruff
-specify-cli --from git+https://github.com/github/spec-kit.git
+specify-cli --from git+https://github.com/juftin/spec-kit.git
 toolong

@@ -1,0 +1,15 @@
+{
+    "name": "dotfiles-agents",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "node --test"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "dependencies": {
+        "@sentry/dotagents": "3.4.0",
+        "smol-toml": "1.9.1"
+    }
+}

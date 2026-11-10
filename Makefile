@@ -18,6 +18,20 @@ sync: ## Update the project and its submodules.
 	git pull --recurse-submodules --jobs=4
 	@echo "Dotfiles synced successfully 🎉"
 
+##@ agents 🤖
+
+.PHONY: agents-install
+agents-install: ## Install shared agent files and app settings.
+	DOTFILES_DIR="$(MAKE_DIR)" $(SHELL) "$(MAKE_DIR)/bootstrap/bootstrap.sh" --agents
+
+.PHONY: agents-check
+agents-check: ## Check the global dotagents installation.
+	node "$(MAKE_DIR)/ai/tooling/check.mjs"
+
+.PHONY: agents-test
+agents-test: ## Test agent configuration merging and Antigravity generation.
+	npm --prefix "$(MAKE_DIR)/ai/tooling" test
+
 ##@ macOS 🍏
 
 .PHONY: brew-bundle
