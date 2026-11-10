@@ -24,12 +24,12 @@ make agents-test
 
 The full bootstrap also installs agent files. Container builds set
 `DOTFILES_SKIP_AGENTS=1` to skip this installation; the explicit
-`make agents-install` target always installs agents. Node.js 20+, npm, Git, and access
-to the private `smarterdx` plugin repository, plus the Claude and Codex CLIs, are
-required. Antigravity bundles use its documented manual installation directory;
-the Antigravity CLI is optional. The npm lockfile pins the dotagents tooling version;
-`agents.lock` records resolved dependencies, but dotagents `install` refreshes
-them rather than treating that file as a frozen dependency lock.
+`make agents-install` target always installs agents. Node.js 20+, npm, Git,
+plus the Claude and Codex CLIs, are required. Antigravity bundles use its
+documented manual installation directory; the Antigravity CLI is optional.
+The npm lockfile pins the dotagents tooling version; `agents.lock` records
+resolved dependencies, but dotagents `install` refreshes them rather than
+treating that file as a frozen dependency lock.
 
 ## Source files
 
@@ -72,10 +72,10 @@ are declared in the same manifest, for example:
 ```toml
 [[plugins]]
 name = "slack"
-source = "slackapi/slack-skills-plugin"
+source = "anthropics/claude-plugins-official"
 installer = "native"
-claude = "slack@slack"
-codex = "slack@slack"
+claude = "slack@claude-plugins-official"
+codex = "slack@claude-plugins-official"
 targets = ["claude", "codex"]
 ```
 
@@ -89,14 +89,14 @@ connection. A plugin name assigns it to that plugin; a table can vary by client:
 
 ```toml
 [[mcp]]
-name = "notion"
-url = "https://mcp.notion.com/mcp"
-owner = { claude = "notion", codex = "notion" }
+name = "github"
+url = "https://api.githubcopilot.com/mcp/"
+headers = { Authorization = "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}" }
+owner = "github"
+targets = ["claude", "codex"]
 ```
 
-Claude and Codex use the Atlassian and Notion plugins' MCP connections.
-CED retains only its Datadog and Serena connections in each client's installed
-runtime folder. Downloaded source bundles retain their upstream definitions.
+Downloaded source bundles retain their upstream definitions.
 Claude's local marketplace loads plugins in place, so the installer creates a
 separate filtered marketplace at `~/.agents/claude-marketplace/`. Codex receives
 its own projection in the installed version's cache. Ownership is applied separately
@@ -110,20 +110,27 @@ verifies that declared native and managed plugins are installed and enabled, and
 checks loaded global and plugin MCP definitions against their declared owners.
 It also reports declared MCP names loaded by other enabled user plugins, without
 changing those plugins or their settings. Resolve these overlaps in the client.
-It also shows dotagents' upstream plugin compatibility warnings as advisories. The current Astral, Atlassian, and Pup bundles report legacy or
-native-resource warnings; inspect those messages before depending on
-runtime-specific plugin components. Missing dependencies, broken runtime
-artifacts, and all other warnings or errors still return a failure. The checker
-uses structured results from the pinned dotagents version; its CLI treats every
-warning as a failure.
+It also shows dotagents' upstream plugin compatibility warnings as advisories.
+Missing dependencies, broken runtime artifacts, and all other warnings or errors
+still return a failure. The checker uses structured results from the pinned
+dotagents version; its CLI treats every warning as a failure.
 
-Spec Kit uses a wildcard declaration scoped to its public skills directory:
+Spec Kit uses wildcard and explicit declarations scoped to its skills:
 
 ```toml
 [[skills]]
 name = "*"
 source = "juftin/spec-kit"
-path = "skills"
+
+[[skills]]
+name = "add-community-extension"
+source = "juftin/spec-kit"
+path = ".github/skills/add-community-extension"
+
+[[skills]]
+name = "code-review"
+source = "juftin/spec-kit"
+path = ".github/skills/code-review"
 ```
 
 Running `make agents-install` picks up all current skills there, including future
@@ -149,12 +156,11 @@ the token. OAuth servers still require signing in separately in each app.
 
 ## Antigravity compatibility
 
-Antigravity is disabled in the work configuration. To enable it on another machine:
+Antigravity is disabled in the default configuration. To enable it on another machine:
 
 1. Add `"antigravity"` to the top-level `agents` list and the desired plugins'
    `targets` lists in `agents/agents.toml`.
-2. Add `antigravity = "global"` to the Atlassian and Notion MCP `owner` tables.
-3. Run `make agents-install`.
+2. Run `make agents-install`.
 
 Enabling it applies `antigravity/config.json`, links shared instructions to
 `~/.gemini/GEMINI.md`, and installs its skills, MCP definitions, and plugin bundles.
@@ -169,8 +175,6 @@ skills from [manually installed bundles](https://antigravity.google/docs/plugins
 under `~/.gemini/config/plugins/`.
 
 The adapter exports plugin metadata and links skills and supporting resources.
-It exposes nested skill namespaces such as Notion's while preferring direct
-skills over legacy subdirectories such as Atlassian's `v1/` copies.
 Generated bundles have an ownership marker; removed bundles are pruned, while
 unrelated plugins and name collisions are preserved. Plugin MCP definitions
 are excluded from these bundles because Antigravity's connections are owned
@@ -182,26 +186,10 @@ contracts differ, so changing event names alone would produce broken hooks.
 None of the currently selected bundles provides lifecycle hooks. See the
 [Antigravity hook contract](https://antigravity.google/docs/hooks).
 
-Dotagents 3.4 rejects Slack's Codex manifest because its `mcpServers` field is an
-object. Slack therefore uses native installation in both clients. Notion and
-Claude's TypeScript LSP plugin also use native installation, all declared in
-`agents/agents.toml`.
-
-Slack, Notion, and Atlassian are installed in both Claude and Codex:
-
-| Integration | Claude plugin                                       | Codex plugin                                             |
-| ----------- | --------------------------------------------------- | -------------------------------------------------------- |
-| Slack       | `slack@slack`                                       | `slack@slack` (skills), `slack@openai-api-curated` (MCP) |
-| Notion      | `notion-workspace-plugin@notion-plugin-marketplace` | `notion@openai-api-curated`                              |
-| Atlassian   | `atlassian@dotagents`                               | `atlassian@dotagents-local`                              |
-
-Slack's upstream Codex plugin currently ships skills only. The existing curated
-Codex connector remains enabled for Slack workspace access. Claude uses the
-upstream plugin's bundled MCP server, and the previous official-marketplace
-Claude alias is disabled to avoid duplicate skills and connections.
-
-Slack and Notion use each client's native plugin installer. Atlassian uses the
-generated dotagents marketplaces. All three are declared in `agents/agents.toml`. Authentication is
-completed separately in each app.
+Native plugins (Context7, GitHub, Serena, Slack, TypeScript LSP, Superpowers, and
+Superpowers Developing for Claude Code) are declared in `agents/agents.toml` with
+`installer = "native"`. Portable plugins (Astral, Juftin, Skill Creator, Code Review,
+Commit Commands, and PR Review Toolkit) are compiled and managed through dotagents.
+Authentication is completed separately in each app.
 The repository's app settings are applied during installation; change portable
 preferences here when you want them to persist across machines.

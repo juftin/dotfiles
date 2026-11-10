@@ -6,17 +6,23 @@ agents = ["claude", "codex"]
 ####################################################
 
 [[skills]]
-name = "unslop"
-source = "theclaymethod/unslop"
-
-[[skills]]
 name = "*"
 source = "juftin/spec-kit"
-path = "skills"
 
 [[skills]]
-name = "*"
-source = "path:private"
+name = "add-community-extension"
+source = "juftin/spec-kit"
+path = ".github/skills/add-community-extension"
+
+[[skills]]
+name = "code-review"
+source = "juftin/spec-kit"
+path = ".github/skills/code-review"
+
+[[skills]]
+name = "find-skills"
+source = "vercel-labs/skills"
+path = "skills/find-skills"
 
 ####################################################
 # MCP Servers
@@ -25,35 +31,24 @@ source = "path:private"
 [[mcp]]
 name = "context7"
 url = "https://mcp.context7.com/mcp"
+owner = "context7"
+targets = ["claude", "codex"]
 
 [[mcp]]
 name = "github"
 url = "https://api.githubcopilot.com/mcp/"
 headers = { Authorization = "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}" }
-
-[[mcp]]
-name = "atlassian"
-url = "https://mcp.atlassian.com/v2/mcp"
-owner = { claude = "atlassian", codex = "atlassian" }
-
-[[mcp]]
-name = "notion"
-url = "https://mcp.notion.com/mcp"
-owner = { claude = "notion", codex = "notion" }
-
-[[mcp]]
-name = "slack"
-owner = { claude = "slack", codex = "slack-connector" }
-targets = ["claude", "codex"]
-
-[[mcp]]
-name = "datadog"
-owner = "ced"
+owner = "github"
 targets = ["claude", "codex"]
 
 [[mcp]]
 name = "serena"
-owner = "ced"
+owner = "serena"
+targets = ["claude", "codex"]
+
+[[mcp]]
+name = "slack"
+owner = "slack"
 targets = ["claude", "codex"]
 
 ####################################################
@@ -67,51 +62,64 @@ path = "plugins/astral"
 targets = ["claude", "codex"]
 
 [[plugins]]
-name = "atlassian"
-source = "atlassian/atlassian-mcp-server"
-targets = ["claude", "codex"]
-
-[[plugins]]
 name = "juftin"
 source = "juftin/skills"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "pup"
-source = "DataDog/pup"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "ced"
-source = "git:git@github.com:smarterdx/ced-claude-plugin-poc.git"
 targets = ["claude", "codex"]
 
 [[plugins]]
 name = "skill-creator"
 source = "anthropics/claude-plugins-official"
 path = "plugins/skill-creator"
-targets = ["claude"]
-
-[[plugins]]
-name = "slack"
-source = "slackapi/slack-skills-plugin"
-installer = "native"
-claude = "slack@slack"
-codex = "slack@slack"
 targets = ["claude", "codex"]
 
 [[plugins]]
-name = "slack-connector"
-installer = "native"
-codex = "slack@openai-api-curated"
-targets = ["codex"]
+name = "code-review"
+source = "anthropics/claude-plugins-official"
+path = "plugins/code-review"
+targets = ["claude", "codex"]
 
 [[plugins]]
-name = "notion"
-source = "makenotion/claude-code-notion-plugin"
+name = "commit-commands"
+source = "anthropics/claude-plugins-official"
+path = "plugins/commit-commands"
+targets = ["claude", "codex"]
+
+[[plugins]]
+name = "pr-review-toolkit"
+source = "anthropics/claude-plugins-official"
+path = "plugins/pr-review-toolkit"
+targets = ["claude", "codex"]
+
+[[plugins]]
+name = "context7"
+source = "anthropics/claude-plugins-official"
 installer = "native"
-claude = "notion-workspace-plugin@notion-plugin-marketplace"
-codex = "notion@openai-api-curated"
+claude = "context7@claude-plugins-official"
+codex = "context7@claude-plugins-official"
+targets = ["claude", "codex"]
+
+[[plugins]]
+name = "github"
+source = "anthropics/claude-plugins-official"
+installer = "native"
+claude = "github@claude-plugins-official"
+codex = "github@claude-plugins-official"
+targets = ["claude", "codex"]
+
+[[plugins]]
+name = "serena"
+source = "anthropics/claude-plugins-official"
+installer = "native"
+claude = "serena@claude-plugins-official"
+codex = "serena@claude-plugins-official"
+targets = ["claude", "codex"]
+
+[[plugins]]
+name = "slack"
+source = "anthropics/claude-plugins-official"
+installer = "native"
+claude = "slack@claude-plugins-official"
+codex = "slack@claude-plugins-official"
 targets = ["claude", "codex"]
 
 [[plugins]]
@@ -119,4 +127,21 @@ name = "typescript-lsp"
 source = "anthropics/claude-plugins-official"
 installer = "native"
 claude = "typescript-lsp@claude-plugins-official"
-targets = ["claude"]
+codex = "typescript-lsp@claude-plugins-official"
+targets = ["claude", "codex"]
+
+[[plugins]]
+name = "superpowers"
+source = "obra/superpowers-marketplace"
+installer = "native"
+claude = "superpowers@superpowers-marketplace"
+codex = "superpowers@superpowers-marketplace"
+targets = ["claude", "codex"]
+
+[[plugins]]
+name = "superpowers-developing-for-claude-code"
+source = "obra/superpowers-marketplace"
+installer = "native"
+claude = "superpowers-developing-for-claude-code@superpowers-marketplace"
+codex = "superpowers-developing-for-claude-code@superpowers-marketplace"
+targets = ["claude", "codex"]
