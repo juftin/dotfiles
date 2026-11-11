@@ -89,10 +89,9 @@ connection. A plugin name assigns it to that plugin; a table can vary by client:
 
 ```toml
 [[mcp]]
-name = "github"
-url = "https://api.githubcopilot.com/mcp/"
-headers = { Authorization = "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}" }
-owner = { claude = "github", codex = "github", antigravity = "global" }
+name = "context7"
+url = "https://mcp.context7.com/mcp"
+owner = { claude = "context7", codex = "context7", antigravity = "global" }
 targets = ["claude", "codex", "antigravity"]
 ```
 
@@ -133,16 +132,7 @@ Project trust and command approval rules remain machine-local.
 Private skills can be placed under `agents/private/<name>/SKILL.md`. An empty
 private directory works on a new machine. This directory is ignored by Git.
 
-Provide `GITHUB_PERSONAL_ACCESS_TOKEN` through your shell environment before
-installation. The GitHub MCP declaration references that variable. The installer
-converts its bearer placeholder to Codex's `bearer_token_env_var` setting after
-dotagents installation, so Codex reads the token when it starts. GitHub uses this token;
-do not run `codex mcp login github`, which attempts unsupported dynamic OAuth
-client registration. Ensure the variable is exported in the environment that
-launches Codex. When enabled, Antigravity
-receives the resolved header in its local MCP config with owner-only permissions;
-credentials never belong in the tracked manifest. Rerun installation after rotating
-the token. OAuth servers still require signing in separately in each app.
+OAuth servers still require signing in separately in each app.
 
 ## Antigravity compatibility
 
@@ -173,7 +163,7 @@ contracts differ, so changing event names alone would produce broken hooks.
 None of the currently selected bundles provides lifecycle hooks. See the
 [Antigravity hook contract](https://antigravity.google/docs/hooks).
 
-Native plugins (Context7 and GitHub) are declared in `agents/agents.toml` with
+Native plugins (Context7) are declared in `agents/agents.toml` with
 `installer = "native"`. Portable plugins (Astral, Juftin, and Skill Creator) are
 compiled and managed through dotagents. Authentication is completed separately in each app.
 The repository's app settings are applied during installation; change portable

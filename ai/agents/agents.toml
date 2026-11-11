@@ -24,13 +24,6 @@ url = "https://mcp.context7.com/mcp"
 owner = { claude = "context7", codex = "context7", antigravity = "global" }
 targets = ["claude", "codex", "antigravity"]
 
-[[mcp]]
-name = "github"
-url = "https://api.githubcopilot.com/mcp/"
-headers = { Authorization = "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}" }
-owner = { claude = "github", codex = "github", antigravity = "global" }
-targets = ["claude", "codex", "antigravity"]
-
 ####################################################
 # Plugins
 ####################################################
@@ -58,12 +51,4 @@ source = "anthropics/claude-plugins-official"
 installer = "native"
 claude = "context7@claude-plugins-official"
 codex = "context7@claude-plugins-official"
-targets = ["claude", "codex", "antigravity"]
-
-[[plugins]]
-name = "github"
-source = "anthropics/claude-plugins-official"
-installer = "native"
-claude = "github@claude-plugins-official"
-codex = "github@claude-plugins-official"
 targets = ["claude", "codex", "antigravity"]
