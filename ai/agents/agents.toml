@@ -1,5 +1,5 @@
 version = 1
-agents = ["claude", "codex"]
+agents = ["claude", "codex", "antigravity"]
 
 ####################################################
 # Skills
@@ -8,16 +8,6 @@ agents = ["claude", "codex"]
 [[skills]]
 name = "*"
 source = "juftin/spec-kit"
-
-[[skills]]
-name = "add-community-extension"
-source = "juftin/spec-kit"
-path = ".github/skills/add-community-extension"
-
-[[skills]]
-name = "code-review"
-source = "juftin/spec-kit"
-path = ".github/skills/code-review"
 
 [[skills]]
 name = "find-skills"
@@ -31,25 +21,15 @@ path = "skills/find-skills"
 [[mcp]]
 name = "context7"
 url = "https://mcp.context7.com/mcp"
-owner = "context7"
-targets = ["claude", "codex"]
+owner = { claude = "context7", codex = "context7", antigravity = "global" }
+targets = ["claude", "codex", "antigravity"]
 
 [[mcp]]
 name = "github"
 url = "https://api.githubcopilot.com/mcp/"
 headers = { Authorization = "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}" }
-owner = "github"
-targets = ["claude", "codex"]
-
-[[mcp]]
-name = "serena"
-owner = "serena"
-targets = ["claude", "codex"]
-
-[[mcp]]
-name = "slack"
-owner = "slack"
-targets = ["claude", "codex"]
+owner = { claude = "github", codex = "github", antigravity = "global" }
+targets = ["claude", "codex", "antigravity"]
 
 ####################################################
 # Plugins
@@ -59,36 +39,18 @@ targets = ["claude", "codex"]
 name = "astral"
 source = "astral-sh/claude-code-plugins"
 path = "plugins/astral"
-targets = ["claude", "codex"]
+targets = ["claude", "codex", "antigravity"]
 
 [[plugins]]
 name = "juftin"
 source = "juftin/skills"
-targets = ["claude", "codex"]
+targets = ["claude", "codex", "antigravity"]
 
 [[plugins]]
 name = "skill-creator"
 source = "anthropics/claude-plugins-official"
 path = "plugins/skill-creator"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "code-review"
-source = "anthropics/claude-plugins-official"
-path = "plugins/code-review"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "commit-commands"
-source = "anthropics/claude-plugins-official"
-path = "plugins/commit-commands"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "pr-review-toolkit"
-source = "anthropics/claude-plugins-official"
-path = "plugins/pr-review-toolkit"
-targets = ["claude", "codex"]
+targets = ["claude", "codex", "antigravity"]
 
 [[plugins]]
 name = "context7"
@@ -96,7 +58,7 @@ source = "anthropics/claude-plugins-official"
 installer = "native"
 claude = "context7@claude-plugins-official"
 codex = "context7@claude-plugins-official"
-targets = ["claude", "codex"]
+targets = ["claude", "codex", "antigravity"]
 
 [[plugins]]
 name = "github"
@@ -104,44 +66,4 @@ source = "anthropics/claude-plugins-official"
 installer = "native"
 claude = "github@claude-plugins-official"
 codex = "github@claude-plugins-official"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "serena"
-source = "anthropics/claude-plugins-official"
-installer = "native"
-claude = "serena@claude-plugins-official"
-codex = "serena@claude-plugins-official"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "slack"
-source = "anthropics/claude-plugins-official"
-installer = "native"
-claude = "slack@claude-plugins-official"
-codex = "slack@claude-plugins-official"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "typescript-lsp"
-source = "anthropics/claude-plugins-official"
-installer = "native"
-claude = "typescript-lsp@claude-plugins-official"
-codex = "typescript-lsp@claude-plugins-official"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "superpowers"
-source = "obra/superpowers-marketplace"
-installer = "native"
-claude = "superpowers@superpowers-marketplace"
-codex = "superpowers@superpowers-marketplace"
-targets = ["claude", "codex"]
-
-[[plugins]]
-name = "superpowers-developing-for-claude-code"
-source = "obra/superpowers-marketplace"
-installer = "native"
-claude = "superpowers-developing-for-claude-code@superpowers-marketplace"
-codex = "superpowers-developing-for-claude-code@superpowers-marketplace"
-targets = ["claude", "codex"]
+targets = ["claude", "codex", "antigravity"]

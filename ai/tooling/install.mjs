@@ -183,6 +183,7 @@ if (claudeMarketplace) {
         ...known.dotagents,
         source: { source: "directory", path: claudeMarketplace },
         installLocation: claudeMarketplace,
+        lastUpdated: known.dotagents?.lastUpdated ?? new Date().toISOString(),
     };
     saveConfig(path, JSON.stringify(known, null, 4) + "\n");
 }

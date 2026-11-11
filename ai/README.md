@@ -71,12 +71,12 @@ are declared in the same manifest, for example:
 
 ```toml
 [[plugins]]
-name = "slack"
+name = "context7"
 source = "anthropics/claude-plugins-official"
 installer = "native"
-claude = "slack@claude-plugins-official"
-codex = "slack@claude-plugins-official"
-targets = ["claude", "codex"]
+claude = "context7@claude-plugins-official"
+codex = "context7@claude-plugins-official"
+targets = ["claude", "codex", "antigravity"]
 ```
 
 App preference files contain app settings only. Edit the source inventory and use
@@ -92,8 +92,8 @@ connection. A plugin name assigns it to that plugin; a table can vary by client:
 name = "github"
 url = "https://api.githubcopilot.com/mcp/"
 headers = { Authorization = "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}" }
-owner = "github"
-targets = ["claude", "codex"]
+owner = { claude = "github", codex = "github", antigravity = "global" }
+targets = ["claude", "codex", "antigravity"]
 ```
 
 Downloaded source bundles retain their upstream definitions.
@@ -115,22 +115,12 @@ Missing dependencies, broken runtime artifacts, and all other warnings or errors
 still return a failure. The checker uses structured results from the pinned
 dotagents version; its CLI treats every warning as a failure.
 
-Spec Kit uses wildcard and explicit declarations scoped to its skills:
+Spec Kit uses a wildcard declaration scoped to its skills:
 
 ```toml
 [[skills]]
 name = "*"
 source = "juftin/spec-kit"
-
-[[skills]]
-name = "add-community-extension"
-source = "juftin/spec-kit"
-path = ".github/skills/add-community-extension"
-
-[[skills]]
-name = "code-review"
-source = "juftin/spec-kit"
-path = ".github/skills/code-review"
 ```
 
 Running `make agents-install` picks up all current skills there, including future
@@ -156,16 +146,13 @@ the token. OAuth servers still require signing in separately in each app.
 
 ## Antigravity compatibility
 
-Antigravity is disabled in the default configuration. To enable it on another machine:
+Antigravity is enabled in the configuration (`agents = ["claude", "codex", "antigravity"]`). Running `make agents-install`:
 
-1. Add `"antigravity"` to the top-level `agents` list and the desired plugins'
-   `targets` lists in `agents/agents.toml`.
-2. Run `make agents-install`.
-
-Enabling it applies `antigravity/config.json`, links shared instructions to
-`~/.gemini/GEMINI.md`, and installs its skills, MCP definitions, and plugin bundles.
-While disabled, the installer skips these steps and credential expansion for
-Antigravity. Existing local Antigravity files are retained.
+1. Applies `antigravity/config.json` preferences to `~/.gemini/antigravity-cli/antigravity_settings.json`.
+2. Links shared instructions to `~/.gemini/GEMINI.md`.
+3. Links skills to `~/.gemini/config/skills`.
+4. Exports plugin bundles to `~/.gemini/config/plugins/`.
+5. Configures global MCP servers in `~/.gemini/config/mcp_config.json`.
 
 Dotagents has no native Antigravity target. The adapter converts global MCP
 declarations to [Antigravity's MCP format](https://antigravity.google/docs/mcp).
@@ -186,10 +173,8 @@ contracts differ, so changing event names alone would produce broken hooks.
 None of the currently selected bundles provides lifecycle hooks. See the
 [Antigravity hook contract](https://antigravity.google/docs/hooks).
 
-Native plugins (Context7, GitHub, Serena, Slack, TypeScript LSP, Superpowers, and
-Superpowers Developing for Claude Code) are declared in `agents/agents.toml` with
-`installer = "native"`. Portable plugins (Astral, Juftin, Skill Creator, Code Review,
-Commit Commands, and PR Review Toolkit) are compiled and managed through dotagents.
-Authentication is completed separately in each app.
+Native plugins (Context7 and GitHub) are declared in `agents/agents.toml` with
+`installer = "native"`. Portable plugins (Astral, Juftin, and Skill Creator) are
+compiled and managed through dotagents. Authentication is completed separately in each app.
 The repository's app settings are applied during installation; change portable
 preferences here when you want them to persist across machines.
