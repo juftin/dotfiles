@@ -159,6 +159,11 @@ project template.
 
 ## Applications and Tools
 
+-   [Agent files](https://github.com/juftin/dotfiles/tree/main/ai) are managed with
+    dotagents and this repository. Run `dotfiles agents-install` to refresh Claude
+    and Codex instructions, skills, MCP servers, and app settings. Antigravity
+    support is available as an opt-in for other machines.
+
 -   [awsume] is an AWS role management tool configured with `dotfiles`. See the
     [awsume docs](../dev-setup/aws.md#awsume) in `dev-setup` for more information.
 

@@ -1,0 +1,7 @@
+{
+    "userSettings": {
+        "autoExecutionPolicy": "CASCADE_COMMANDS_AUTO_EXECUTION_EAGER",
+        "enableTerminalSandbox": false,
+        "nonWorkspaceFileAccessPolicy": "AGENT_SETTING_POLICY_ALLOW"
+    }
+}

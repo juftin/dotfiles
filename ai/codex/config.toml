@@ -1,0 +1,14 @@
+# Portable preferences; the installer merges these into ~/.codex/config.toml.
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+service_tier = "default"
+approvals_reviewer = "auto_review"
+
+[features]
+js_repl = false
+
+[shell_environment_policy]
+inherit = "core"
+
+[shell_environment_policy.set]
+CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
