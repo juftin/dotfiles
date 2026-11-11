@@ -71,11 +71,11 @@ are declared in the same manifest, for example:
 
 ```toml
 [[plugins]]
-name = "context7"
+name = "example-plugin"
 source = "anthropics/claude-plugins-official"
 installer = "native"
-claude = "context7@claude-plugins-official"
-codex = "context7@claude-plugins-official"
+claude = "example@claude-plugins-official"
+codex = "example@claude-plugins-official"
 targets = ["claude", "codex", "antigravity"]
 ```
 
@@ -91,7 +91,15 @@ connection. A plugin name assigns it to that plugin; a table can vary by client:
 [[mcp]]
 name = "context7"
 url = "https://mcp.context7.com/mcp"
-owner = { claude = "context7", codex = "context7", antigravity = "global" }
+```
+
+A server can also assign ownership to a specific plugin (or vary by client):
+
+```toml
+[[mcp]]
+name = "service"
+url = "https://mcp.example.com"
+owner = { claude = "service-plugin", codex = "service-plugin", antigravity = "global" }
 targets = ["claude", "codex", "antigravity"]
 ```
 
@@ -163,8 +171,9 @@ contracts differ, so changing event names alone would produce broken hooks.
 None of the currently selected bundles provides lifecycle hooks. See the
 [Antigravity hook contract](https://antigravity.google/docs/hooks).
 
-Native plugins (Context7) are declared in `agents/agents.toml` with
-`installer = "native"`. Portable plugins (Astral, Juftin, and Skill Creator) are
-compiled and managed through dotagents. Authentication is completed separately in each app.
-The repository's app settings are applied during installation; change portable
-preferences here when you want them to persist across machines.
+All currently declared plugins (Astral, Juftin, and Skill Creator) are
+portable plugins compiled and managed through dotagents. Native marketplace plugins
+can also be declared with `installer = "native"`. Authentication is completed
+separately in each app. The repository's app settings are applied during
+installation; change portable preferences here when you want them to persist across
+machines.

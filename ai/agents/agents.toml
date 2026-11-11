@@ -21,8 +21,6 @@ path = "skills/find-skills"
 [[mcp]]
 name = "context7"
 url = "https://mcp.context7.com/mcp"
-owner = { claude = "context7", codex = "context7", antigravity = "global" }
-targets = ["claude", "codex", "antigravity"]
 
 ####################################################
 # Plugins
@@ -43,12 +41,4 @@ targets = ["claude", "codex", "antigravity"]
 name = "skill-creator"
 source = "anthropics/claude-plugins-official"
 path = "plugins/skill-creator"
-targets = ["claude", "codex", "antigravity"]
-
-[[plugins]]
-name = "context7"
-source = "anthropics/claude-plugins-official"
-installer = "native"
-claude = "context7@claude-plugins-official"
-codex = "context7@claude-plugins-official"
 targets = ["claude", "codex", "antigravity"]
