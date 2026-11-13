@@ -75,143 +75,18 @@ For multi-step tasks, state a brief plan:
 
 ## Dev Workflows
 
-### Spec-Driven Development
+Use these skills when they apply:
 
-Prefer [Spec Kit](https://github.com/juftin/spec-kit)
-for non-trivial features, bug fixes, refactors, and migrations. Define the intended
-behavior, scope, and acceptance criteria before implementation. Scale the process
-to the work; a small, obvious edit can use a brief plan.
-
-Use the installed `speckit` and `speckit-*` skills in your agent. Global skills
-work across projects without running `specify init` in each repository.
-
-Read the project's existing constitution and conventions first. Use
-`/speckit-constitution` to establish principles once per project if needed.
-
-**Quickstart path** — use when requirements and technical constraints are clear:
-
-```text
-/speckit-specify <requirements>
-/speckit-plan <technical constraints>
-/speckit-tasks
-/speckit-implement
-/speckit-converge
-```
-
-**Full path** — adds clarification, a requirements-quality checklist, and
-cross-artifact consistency analysis before implementation:
-
-```text
-/speckit-specify <requirements>
-/speckit-clarify
-/speckit-plan <technical constraints>
-/speckit-checklist
-/speckit-tasks
-/speckit-analyze
-/speckit-implement
-/speckit-converge
-```
-
-Run commands one at a time and review each artifact before proceeding. Repeat
-`/speckit-implement` and `/speckit-converge` until convergence reports `Converged`;
-validate the result with the project's checks and tests. New feature artifacts default to
-`docs/specs/<feature>/` (`spec.md`, `plan.md`, and `tasks.md`); projects with an
-existing root `specs/` directory continue to use it.
-
-Follow the project's convention for spec retention. Some projects commit and keep
-specs; others omit them from the final tree. In projects that do not retain specs,
-it is still valuable to commit the spec artifacts and delete them in a follow-up
-commit. This keeps the final tree consistent with project conventions while
-preserving the design and acceptance criteria in Git history.
-
-Reference these artifacts in PRs with permalinks to the full commit SHA that
-contains them, for example:
-`https://github.com/<owner>/<repo>/blob/<full-commit-sha>/docs/specs/<feature>/spec.md`.
-Link relevant plans and task lists too. Commit-specific links let reviewers read
-the artifacts after their deletion; keep the referenced commit available when
-rewriting history.
-
-### Task Runners
-
-Most projects are orchestrated by [go-task](https://github.com/go-task/task). The root `Taskfile.yaml`
-defines the underlying tasks that power development and CI workflows. This ensures consistency across
-environments and provides a single source of truth for how to perform common operations. When in doubt,
-check the Taskfile to see how something is done.
-
-**LLM reference**: <https://taskfile.dev/llms.txt> — fetch this when you need authoritative,
-current `task` / Taskfile syntax details.
-
-**Whenever possible, invoke development workflows through `task` rather than calling the underlying tools
-(`uv`, `pytest`, `ruff`, `mypy`, `docker`, etc.) directly.** The Taskfile sets the correct flags, env vars,
-and ordering - bypassing it produces results that don't match CI.
-
-Discover what's available with `task --list-all`. The standard entrypoints:
-
-| Task                 | Purpose                                                   |
-| -------------------- | --------------------------------------------------------- |
-| `task install`       | Install Project + Dev Dependencies                        |
-| `task fix`           | Code Quality Auto-Fix - Formatting + Linting              |
-| `task check`         | Code Quality Check - Formatting + Linting + Type Checking |
-| `task check:style`   | Code Quality Check - Formatting + Linting                 |
-| `task check:types`   | Code Quality Check - Type Checking                        |
-| `task test`          | Testing - PyTest                                          |
-| `task build`         | Artifact Building - Docker                                |
-| `task lock`          | Regenerate `uv.lock`                                      |
-| `task run -- <args>` | Run a command in the project environment                  |
-
-Pass extra args through with `{{.CLI_ARGS}}`, e.g. `task test -- tests/test_foo.py::test_bar`.
-
-### Python Projects
-
-Python project dependency and environment management is handled by
-[`uv`](https://docs.astral.sh/uv/) — **not** `pip`, `pip-tools`, `poetry`, or `conda`.
-
--   **Running commands**: Use `uv run <cmd>` to execute anything inside the project environment.
-    `uv run` automatically resolves and activates the project virtualenv — there is no
-    need to `source .venv/bin/activate` first.
--   **Adding dependencies**: Use `uv add <package>` (or `uv add --dev <package>` for dev-only
-    deps). This updates `pyproject.toml` and `uv.lock` in one step. Do **not** hand-edit
-    `pyproject.toml` to add deps.
--   **Removing dependencies**: Use `uv remove <package>`.
--   **Syncing**: `uv sync` installs everything from the lockfile. `task install` wraps this.
--   **Lockfile**: `uv.lock` is committed. Regenerate via `task lock` when needed.
-
-Prefer the `task` wrappers above; reach for `uv` directly only when no Taskfile entrypoint exists.
-
-**LLM reference**: <https://docs.astral.sh/uv/llms.txt> — fetch this when you need authoritative,
-current `uv` usage details.
-
-### Python Style
-
--   **Docstrings**: Every module, class, function, method, and notable attribute
-    gets a docstring — including private helpers, test functions, and pytest
-    fixtures.
-    -   **Style**: NumPy (Parameters / Returns / Raises / Notes) by default;
-        match the project's existing style if it differs.
-    -   **AttributeDocStrings**: a bare triple-quoted string on the line
-        immediately after a class- or module-level assignment documents
-        attributes, dataclass fields, TypedDict keys, and module constants in
-        place.
-    -   **Content**: explain _what and why a caller would reach for it_ — don't
-        just restate the signature. One-liners for trivial helpers; full
-        sections when params/returns/raises are worth documenting.
-    -   **Docstrings vs `#` comments**: put rationale and invariants in the
-        docstring — docstrings are introspectable (`help()`, IDE tooltips,
-        generated docs). Reserve `#` comments for non-obvious local mechanics
-        (bug workarounds, subtle invariants).
--   **Keyword Arguments**: Prefer keyword arguments over positional for anything beyond
-    the obvious first argument or two. Keyword call sites are self-documenting, survive
-    parameter reorderings, and make diffs easier to review. Applies to your own code and
-    to library calls (e.g. `df.to_parquet(path, index=False)`,
-    `subprocess.run(cmd, check=True, capture_output=True)`).
--   **Type Hints**: Annotate every function and method — parameters and return types —
-    including unit tests (`def test_foo() -> None:`) and pytest fixtures. Annotate local
-    variables when the type is non-obvious. Use modern syntax (`list[str]`,
-    `dict[str, int]`, `X | None`) on Python 3.10+.
+-   **`spec-driven-development`**: plan non-trivial features, bug fixes, refactors, and
+    migrations with Spec Kit before implementing.
+-   **`taskfiles`**: run development workflows through `task`.
+-   **`python-style`**: `uv` environment management and Python code style.
+-   **`pr-conventional`**: open and refine pull requests.
 
 ## Committing Code
 
--   When committing code, use conventional commits:
+-   When committing code, use conventional commits unless the project uses a different
+    convention:
 
     ```
     <type>[optional scope]: <description>
@@ -245,60 +120,9 @@ current `uv` usage details.
 Before committing, ensure that your code passes all checks:
 
 1. Run `task fix` to automatically fix any formatting or linting issues.
-2. Run `task check` to verify formatting, linting, and type checking.
+2. Run the project's formatting, linting, and type-checking tasks (see `task --list-all`).
 3. Run `task test` to ensure all tests pass and coverage is sufficient.
 4. Run `pre-commit` hooks if the project uses them.
-
-## Pull Request Etiquette
-
-Rules:
-
--   Pull request titles should conform to the conventional commit spec (see above).
--   PRs must represent their final state. Focus strictly on what the changes achieve and why; do not narrate intermediate attempts, discarded approaches, or implementation thought processes.
--   Keep the PR title and description up to date whenever newly pushed code materially changes the PR.
--   GitHub does not render newlines well. Remove hard line breaks within paragraphs before updating the PR body so text renders cleanly.
--   Follow the below PR Template unless the project uses a different one:
-
-````
-## Summary
-
-[Concise summary of what this PR achieves.]
-
-## Context
-
-[The "why" behind this work—feature, bugfix, or chore reasoning.]
-
-## Changes
-
-<details><summary>Code Changes</summary>
-<p>
-
-- **`path/to/file.py`**
-  - Detailed description of changes.
-</p>
-</details>
-
-## Test Plan
-
-- [x] Initial verification (completed by agent or user).
-- [ ] Manual verification step.
-- [ ] Post-merge verification if necessary.
-
-## Behavior Diagram
-
-[This section should include a Mermaid diagram explaining this PR. Omit section if not relevant]
-
-```mermaid
-graph LR
-    A[Square Rect] -- Link text --> B((Circle))
-    A --> C(Round Rect)
-    B --> D{Rhombus}
-    C --> D
-```
-````
-
--   Don't credit yourself on PRs, and don't indicate that the work was created by an agent, unless
-    the user explicitly requests it or project documentation requires it.
 
 ## Security Considerations
 
