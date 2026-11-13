@@ -14,6 +14,26 @@ name = "find-skills"
 source = "vercel-labs/skills"
 path = "skills/find-skills"
 
+[[skills]]
+name = "pr-gitmoji"
+source = "juftin/skills"
+path = "skills/pr-gitmoji"
+
+[[skills]]
+name = "python-style"
+source = "juftin/skills"
+path = "skills/python-style"
+
+[[skills]]
+name = "spec-driven-development"
+source = "juftin/skills"
+path = "skills/spec-driven-development"
+
+[[skills]]
+name = "taskfiles"
+source = "juftin/skills"
+path = "skills/taskfiles"
+
 ####################################################
 # MCP Servers
 ####################################################
@@ -30,11 +50,6 @@ url = "https://mcp.context7.com/mcp"
 name = "astral"
 source = "astral-sh/claude-code-plugins"
 path = "plugins/astral"
-targets = ["claude", "codex", "antigravity"]
-
-[[plugins]]
-name = "juftin"
-source = "juftin/skills"
 targets = ["claude", "codex", "antigravity"]
 
 [[plugins]]
