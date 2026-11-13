@@ -7,6 +7,24 @@ resolved_url = "https://github.com/vercel-labs/skills"
 resolved_path = "skills/find-skills"
 resolved_commit = "e781cb4d07433dfe1d19e924ed45cc61738c55ec"
 
+[skills.pr-gitmoji]
+source = "juftin/skills"
+resolved_url = "https://github.com/juftin/skills"
+resolved_path = "skills/pr-gitmoji"
+resolved_commit = "167cdbd06063dbb1d808f555979e478b8ad2efa2"
+
+[skills.python-style]
+source = "juftin/skills"
+resolved_url = "https://github.com/juftin/skills"
+resolved_path = "skills/python-style"
+resolved_commit = "167cdbd06063dbb1d808f555979e478b8ad2efa2"
+
+[skills.spec-driven-development]
+source = "juftin/skills"
+resolved_url = "https://github.com/juftin/skills"
+resolved_path = "skills/spec-driven-development"
+resolved_commit = "167cdbd06063dbb1d808f555979e478b8ad2efa2"
+
 [skills.speckit]
 source = "juftin/spec-kit"
 resolved_url = "https://github.com/juftin/spec-kit"
@@ -73,17 +91,17 @@ resolved_url = "https://github.com/juftin/spec-kit"
 resolved_path = "skills/speckit-taskstoissues"
 resolved_commit = "896cc34c6026345185b6b6a93e1e990970427961"
 
+[skills.taskfiles]
+source = "juftin/skills"
+resolved_url = "https://github.com/juftin/skills"
+resolved_path = "skills/taskfiles"
+resolved_commit = "167cdbd06063dbb1d808f555979e478b8ad2efa2"
+
 [plugins.astral]
 source = "astral-sh/claude-code-plugins"
 resolved_url = "https://github.com/astral-sh/claude-code-plugins"
 resolved_path = "plugins/astral"
 resolved_commit = "855418fb9ebfada49a8345a5c3ada9db2cdc2419"
-
-[plugins.juftin]
-source = "juftin/skills"
-resolved_url = "https://github.com/juftin/skills"
-resolved_path = ""
-resolved_commit = "897095c0a7812b108e8a7867c4b226ffedec31eb"
 
 [plugins.skill-creator]
 source = "anthropics/claude-plugins-official"
