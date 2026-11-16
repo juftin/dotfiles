@@ -5,7 +5,13 @@ version = 1
 source = "vercel-labs/skills"
 resolved_url = "https://github.com/vercel-labs/skills"
 resolved_path = "skills/find-skills"
-resolved_commit = "e781cb4d07433dfe1d19e924ed45cc61738c55ec"
+resolved_commit = "af860243b8c68053b3b5151e3732b9322933674d"
+
+[skills.gh-stack]
+source = "github/gh-stack"
+resolved_url = "https://github.com/github/gh-stack"
+resolved_path = "skills/gh-stack"
+resolved_commit = "b1bfce9e51d0cd92fc23efd6ecb37ff68139e7db"
 
 [skills.pr-gitmoji]
 source = "juftin/skills"
@@ -107,4 +113,4 @@ resolved_commit = "855418fb9ebfada49a8345a5c3ada9db2cdc2419"
 source = "anthropics/claude-plugins-official"
 resolved_url = "https://github.com/anthropics/claude-plugins-official"
 resolved_path = "plugins/skill-creator"
-resolved_commit = "43fd1f9db0941b2b83cb62268e35970d4a67c202"
+resolved_commit = "b5b01ac4f889fec0c4c6bb89f27ca7c8574473f6"

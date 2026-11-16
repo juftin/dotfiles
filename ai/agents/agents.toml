@@ -15,6 +15,11 @@ source = "vercel-labs/skills"
 path = "skills/find-skills"
 
 [[skills]]
+name = "gh-stack"
+source = "github/gh-stack"
+path = "skills/gh-stack"
+
+[[skills]]
 name = "pr-gitmoji"
 source = "juftin/skills"
 path = "skills/pr-gitmoji"
